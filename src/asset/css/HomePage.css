@@ -1,0 +1,306 @@
+@keyframes showTop {
+  from {
+    opacity: 0;
+    transform: translate(0, -100px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.animationTop-1 {
+  animation: showTop 1.5s ease-in-out 1 forwards;
+}
+.animationTop-2 {
+  animation: showTop 2.5s ease-in-out 1 forwards;
+}
+.animationTop-3 {
+  animation: showTop 3.5s ease-in-out 1 forwards;
+}
+/* banner */
+.banner {
+  background-color: #ffffff;
+}
+.banner-elem {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding-top: 20px;
+}
+.banner-elem img {
+  width: 100%;
+}
+.banner-elem-item-1 {
+  position: relative;
+}
+.banner-elem-item-1-content {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+}
+.banner-elem-item-1-content span {
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+}
+.banner-elem-item-1-content h5 {
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+.banner-elem-item-1-content a {
+  align-items: center;
+  border-radius: 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  justify-content: center;
+  letter-spacing: -0.14px;
+  line-height: 14px;
+  margin: 0px 87.4125px 0px 0px;
+  padding: 8.5px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+}
+.banner-elem-item-1-content a:hover {
+  color: #333333;
+  background-color: #ffffff;
+}
+.banner-elem-item-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.banner-elem-item-2-group-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+.banner-elem-item-1-group-1 {
+  position: relative;
+}
+.banner-elem-item-1-group-1-content {
+  position: absolute;
+  top: 20%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+}
+.banner-elem-item-1-group-1-content span {
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+}
+.banner-elem-item-1-group-1-content h5 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+.banner-elem-item-1-group-1-content a {
+  align-items: center;
+  border-radius: 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  justify-content: center;
+  letter-spacing: -0.14px;
+  line-height: 14px;
+  margin: 0px 87.4125px 0px 0px;
+  padding: 8.5px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+}
+.banner-elem-item-1-group-1-content a:hover {
+  background-color: #ffffff;
+  color: #333333;
+}
+.banner-elem-item-2-group-2-1 {
+  position: relative;
+}
+.banner-elem-item-2-group-2-1-content {
+  position: absolute;
+  top: 30%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+}
+.banner-elem-item-2-group-2-1-content span {
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+}
+.banner-elem-item-2-group-2-1-content h5 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+}
+.banner-elem-item-2-group-2-1-content a {
+  align-items: center;
+  border-radius: 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  justify-content: center;
+  letter-spacing: -0.14px;
+  line-height: 14px;
+  margin: 0px 87.4125px 0px 0px;
+  padding: 8.5px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+}
+.banner-elem-item-2-group-2-1-content a:hover {
+  background-color: #ffffff;
+  color: #333333;
+}
+/* SERVICE */
+.service {
+  background-color: #ffffff;
+}
+.service-elem {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 30px 0px;
+  grid-gap: 50px;
+}
+.service-elem-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.service-elem-item span {
+  color: #cccccc;
+  font-size: 40px;
+  font-weight: 300;
+}
+.service-elem-item h5 {
+  color: #333333;
+  font-size: 14px;
+}
+.service-elem-item p {
+  color: #cccccc;
+  font-size: 12px;
+  text-align: justify;
+}
+/* product */
+.product {
+  background-color: #f8f8f8f8;
+  padding: 30px;
+}
+.product-title {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.product-title h5 {
+  color: #333333;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 26.4px;
+  padding-bottom: 20px;
+}
+.product-elem {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+}
+.product-elem-item {
+  background-color: #ffffff;
+  border-color: #ebebeb;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1.06667px;
+  color: #666666;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 26.04px;
+  padding: 30px 20px 10px;
+}
+.product-elem-item img {
+  width: 100%;
+}
+.product-elem-item .category {
+  color: #cccccc;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: -0.13px;
+  line-height: 15.6px;
+  margin: 0px 0px 1px;
+  text-align: left;
+  text-decoration: none;
+  display: block;
+}
+.product-elem-item .category:hover {
+  color: #1cc0a0;
+}
+.product-elem-item .name {
+  color: #333333;
+  display: inline;
+  font-size: 16px;
+  letter-spacing: -0.14px;
+  line-height: 20.02px;
+  text-align: left;
+  text-decoration: none;
+}
+.product-elem-item .name :hover {
+  color: #1cc0a0;
+}
+.product-elem-item p {
+  color: #1cc0a0;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.product-elem-item-info {
+  padding-top: 10px;
+}
+.product-elem-item-actions-star {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+}
+.product-elem-item-actions-star span {
+  color: #cccccc;
+  font-size: 16px;
+}
+.product-elem-item-actions-addtocart {
+  display: flex;
+  border: 1px solid #1cc0a0;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  color: #1cc0a0;
+  font-weight: bold;
+  padding: 5px 0px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+}
+.product-elem-item-actions-addtocart:hover {
+  display: flex;
+  background-color: #1cc0a0;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 5px 0px;
+  cursor: pointer;
+  text-decoration: none;
+}
