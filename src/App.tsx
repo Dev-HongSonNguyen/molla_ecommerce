@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { message } from "antd";
 import LayoutClient from "./components/Layout/LayoutClient";
 import LayoutAdmin from "./components/Layout/LayoutAdmin";
 import DashboardPage from "./pages/admin/DashboardPage";
@@ -10,10 +11,12 @@ import ProductUpdatePage from "./pages/admin/ProductModules/ProductUpdatePage";
 import CategoyManagerPage from "./pages/admin/CategoryModules/CategoyManagerPage";
 import CategoryAddPage from "./pages/admin/CategoryModules/CategoryAddPage";
 import CategoryUpdatePage from "./pages/admin/CategoryModules/CategoryUpdatePage";
-import { getAllProduct } from "./api/product";
+import { addProduct, getAllProduct } from "./api/product";
 import { getAllCategory } from "./api/category";
+import { Iproduct } from "./interface/Iproduct";
 
 function App() {
+  const navigate = useNavigate();
   const [book, setBook] = useState([]);
   useEffect(() => {
     getAllProduct().then(({ data }) => {
@@ -27,6 +30,15 @@ function App() {
       setCategory(data.category);
     });
   }, []);
+  const addNewProduct = (product: Iproduct) => {
+    try {
+      addProduct(product);
+      navigate("/admin/product");
+      message.success("Thao tác thành công");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="App">
       <Routes>
@@ -42,10 +54,22 @@ function App() {
             <Route
               index
               element={
-                <ProductManagerPage bookData={book} cateData={category} />
+                <ProductManagerPage
+                  bookData={book}
+                  cateData={category}
+                  setBook={setBook}
+                />
               }
             />
-            <Route path="add" element={<ProductAddPage />} />
+            <Route
+              path="add"
+              element={
+                <ProductAddPage
+                  addNewProduct={addNewProduct}
+                  cateData={category}
+                />
+              }
+            />
             <Route path="update/:id" element={<ProductUpdatePage />} />
           </Route>
           <Route path="category">
