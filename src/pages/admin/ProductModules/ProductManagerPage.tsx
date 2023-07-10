@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Space, Table, Tag, Image } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Icategory } from "../../../interface/Icategory";
 import { Iproduct } from "../../../interface/Iproduct";
 import { EditOutlined } from "@ant-design/icons";
+import { getAllProduct } from "../../../api/product";
 interface ProductManagerPage {
   cateData: Icategory[];
   bookData: Iproduct[];
+  setBook: any;
 }
 
 const ProductManagerPage = (props: ProductManagerPage) => {
+  useEffect(() => {
+    getAllProduct().then(({ data }) => {
+      const newProduct = data.product;
+      props.setBook(newProduct.docs);
+    });
+  }, []);
   const getCategoryName = (categoryId: any) => {
     const category = props.cateData.find(
       (category) => category._id === categoryId
@@ -102,7 +110,14 @@ const ProductManagerPage = (props: ProductManagerPage) => {
       ),
     },
   ];
-  return <Table dataSource={props.bookData} columns={columns} />;
+  return (
+    <Table
+      dataSource={props.bookData}
+      columns={columns}
+      pagination={{ pageSize: 4 }}
+      rowKey={(record) => record._id}
+    />
+  );
 };
 
 export default ProductManagerPage;
