@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { message, Modal, notification } from "antd";
 import LayoutClient from "./components/Layout/LayoutClient";
 import LayoutAdmin from "./components/Layout/LayoutAdmin";
 import DashboardPage from "./pages/admin/DashboardPage";
-import ProductManagerPage from "./pages/admin/ProductModules/ProductManagerPage";
+import ProductManagerPage from "./pages/admin/BookModules/BookManagerPage";
 import HomePage from "./pages/client/HomePage";
-import ProductAddPage from "./pages/admin/ProductModules/ProductAddPage";
-import ProductUpdatePage from "./pages/admin/ProductModules/ProductUpdatePage";
+import ProductAddPage from "./pages/admin/BookModules/BookAddPage";
+import ProductUpdatePage from "./pages/admin/BookModules/BookUpdatePage";
 import CategoyManagerPage from "./pages/admin/CategoryModules/CategoyManagerPage";
 import CategoryAddPage from "./pages/admin/CategoryModules/CategoryAddPage";
 import CategoryUpdatePage from "./pages/admin/CategoryModules/CategoryUpdatePage";
-import { addProduct, getAllProduct } from "./api/product";
+import { addBook, deleteBook, getAllBook } from "./api/book";
 import { getAllCategory } from "./api/category";
-import { Iproduct } from "./interface/Iproduct";
+import { Ibook } from "./interface/Ibook";
 
 function App() {
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showNotification = () => {
+    notification.success({
+      message: "Thêm sản phẩm thành công",
+      duration: 2,
+    });
+  };
   useEffect(() => {
-    getAllProduct().then(({ data }) => {
+    getAllBook().then(({ data }) => {
       const bookList = data.product;
       setBook(bookList.docs);
     });
@@ -30,11 +37,21 @@ function App() {
       setCategory(data.category);
     });
   }, []);
-  const addNewProduct = (product: Iproduct) => {
+  const removeBook = (id: string) => {
     try {
-      addProduct(product);
+      deleteBook(id).then(() => {
+        const newBook = book.filter((item: any) => item._id !== id);
+        setBook(newBook);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addNewBook = (product: Ibook) => {
+    try {
+      addBook(product);
       navigate("/admin/product");
-      message.success("Thao tác thành công");
+      showNotification();
     } catch (error) {
       console.log(error);
     }
@@ -58,16 +75,14 @@ function App() {
                   bookData={book}
                   cateData={category}
                   setBook={setBook}
+                  removeBook={removeBook}
                 />
               }
             />
             <Route
               path="add"
               element={
-                <ProductAddPage
-                  addNewProduct={addNewProduct}
-                  cateData={category}
-                />
+                <ProductAddPage addNewBook={addNewBook} cateData={category} />
               }
             />
             <Route path="update/:id" element={<ProductUpdatePage />} />

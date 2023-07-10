@@ -1,15 +1,12 @@
-import React, { useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "../../asset/css/HomePage.css";
 import BannerHomePage from "../../components/Banner/BannerHomePage";
 import ServiceComponent from "../../components/Service/ServiceComponent";
-import { Iproduct } from "../../interface/Iproduct";
+import { Ibook } from "../../interface/Ibook";
 import { Icategory } from "../../interface/Icategory";
+import "../../asset/css/HomePage.css";
+import "aos/dist/aos.css";
+import AOS from "aos";
 interface HomePage {
-  bookData: Iproduct[];
+  bookData: Ibook[];
   cateData: Icategory[];
 }
 const HomePage = (props: HomePage) => {
@@ -19,6 +16,7 @@ const HomePage = (props: HomePage) => {
     );
     return category ? category.name : "";
   };
+  AOS.init();
   return (
     <div>
       <BannerHomePage />
@@ -27,7 +25,12 @@ const HomePage = (props: HomePage) => {
         <div className="product-title">
           <h5>List Products</h5>
         </div>
-        <div className="product-elem">
+        <div
+          className="product-elem"
+          data-aos="fade-down"
+          data-aos-easing="linear"
+          data-aos-duration="1200"
+        >
           {props.bookData.map((book) => {
             return (
               <div className="product-elem-item" key={book._id}>

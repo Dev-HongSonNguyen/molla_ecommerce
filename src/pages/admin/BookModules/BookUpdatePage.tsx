@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../asset/css/Form.css";
-const ProductUpdatePage = () => {
+const BookUpdatePage = () => {
   return (
     <div>
       <section className="content-main">
@@ -51,4 +51,4 @@ const ProductUpdatePage = () => {
   );
 };
 
-export default ProductUpdatePage;
+export default BookUpdatePage;

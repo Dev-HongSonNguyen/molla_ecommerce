@@ -1,18 +1,16 @@
 import React from "react";
-import { message } from "antd";
 import { useForm } from "react-hook-form";
-import { Navigate, useNavigate } from "react-router-dom";
-import { Iproduct } from "../../../interface/Iproduct";
+import { Ibook } from "../../../interface/Ibook";
 import { Icategory } from "../../../interface/Icategory";
 import "../../../asset/css/Form.css";
-interface ProductAddPage {
-  addNewProduct: (product: Iproduct) => void;
+interface BookAddPage {
+  addNewBook: (book: Ibook) => void;
   cateData: Icategory[];
 }
-const ProductAddPage = (props: ProductAddPage) => {
+const BookAddPage = (props: BookAddPage) => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data: any) => {
-    props.addNewProduct(data);
+    props.addNewBook(data);
   };
   return (
     <div>
@@ -62,4 +60,4 @@ const ProductAddPage = (props: ProductAddPage) => {
   );
 };
 
-export default ProductAddPage;
+export default BookAddPage;

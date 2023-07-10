@@ -25,3 +25,14 @@
   font-size: 14px;
   line-height: 20px;
 }
+.ant-modal-footer button:last-child {
+  background-color: #1cc0a0 !important;
+  color: #ffffff !important;
+}
+.ant-modal-footer button:first-child:hover {
+  border: 1px solid #1cc0a0 !important;
+  color: #1cc0a0 !important;
+}
+:where(.css-dev-only-do-not-override-14wwjjs).ant-table-wrapper {
+  padding: 20px 10px;
+}
