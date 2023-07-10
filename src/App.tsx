@@ -4,17 +4,16 @@ import { message, Modal, notification } from "antd";
 import LayoutClient from "./components/Layout/LayoutClient";
 import LayoutAdmin from "./components/Layout/LayoutAdmin";
 import DashboardPage from "./pages/admin/DashboardPage";
-import ProductManagerPage from "./pages/admin/BookModules/BookManagerPage";
 import HomePage from "./pages/client/HomePage";
-import ProductAddPage from "./pages/admin/BookModules/BookAddPage";
-import ProductUpdatePage from "./pages/admin/BookModules/BookUpdatePage";
+import BookUpdatePage from "./pages/admin/BookModules/BookUpdatePage";
+import BookAddPage from "./pages/admin/BookModules/BookAddPage";
+import BookManagerPage from "./pages/admin/BookModules/BookManagerPage";
 import CategoyManagerPage from "./pages/admin/CategoryModules/CategoyManagerPage";
 import CategoryAddPage from "./pages/admin/CategoryModules/CategoryAddPage";
 import CategoryUpdatePage from "./pages/admin/CategoryModules/CategoryUpdatePage";
-import { addBook, deleteBook, getAllBook } from "./api/book";
+import { addBook, deleteBook, getAllBook, updateBook } from "./api/book";
 import { getAllCategory } from "./api/category";
 import { Ibook } from "./interface/Ibook";
-
 function App() {
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
@@ -50,7 +49,16 @@ function App() {
   const addNewBook = (product: Ibook) => {
     try {
       addBook(product);
-      navigate("/admin/product");
+      navigate("/admin/book");
+      showNotification();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateNewBook = (product: Ibook) => {
+    try {
+      updateBook(product);
+      navigate("/admin/book");
       showNotification();
     } catch (error) {
       console.log(error);
@@ -67,11 +75,11 @@ function App() {
         </Route>
         <Route path="admin" element={<LayoutAdmin />}>
           <Route index element={<DashboardPage />} />
-          <Route path="product">
+          <Route path="book">
             <Route
               index
               element={
-                <ProductManagerPage
+                <BookManagerPage
                   bookData={book}
                   cateData={category}
                   setBook={setBook}
@@ -82,10 +90,19 @@ function App() {
             <Route
               path="add"
               element={
-                <ProductAddPage addNewBook={addNewBook} cateData={category} />
+                <BookAddPage addNewBook={addNewBook} cateData={category} />
               }
             />
-            <Route path="update/:id" element={<ProductUpdatePage />} />
+            <Route
+              path="update/:id"
+              element={
+                <BookUpdatePage
+                  bookData={book}
+                  cateData={category}
+                  updateBook={updateNewBook}
+                />
+              }
+            />
           </Route>
           <Route path="category">
             <Route index element={<CategoyManagerPage />} />

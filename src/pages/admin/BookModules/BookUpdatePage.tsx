@@ -1,37 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../../asset/css/Form.css";
-const BookUpdatePage = () => {
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router";
+import { Ibook } from "../../../interface/Ibook";
+import { Icategory } from "../../../interface/Icategory";
+interface BookUpdatePage {
+  bookData: Ibook[];
+  cateData: Icategory[];
+  updateBook: (book: Ibook) => void;
+}
+const BookUpdatePage = (props: BookUpdatePage) => {
+  const { register, handleSubmit, reset, setValue } = useForm();
+  const { id } = useParams();
+  useEffect(() => {
+    const currentBook = props.bookData.find((item: any) => item._id == id);
+    reset(currentBook);
+  }, [props]);
+  const onSubmit = (data: any) => {
+    props.updateBook(data);
+  };
   return (
     <div>
       <section className="content-main">
-        <h1>Update Product</h1>
-        <form action="" className="form-add">
+        <h1>Add New Product</h1>
+        <form action="" className="form-add" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-basic-elem">
             <div className="form-basic-elem-item">
               <label htmlFor="">Product name</label>
-              <input type="text" />
+              <input type="text" id="name" {...register("name")} />
             </div>
             <div className="form-basic-elem-item">
               <label htmlFor="">Price</label>
-              <input type="text" />
+              <input type="number" id="price" {...register("price")} />
             </div>
             <div className="form-basic-elem-item">
               <label htmlFor="">Category</label>
-              <select name="" id="">
-                <option value="">Select to category</option>
-                <option value="">Select to category 2</option>
-                <option value="">Select to category 3</option>
+              <select id="categoryId" {...register("categoryId")}>
+                {props.cateData.map((cate) => {
+                  return (
+                    <option key={cate._id} value={cate._id}>
+                      {cate.name}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="form-basic-elem-item">
               <label htmlFor="">Description</label>
-              <textarea
-                className=""
-                name=""
-                id=""
-                cols={30}
-                rows={10}
-              ></textarea>
+              <textarea id="description" {...register("description")} />
             </div>
           </div>
           <div className="form-media-elem">
@@ -41,7 +57,7 @@ const BookUpdatePage = () => {
                 alt=""
               />
               <label htmlFor="">Image</label>
-              <input type="text" />
+              <input className="image" type="text" {...register("image")} />
             </div>
           </div>
           <button className="form-submit">Create new product</button>
