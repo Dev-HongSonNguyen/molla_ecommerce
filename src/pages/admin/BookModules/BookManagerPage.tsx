@@ -1,21 +1,27 @@
-import React, { useEffect } from "react";
-import { Space, Table, Tag, Image } from "antd";
+import React, { useEffect, useState } from "react";
+import { Space, Table, Tag, Image, Modal, notification } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Icategory } from "../../../interface/Icategory";
-import { Iproduct } from "../../../interface/Iproduct";
+import { Ibook } from "../../../interface/Ibook";
 import { EditOutlined } from "@ant-design/icons";
-import { getAllProduct } from "../../../api/product";
-interface ProductManagerPage {
+import { getAllBook } from "../../../api/book";
+import "../../../asset/css/HeaderAdmin.css";
+import "aos/dist/aos.css";
+import { Aos } from "aos";
+interface BookManagerPage {
   cateData: Icategory[];
-  bookData: Iproduct[];
+  bookData: Ibook[];
   setBook: any;
+  removeBook: (id: string) => void;
 }
 
-const ProductManagerPage = (props: ProductManagerPage) => {
+const BookManagerPage = (props: BookManagerPage) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState("");
   useEffect(() => {
-    getAllProduct().then(({ data }) => {
-      const newProduct = data.product;
-      props.setBook(newProduct.docs);
+    getAllBook().then(({ data }) => {
+      const newBook = data.product;
+      props.setBook(newBook.docs);
     });
   }, []);
   const getCategoryName = (categoryId: any) => {
@@ -31,7 +37,27 @@ const ProductManagerPage = (props: ProductManagerPage) => {
     }
     return text;
   };
-  const columns: ColumnsType<Iproduct> = [
+  const handleDelete = (id: string) => {
+    setIsModalVisible(true);
+    setProductIdToDelete(id);
+  };
+
+  const handleConfirmDelete = () => {
+    props.removeBook(productIdToDelete);
+    setIsModalVisible(false);
+    showNotification();
+  };
+
+  const handleCancelDelete = () => {
+    setIsModalVisible(false);
+  };
+  const showNotification = () => {
+    notification.success({
+      message: "Xóa sản phẩm thành công",
+      duration: 2,
+    });
+  };
+  const columns: ColumnsType<Ibook> = [
     {
       title: "Image",
       dataIndex: "image",
@@ -103,6 +129,7 @@ const ProductManagerPage = (props: ProductManagerPage) => {
               padding: "5px 10px",
               color: "#1cc0a0",
             }}
+            onClick={() => handleDelete(record._id)}
           >
             Delete
           </a>
@@ -111,13 +138,25 @@ const ProductManagerPage = (props: ProductManagerPage) => {
     },
   ];
   return (
-    <Table
-      dataSource={props.bookData}
-      columns={columns}
-      pagination={{ pageSize: 4 }}
-      rowKey={(record) => record._id}
-    />
+    <>
+      <Table
+        dataSource={props.bookData}
+        columns={columns}
+        pagination={{ pageSize: 4 }}
+        rowKey={(record) => record._id}
+      />
+      <Modal
+        title="Xác nhận xóa"
+        visible={isModalVisible}
+        onOk={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+        okText="Xóa"
+        cancelText="Hủy"
+      >
+        <p>Bạn có chắc chắn muốn xóa sản phẩm này?</p>
+      </Modal>
+    </>
   );
 };
 
-export default ProductManagerPage;
+export default BookManagerPage;
