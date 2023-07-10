@@ -8,6 +8,7 @@ import { getAllBook } from "../../../api/book";
 import "../../../asset/css/HeaderAdmin.css";
 import "aos/dist/aos.css";
 import { Aos } from "aos";
+import { Link } from "react-router-dom";
 interface BookManagerPage {
   cateData: Icategory[];
   bookData: Ibook[];
@@ -116,9 +117,8 @@ const BookManagerPage = (props: BookManagerPage) => {
               color: "#ffffff",
             }}
           >
-            {" "}
             <EditOutlined />
-            Edit
+            <Link to={`/admin/book/update/${record._id}`}>Update</Link>
           </a>
           <a
             style={{

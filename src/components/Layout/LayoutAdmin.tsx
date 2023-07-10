@@ -47,7 +47,7 @@ const LayoutAdmin = () => {
                   <ul className="mt-2 space-y-1 px-4">
                     <li>
                       <Link
-                        to={"product"}
+                        to={"book"}
                         className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
                       >
                         List Product
@@ -55,7 +55,7 @@ const LayoutAdmin = () => {
                     </li>
                     <li>
                       <Link
-                        to={"product/add"}
+                        to={"book/add"}
                         className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
                       >
                         Add Product
@@ -64,7 +64,7 @@ const LayoutAdmin = () => {
 
                     <li>
                       <Link
-                        to={"product/update/:id"}
+                        to={"book/update/:id"}
                         className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
                       >
                         Update Product

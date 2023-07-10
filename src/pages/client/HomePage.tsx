@@ -4,6 +4,7 @@ import { Ibook } from "../../interface/Ibook";
 import { Icategory } from "../../interface/Icategory";
 import "../../asset/css/HomePage.css";
 import "aos/dist/aos.css";
+import Slider from "react-slick";
 import AOS from "aos";
 interface HomePage {
   bookData: Ibook[];
@@ -16,6 +17,13 @@ const HomePage = (props: HomePage) => {
     );
     return category ? category.name : "";
   };
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+  };
   AOS.init();
   return (
     <div>
@@ -27,9 +35,8 @@ const HomePage = (props: HomePage) => {
         </div>
         <div
           className="product-elem"
-          data-aos="fade-down"
-          data-aos-easing="linear"
-          data-aos-duration="1200"
+          data-aos="fade-up"
+          data-aos-duration="2000"
         >
           {props.bookData.map((book) => {
             return (
