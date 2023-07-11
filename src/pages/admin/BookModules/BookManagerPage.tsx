@@ -29,7 +29,7 @@ const BookManagerPage = (props: BookManagerPage) => {
     const category = props.cateData.find(
       (category) => category._id === categoryId
     );
-    return category ? category.name : "";
+    return category ? category.name : "No category";
   };
   const renderDescription = (text: any) => {
     const maxLength = 50;
@@ -54,7 +54,7 @@ const BookManagerPage = (props: BookManagerPage) => {
   };
   const showNotification = () => {
     notification.success({
-      message: "Xóa sản phẩm thành công",
+      message: "Xóa dữ liệu thành công",
       duration: 2,
     });
   };
@@ -147,7 +147,7 @@ const BookManagerPage = (props: BookManagerPage) => {
       />
       <Modal
         title="Xác nhận xóa"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleConfirmDelete}
         onCancel={handleCancelDelete}
         okText="Xóa"
