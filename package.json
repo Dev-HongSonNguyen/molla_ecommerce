@@ -15,6 +15,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.1",
+    "react-loading-skeleton": "^3.0.0",
     "react-router-dom": "^6.10.0",
     "react-slick": "^0.29.0",
     "swiper": "^10.0.4"
