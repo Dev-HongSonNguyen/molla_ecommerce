@@ -2,10 +2,10 @@ import BannerHomePage from "../../components/Banner/BannerHomePage";
 import ServiceComponent from "../../components/Service/ServiceComponent";
 import { Ibook } from "../../interface/Ibook";
 import { Icategory } from "../../interface/Icategory";
+import AOS from "aos";
+import { Skeleton } from "antd";
 import "../../asset/css/HomePage.css";
 import "aos/dist/aos.css";
-import Slider from "react-slick";
-import AOS from "aos";
 interface HomePage {
   bookData: Ibook[];
   cateData: Icategory[];
@@ -17,14 +17,54 @@ const HomePage = (props: HomePage) => {
     );
     return category ? category.name : "";
   };
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-  };
   AOS.init();
+  const renderBookData = () => {
+    if (!props.bookData) {
+      return Array(5)
+        .fill(null)
+        .map((_, index) => (
+          <div className="product-elem-item" key={index}>
+            <div className="product-elem-item-preview">
+              <Skeleton />
+            </div>
+            <div className="product-elem-item-info">
+              <Skeleton />
+            </div>
+          </div>
+        ));
+    }
+    return props.bookData.map((book) => (
+      <div className="product-elem-item" key={book._id}>
+        <div className="product-elem-item-preview">
+          <a href="">
+            <img src={book.image} alt="" />
+          </a>
+        </div>
+        <div className="product-elem-item-info">
+          <a href="" className="category">
+            by {getCategoryName(book.categoryId)}
+          </a>
+          <a href="" className="name">
+            {book.name}
+          </a>
+          <p>${book.price}</p>
+        </div>
+        <div className="product-elem-item-actions">
+          <div className="product-elem-item-actions-star">
+            <span className="material-icons">star</span>
+            <span className="material-icons">star</span>
+            <span className="material-icons">star</span>
+            <span className="material-icons">star</span>
+            <span className="material-icons">star</span>
+          </div>
+          <a href="" className="product-elem-item-actions-addtocart">
+            <span className="material-icons">add_shopping_cart</span>
+            <span>ADD TO CART</span>
+          </a>
+        </div>
+      </div>
+    ));
+  };
   return (
     <div>
       <BannerHomePage />
@@ -38,39 +78,7 @@ const HomePage = (props: HomePage) => {
           data-aos="fade-up"
           data-aos-duration="2000"
         >
-          {props.bookData.map((book) => {
-            return (
-              <div className="product-elem-item" key={book._id}>
-                <div className="product-elem-item-preview">
-                  <a href="">
-                    <img src={book.image} alt="" />
-                  </a>
-                </div>
-                <div className="product-elem-item-info">
-                  <a href="" className="category">
-                    by {getCategoryName(book.categoryId)}
-                  </a>
-                  <a href="" className="name">
-                    {book.name}
-                  </a>
-                  <p>${book.price}</p>
-                </div>
-                <div className="product-elem-item-actions">
-                  <div className="product-elem-item-actions-star">
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
-                  </div>
-                  <a href="" className="product-elem-item-actions-addtocart">
-                    <span className="material-icons">add_shopping_cart</span>
-                    <span>ADD TO CART</span>
-                  </a>
-                </div>
-              </div>
-            );
-          })}
+          {renderBookData()}
         </div>
       </section>
     </div>
