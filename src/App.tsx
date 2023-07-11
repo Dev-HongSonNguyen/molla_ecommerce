@@ -1,16 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { message, Modal, notification } from "antd";
 import LayoutClient from "./components/Layout/LayoutClient";
 import LayoutAdmin from "./components/Layout/LayoutAdmin";
-import DashboardPage from "./pages/admin/DashboardPage";
-import HomePage from "./pages/client/HomePage";
-import BookUpdatePage from "./pages/admin/BookModules/BookUpdatePage";
-import BookAddPage from "./pages/admin/BookModules/BookAddPage";
-import BookManagerPage from "./pages/admin/BookModules/BookManagerPage";
-import CategoyManagerPage from "./pages/admin/CategoryModules/CategoryManagerPage";
-import CategoryAddPage from "./pages/admin/CategoryModules/CategoryAddPage";
-import CategoryUpdatePage from "./pages/admin/CategoryModules/CategoryUpdatePage";
 import { addBook, deleteBook, getAllBook, updateBook } from "./api/book";
 import {
   addCategory,
@@ -20,6 +12,27 @@ import {
 } from "./api/category";
 import { Ibook } from "./interface/Ibook";
 import { Icategory } from "./interface/Icategory";
+import LoadingPage from "./components/Common/LoadingPage";
+const HomePage = React.lazy(() => import("./pages/client/HomePage"));
+const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
+const BookAddPage = React.lazy(
+  () => import("./pages/admin/BookModules/BookAddPage")
+);
+const BookManagerPage = React.lazy(
+  () => import("./pages/admin/BookModules/BookManagerPage")
+);
+const BookUpdatePage = React.lazy(
+  () => import("./pages/admin/BookModules/BookUpdatePage")
+);
+const CategoryManagerPage = React.lazy(
+  () => import("./pages/admin/CategoryModules/CategoryManagerPage")
+);
+const CategoryUpdatePage = React.lazy(
+  () => import("./pages/admin/CategoryModules/CategoryUpdatePage")
+);
+const CategoryAddPage = React.lazy(
+  () => import("./pages/admin/CategoryModules/CategoryAddPage")
+);
 function App() {
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
@@ -107,71 +120,73 @@ function App() {
   };
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<LayoutClient cateData={category} />}>
-          <Route
-            index
-            element={<HomePage bookData={book} cateData={category} />}
-          />
-        </Route>
-        <Route path="admin" element={<LayoutAdmin />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="book">
+      <Suspense fallback={<LoadingPage />}>
+        <Routes>
+          <Route path="/" element={<LayoutClient cateData={category} />}>
             <Route
               index
-              element={
-                <BookManagerPage
-                  bookData={book}
-                  cateData={category}
-                  setBook={setBook}
-                  removeBook={removeBook}
-                />
-              }
-            />
-            <Route
-              path="add"
-              element={
-                <BookAddPage addNewBook={addNewBook} cateData={category} />
-              }
-            />
-            <Route
-              path="update/:id"
-              element={
-                <BookUpdatePage
-                  bookData={book}
-                  cateData={category}
-                  updateBook={updateNewBook}
-                />
-              }
+              element={<HomePage bookData={book} cateData={category} />}
             />
           </Route>
-          <Route path="category">
-            <Route
-              index
-              element={
-                <CategoyManagerPage
-                  cateData={category}
-                  setCate={setCategory}
-                  removeCategory={removeCate}
-                />
-              }
-            />
-            <Route
-              path="add"
-              element={<CategoryAddPage addNewCate={addNewCate} />}
-            />
-            <Route
-              path="update/:id"
-              element={
-                <CategoryUpdatePage
-                  cateData={category}
-                  updateCategory={updateCate}
-                />
-              }
-            />
+          <Route path="admin" element={<LayoutAdmin />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="book">
+              <Route
+                index
+                element={
+                  <BookManagerPage
+                    bookData={book}
+                    cateData={category}
+                    setBook={setBook}
+                    removeBook={removeBook}
+                  />
+                }
+              />
+              <Route
+                path="add"
+                element={
+                  <BookAddPage addNewBook={addNewBook} cateData={category} />
+                }
+              />
+              <Route
+                path="update/:id"
+                element={
+                  <BookUpdatePage
+                    bookData={book}
+                    cateData={category}
+                    updateBook={updateNewBook}
+                  />
+                }
+              />
+            </Route>
+            <Route path="category">
+              <Route
+                index
+                element={
+                  <CategoryManagerPage
+                    cateData={category}
+                    setCate={setCategory}
+                    removeCategory={removeCate}
+                  />
+                }
+              />
+              <Route
+                path="add"
+                element={<CategoryAddPage addNewCate={addNewCate} />}
+              />
+              <Route
+                path="update/:id"
+                element={
+                  <CategoryUpdatePage
+                    cateData={category}
+                    updateCategory={updateCate}
+                  />
+                }
+              />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </Suspense>
     </div>
   );
 }

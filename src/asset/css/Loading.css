@@ -1,0 +1,53 @@
+.loading-elem {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  text-align: center;
+}
+.spiner {
+  margin-top: 50px;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  border: 10px solid white;
+  border-radius: 50%;
+  border-top: 10px solid #1cc0a0;
+  animation: spiner 1.5s linear infinite;
+}
+.bar {
+  margin-top: 50px;
+  display: inline-block;
+  width: 100%;
+}
+.bar > span {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #1cc0a0;
+  display: inline-block;
+  animation: dot 1.5s ease-in-out infinite both;
+}
+.bar span.dot1 {
+  animation-delay: -0.3s;
+}
+.bar span.dot2 {
+  animation-delay: -0.15s;
+}
+.bar span.dot3 {
+  animation-delay: 0s;
+}
+@keyframes spiner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dot {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
