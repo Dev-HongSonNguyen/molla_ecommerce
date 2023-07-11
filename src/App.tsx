@@ -8,19 +8,32 @@ import HomePage from "./pages/client/HomePage";
 import BookUpdatePage from "./pages/admin/BookModules/BookUpdatePage";
 import BookAddPage from "./pages/admin/BookModules/BookAddPage";
 import BookManagerPage from "./pages/admin/BookModules/BookManagerPage";
-import CategoyManagerPage from "./pages/admin/CategoryModules/CategoyManagerPage";
+import CategoyManagerPage from "./pages/admin/CategoryModules/CategoryManagerPage";
 import CategoryAddPage from "./pages/admin/CategoryModules/CategoryAddPage";
 import CategoryUpdatePage from "./pages/admin/CategoryModules/CategoryUpdatePage";
 import { addBook, deleteBook, getAllBook, updateBook } from "./api/book";
-import { getAllCategory } from "./api/category";
+import {
+  addCategory,
+  deleteCategory,
+  getAllCategory,
+  updateCategory,
+} from "./api/category";
 import { Ibook } from "./interface/Ibook";
+import { Icategory } from "./interface/Icategory";
 function App() {
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
+  const [category, setCategory] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const showNotification = () => {
+  const showNotificationAdd = () => {
     notification.success({
-      message: "Thêm sản phẩm thành công",
+      message: "Thêm dữ liệu thành công",
+      duration: 2,
+    });
+  };
+  const showNotificationUpdate = () => {
+    notification.success({
+      message: "Update dữ liệu thành công",
       duration: 2,
     });
   };
@@ -30,7 +43,6 @@ function App() {
       setBook(bookList.docs);
     });
   }, []);
-  const [category, setCategory] = useState([]);
   useEffect(() => {
     getAllCategory().then(({ data }) => {
       setCategory(data.category);
@@ -50,7 +62,7 @@ function App() {
     try {
       addBook(product);
       navigate("/admin/book");
-      showNotification();
+      showNotificationAdd();
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +71,36 @@ function App() {
     try {
       updateBook(product);
       navigate("/admin/book");
-      showNotification();
+      showNotificationUpdate();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // category
+  const removeCate = (id: string) => {
+    try {
+      deleteCategory(id).then(() => {
+        const newCate = category.filter((item: any) => item._id !== id);
+        setBook(newCate);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addNewCate = (cate: Icategory) => {
+    try {
+      addCategory(cate);
+      navigate("/admin/category");
+      showNotificationAdd();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateCate = (cate: Icategory) => {
+    try {
+      updateCategory(cate);
+      navigate("/admin/category");
+      showNotificationUpdate();
     } catch (error) {
       console.log(error);
     }
@@ -105,9 +146,29 @@ function App() {
             />
           </Route>
           <Route path="category">
-            <Route index element={<CategoyManagerPage />} />
-            <Route path="add" element={<CategoryAddPage />} />
-            <Route path="update/:id" element={<CategoryUpdatePage />} />
+            <Route
+              index
+              element={
+                <CategoyManagerPage
+                  cateData={category}
+                  setCate={setCategory}
+                  removeCategory={removeCate}
+                />
+              }
+            />
+            <Route
+              path="add"
+              element={<CategoryAddPage addNewCate={addNewCate} />}
+            />
+            <Route
+              path="update/:id"
+              element={
+                <CategoryUpdatePage
+                  cateData={category}
+                  updateCategory={updateCate}
+                />
+              }
+            />
           </Route>
         </Route>
       </Routes>

@@ -22,7 +22,7 @@ const BookUpdatePage = (props: BookUpdatePage) => {
   return (
     <div>
       <section className="content-main">
-        <h1>Add New Product</h1>
+        <h1>Update Product</h1>
         <form action="" className="form-add" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-basic-elem">
             <div className="form-basic-elem-item">
@@ -60,7 +60,7 @@ const BookUpdatePage = (props: BookUpdatePage) => {
               <input className="image" type="text" {...register("image")} />
             </div>
           </div>
-          <button className="form-submit">Create new product</button>
+          <button className="form-submit">Update product</button>
         </form>
       </section>
     </div>

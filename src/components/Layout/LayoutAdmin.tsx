@@ -109,7 +109,7 @@ const LayoutAdmin = () => {
                         to={"category/add"}
                         className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
                       >
-                        List Category
+                        Add Category
                       </Link>
                     </li>
                     <li>
@@ -117,7 +117,7 @@ const LayoutAdmin = () => {
                         to={"category/update/:id"}
                         className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
                       >
-                        List Category
+                        Update Category
                       </Link>
                     </li>
                   </ul>
