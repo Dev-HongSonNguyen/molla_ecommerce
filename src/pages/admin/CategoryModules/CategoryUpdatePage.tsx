@@ -19,7 +19,7 @@ const CategoryUpdatePage = (props: CategoryUpdatePage) => {
   return (
     <div>
       <section className="content-main">
-        <h1>Add New Category</h1>
+        <h1>Update Category</h1>
         <form action="" className="form-add" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-basic-elem">
             <div className="form-basic-elem-item">

@@ -61,15 +61,6 @@ const LayoutAdmin = () => {
                         Add Product
                       </Link>
                     </li>
-
-                    <li>
-                      <Link
-                        to={"book/update/:id"}
-                        className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
-                      >
-                        Update Product
-                      </Link>
-                    </li>
                   </ul>
                 </details>
               </li>
@@ -110,14 +101,6 @@ const LayoutAdmin = () => {
                         className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
                       >
                         Add Category
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to={"category/update/:id"}
-                        className="block px-4 py-2 text-sm font-medium text-gray-500 hover:bg-[#1cc0a0] hover:text-[#000000]"
-                      >
-                        Update Category
                       </Link>
                     </li>
                   </ul>
