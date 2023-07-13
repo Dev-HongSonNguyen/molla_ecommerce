@@ -36,3 +36,12 @@
 :where(.css-dev-only-do-not-override-14wwjjs).ant-table-wrapper {
   padding: 20px 10px;
 }
+:where(.css-dev-only-do-not-override-14wwjjs).ant-pagination
+  .ant-pagination-item-active {
+  border-color: #1cc0a0 !important;
+}
+:where(.css-dev-only-do-not-override-14wwjjs).ant-pagination
+  .ant-pagination-item-active
+  a {
+  color: #1cc0a0 !important;
+}
