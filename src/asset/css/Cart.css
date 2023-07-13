@@ -39,6 +39,10 @@
   text-align: center;
   outline: none;
 }
+.content-cart-right tbody tr td {
+  padding: 20px 0px;
+  text-align: left;
+}
 .content-cart-left {
   background-color: #f9f9f9;
   max-height: 300px;
@@ -46,7 +50,6 @@
 .content-cart-left-elem {
   padding: 20px;
 }
-
 .cart-detailed {
   display: flex;
   align-items: center;
