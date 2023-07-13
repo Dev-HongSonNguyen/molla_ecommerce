@@ -13,6 +13,7 @@ import {
 import { Ibook } from "./interface/Ibook";
 import { Icategory } from "./interface/Icategory";
 import LoadingPage from "./components/Common/LoadingPage";
+import { getAllCart } from "./api/cart";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -33,10 +34,12 @@ const CategoryUpdatePage = React.lazy(
 const CategoryAddPage = React.lazy(
   () => import("./pages/admin/CategoryModules/CategoryAddPage")
 );
+const CartPage = React.lazy(() => import("./pages/client/CartPage"));
 function App() {
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
   const [category, setCategory] = useState([]);
+  const [cart, setCart] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showNotificationAdd = () => {
     notification.success({
@@ -61,6 +64,13 @@ function App() {
       setCategory(data.category);
     });
   }, []);
+  useEffect(() => {
+    getAllCart().then(({ data }) => {
+      const cartList = data.carts;
+      setCart(cartList);
+    });
+  }, []);
+
   const removeBook = (id: string) => {
     try {
       deleteBook(id).then(() => {
@@ -118,6 +128,8 @@ function App() {
       console.log(error);
     }
   };
+  // cart
+
   return (
     <div className="App">
       <Suspense fallback={<LoadingPage />}>
@@ -126,6 +138,10 @@ function App() {
             <Route
               index
               element={<HomePage bookData={book} cateData={category} />}
+            />
+            <Route
+              path="cart"
+              element={<CartPage cartData={cart} bookData={book} />}
             />
           </Route>
           <Route path="admin" element={<LayoutAdmin />}>
