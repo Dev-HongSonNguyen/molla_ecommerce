@@ -32,6 +32,8 @@ const LayoutClient = (props: LayoutClient) => {
     setTimeout(() => {
       setIsLoggedIn(false);
       sessionStorage.removeItem("userData");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("role");
     }, 2000);
   };
   return (

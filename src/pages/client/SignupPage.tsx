@@ -1,19 +1,36 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../asset/css/Auth.css";
 import { useForm } from "react-hook-form";
-import { signin, signup } from "../../api/auth";
-interface SignupPage {
-  onSignup: (user: any) => void;
-}
-const SignupPage = (props: SignupPage) => {
+import axios from "axios";
+import { notification } from "antd";
+const SignupPage = () => {
+  const navigate = useNavigate();
+  const showNotificationAuthSuccess = () => {
+    notification.success({
+      message: "Xử lý thành công",
+      duration: 2,
+    });
+  };
+  const showNotificationAuthError = () => {
+    notification.error({
+      message: "Xử lý thất bại, vui lòng kiểm tra lại !",
+      duration: 2,
+    });
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmitRegister = (data: any) => {
-    props.onSignup(data);
+  const onSubmitRegister = async (data: any) => {
+    try {
+      await axios.post("http://localhost:8080/signup", data);
+      showNotificationAuthSuccess();
+      navigate("/signin");
+    } catch (error) {
+      showNotificationAuthError();
+    }
   };
   return (
     <div>
