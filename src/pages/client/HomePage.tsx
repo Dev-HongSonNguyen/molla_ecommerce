@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 interface HomePage {
   bookData: Ibook[];
   cateData: Icategory[];
-  addToCart: (productId: string) => void;
+  addToCart: (product: Ibook) => void;
 }
 const HomePage = (props: HomePage) => {
   const navigate = useNavigate();
@@ -28,24 +28,6 @@ const HomePage = (props: HomePage) => {
       message: "Thêm sản phẩm vào giỏ hàng thành công",
       duration: 2,
     });
-  };
-  const addToCart = async (productId: any) => {
-    try {
-      const response = await axios.post("http://localhost:8080/cart", {
-        productId,
-        quantity: 1,
-      });
-      const { message, cart } = response.data;
-      if (message === "Thêm vào giỏ hàng thành công!") {
-        navigate("cart");
-        showNotificationAdd();
-        console.log("Cart:", cart);
-      } else {
-        console.error("Thêm vào giỏ hàng thất bại:", message);
-      }
-    } catch (error) {
-      console.error("Lỗi khi thêm vào giỏ hàng:", error);
-    }
   };
   AOS.init();
   const renderBookData = () => {
@@ -89,7 +71,7 @@ const HomePage = (props: HomePage) => {
           </div>
           <div className="product-elem-item-actions-addtocart">
             <span className="material-icons">add_shopping_cart</span>
-            <button onClick={() => addToCart(book._id)}>ADD TO CART</button>
+            <button onClick={() => props.addToCart(book)}>ADD TO CART</button>
           </div>
         </div>
       </div>
