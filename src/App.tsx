@@ -13,7 +13,7 @@ import {
 import { Ibook } from "./interface/Ibook";
 import { Icategory } from "./interface/Icategory";
 import LoadingPage from "./components/Common/LoadingPage";
-import { getAllCart } from "./api/cart";
+import { addCart, getAllCart } from "./api/cart";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -129,7 +129,15 @@ function App() {
     }
   };
   // cart
-
+  const addToCart = async (productId: string) => {
+    try {
+      await addCart(productId);
+      navigate("/cart");
+      showNotificationAdd();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="App">
       <Suspense fallback={<LoadingPage />}>
@@ -137,11 +145,19 @@ function App() {
           <Route path="/" element={<LayoutClient cateData={category} />}>
             <Route
               index
-              element={<HomePage bookData={book} cateData={category} />}
+              element={
+                <HomePage
+                  bookData={book}
+                  cateData={category}
+                  addToCart={addToCart}
+                />
+              }
             />
             <Route
               path="cart"
-              element={<CartPage cartData={cart} bookData={book} />}
+              element={
+                <CartPage cartData={cart} bookData={book} setCart={setCart} />
+              }
             />
           </Route>
           <Route path="admin" element={<LayoutAdmin />}>

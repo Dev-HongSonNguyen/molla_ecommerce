@@ -11,7 +11,7 @@ const deleteCart = (id: string) => {
 const updateCart = (cart: any) => {
   return instance.put(`/cart/${cart._id}`, cart);
 };
-const addCart = (cart: any) => {
+const addCart = (cart: string) => {
   return instance.post("/cart", cart);
 };
 export { getAllCart, getOneCart, deleteCart, updateCart, addCart };
