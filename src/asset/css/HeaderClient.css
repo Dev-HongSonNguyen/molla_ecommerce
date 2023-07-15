@@ -29,6 +29,10 @@
   color: #777777;
   font-size: 14px;
 }
+.header-top button {
+  color: #777777;
+  font-size: 14px;
+}
 .header-top a:hover {
   color: #1cc0a0;
 }

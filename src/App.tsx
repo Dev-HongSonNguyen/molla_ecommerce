@@ -14,6 +14,9 @@ import { Ibook } from "./interface/Ibook";
 import { Icategory } from "./interface/Icategory";
 import LoadingPage from "./components/Common/LoadingPage";
 import { addCart, getAllCart } from "./api/cart";
+import SignupPage from "./pages/client/SignupPage";
+import SigninPage from "./pages/client/SigninPage";
+import { signin, signup } from "./api/auth";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -50,6 +53,18 @@ function App() {
   const showNotificationUpdate = () => {
     notification.success({
       message: "Update dữ liệu thành công",
+      duration: 2,
+    });
+  };
+  const showNotificationAuthSignin = () => {
+    notification.success({
+      message: "Đăng ký thành công",
+      duration: 2,
+    });
+  };
+  const showNotificationAuthSignup = () => {
+    notification.success({
+      message: "Đăng nhập thành công",
       duration: 2,
     });
   };
@@ -138,6 +153,29 @@ function App() {
       console.log(error);
     }
   };
+  //auth
+  const onSignup = async (user: any) => {
+    try {
+      await signup(user);
+      navigate("/signin");
+      showNotificationAuthSignin();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onSignin = async (user: any) => {
+    try {
+      await signin(user);
+      setTimeout(() => {
+        showNotificationAuthSignup();
+      }, 800);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="App">
       <Suspense fallback={<LoadingPage />}>
@@ -153,6 +191,8 @@ function App() {
                 />
               }
             />
+            <Route path="signup" element={<SignupPage onSignup={onSignup} />} />
+            <Route path="signin" element={<SigninPage onSignin={onSignin} />} />
             <Route
               path="cart"
               element={
