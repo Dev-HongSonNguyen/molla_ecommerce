@@ -9,6 +9,7 @@ interface CartPage {
   cartData: any;
   bookData: Ibook[];
   setCart: any;
+  removeCart: (id: string) => void;
 }
 const CartPage = (props: CartPage) => {
   useEffect(() => {
@@ -54,7 +55,7 @@ const CartPage = (props: CartPage) => {
                       <td>{item.quantity}</td>
                       <td>${item.totalPrice}</td>
                       <td>
-                        <button>
+                        <button onClick={() => props.removeCart(item._id)}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

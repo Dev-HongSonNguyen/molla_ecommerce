@@ -13,9 +13,9 @@ import {
 import { Ibook } from "./interface/Ibook";
 import { Icategory } from "./interface/Icategory";
 import LoadingPage from "./components/Common/LoadingPage";
-import { addCart, getAllCart } from "./api/cart";
 import SignupPage from "./pages/client/SignupPage";
 import SigninPage from "./pages/client/SigninPage";
+import { getAllCart, addToCart, deleteCart } from "./api/cart";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -72,7 +72,6 @@ function App() {
       setCart(cartList);
     });
   }, []);
-
   const removeBook = (id: string) => {
     try {
       deleteBook(id).then(() => {
@@ -131,11 +130,19 @@ function App() {
     }
   };
   // cart
-  const addToCart = async (productId: string) => {
+  const addCart = async (product: Ibook) => {
     try {
-      await addCart(productId);
-      navigate("/cart");
-      showNotificationAdd();
+      addToCart(product);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const removeCart = async (id: string) => {
+    try {
+      deleteCart(id).then(() => {
+        const newCart = cart.filter((item: any) => item._id !== id);
+        setCart(newCart);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -176,7 +183,7 @@ function App() {
                 <HomePage
                   bookData={book}
                   cateData={category}
-                  addToCart={addToCart}
+                  addToCart={addCart}
                 />
               }
             />
@@ -185,7 +192,12 @@ function App() {
             <Route
               path="cart"
               element={
-                <CartPage cartData={cart} bookData={book} setCart={setCart} />
+                <CartPage
+                  cartData={cart}
+                  bookData={book}
+                  setCart={setCart}
+                  removeCart={removeCart}
+                />
               }
             />
           </Route>

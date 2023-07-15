@@ -61,6 +61,9 @@
   display: block;
   color: #777777;
 }
+.header-between-search input::placeholder {
+  color: #000000;
+}
 .header-between-search button {
   background-color: #1cc0a0;
   outline: none;
