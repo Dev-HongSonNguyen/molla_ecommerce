@@ -1,17 +1,50 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import "../../asset/css/HeaderClient.css";
+import { Link } from "react-router-dom";
 import { Icategory } from "../../interface/Icategory";
+import { notification } from "antd";
 interface LayoutClient {
   cateData: Icategory[];
 }
 const LayoutClient = (props: LayoutClient) => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const userDataString = sessionStorage.getItem("userData") ?? "";
+    if (userDataString) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+  const showNotificationAuthSignup = () => {
+    notification.success({
+      message: "Đăng xuất thành công",
+      duration: 2,
+    });
+  };
+  const handleLogout = () => {
+    setTimeout(() => {
+      showNotificationAuthSignup();
+      navigate("/signin");
+    }, 1900);
+    setTimeout(() => {
+      setIsLoggedIn(false);
+      sessionStorage.removeItem("userData");
+    }, 2000);
+  };
   return (
     <div>
       <section className="header">
         <div className="header-top">
-          <a href="">Sign in /</a>
-          <a href="">Sign up</a>
+          {!isLoggedIn && (
+            <>
+              <Link to={"signin"}>Sign in /</Link>
+              <Link to={"signup"}>Sign up</Link>
+            </>
+          )}
+          {isLoggedIn && <button onClick={handleLogout}>Log out</button>}
         </div>
         <div className="header-between">
           <div className="header-between-logo">
