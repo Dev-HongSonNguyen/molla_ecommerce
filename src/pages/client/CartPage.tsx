@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../asset/css/Cart.css";
 import BannerCart from "../../components/Banner/BannerCart";
 import { Ibook } from "../../interface/Ibook";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { getAllCart } from "../../api/cart";
 interface CartPage {
   cartData: any;
   bookData: Ibook[];
+  setCart: any;
 }
 const CartPage = (props: CartPage) => {
+  useEffect(() => {
+    getAllCart().then(({ data }) => {
+      const newCart = data.carts;
+      props.setCart(newCart);
+    });
+  }, []);
   console.log("cartData", props.cartData);
-
   return (
     <div>
       <BannerCart />
@@ -17,12 +26,14 @@ const CartPage = (props: CartPage) => {
           <div className="content-cart-right">
             <table>
               <thead>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Action</th>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Action</th>
+                </tr>
               </thead>
               <tbody>
                 {props.cartData.map((item: any) => {

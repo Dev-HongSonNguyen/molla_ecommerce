@@ -40,7 +40,7 @@ const LayoutClient = (props: LayoutClient) => {
               <p>Account</p>
             </div>
             <div className="header-between-action-item">
-              <a href="">
+              <a href="cart">
                 <span className="material-icons">
                   production_quantity_limits
                 </span>
@@ -71,7 +71,7 @@ const LayoutClient = (props: LayoutClient) => {
           <div className="header-bottom-nav">
             <ul className="header-bottom-nav-menu">
               <li>
-                <a href="">HOME</a>
+                <a href="/">HOME</a>
               </li>
               <li>
                 <a href="">SHOP</a>
