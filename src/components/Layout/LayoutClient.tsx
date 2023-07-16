@@ -17,7 +17,7 @@ const LayoutClient = (props: LayoutClient) => {
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  });
   const showNotificationAuthSignup = () => {
     notification.success({
       message: "Đăng xuất thành công",
