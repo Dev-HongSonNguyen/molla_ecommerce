@@ -2,6 +2,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { message, Modal, notification } from "antd";
 import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
 import LayoutClient from "./components/Layout/LayoutClient";
 import LayoutAdmin from "./components/Layout/LayoutAdmin";
 import { addBook, deleteBook, getAllBook, updateBook } from "./api/book";
@@ -47,8 +48,7 @@ function App() {
   const [category, setCategory] = useState([]);
   const [cart, setCart] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const idUser = JSON.parse(sessionStorage.getItem("userData"));
-  const id = idUser.user._id;
+
   const showNotificationAdd = () => {
     notification.success({
       message: "Thêm dữ liệu thành công",
@@ -83,10 +83,18 @@ function App() {
     });
   }, []);
   useEffect(() => {
-    getAllCart(id).then(({ data }) => {
-      const cartList = data.carts;
-      setCart(cartList);
-    });
+    const userId = JSON.parse(sessionStorage.getItem("userData"));
+    const id = userId?.user._id;
+    if (id !== "") {
+      getAllCart(id)
+        .then(({ data }) => {
+          const cartList = data.carts;
+          setCart(cartList);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
+    }
   }, []);
   const removeBook = (id: string) => {
     try {
@@ -150,6 +158,7 @@ function App() {
     try {
       const userId = getCurrentUserId();
       await addToCart(product, userId);
+      navigate("cart");
       console.log("Thêm vào giỏ hàng thành công!");
     } catch (error) {
       console.log("Lỗi khi thêm vào giỏ hàng:", error);
