@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { message, Modal, notification } from "antd";
+import jwtDecode from "jwt-decode";
 import LayoutClient from "./components/Layout/LayoutClient";
 import LayoutAdmin from "./components/Layout/LayoutAdmin";
 import { addBook, deleteBook, getAllBook, updateBook } from "./api/book";
@@ -37,12 +38,17 @@ const CategoryAddPage = React.lazy(
   () => import("./pages/admin/CategoryModules/CategoryAddPage")
 );
 const CartPage = React.lazy(() => import("./pages/client/CartPage"));
+interface DecodedToken {
+  _id: string;
+}
 function App() {
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
   const [category, setCategory] = useState([]);
   const [cart, setCart] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const idUser = JSON.parse(sessionStorage.getItem("userData"));
+  const id = idUser.user._id;
   const showNotificationAdd = () => {
     notification.success({
       message: "Thêm dữ liệu thành công",
@@ -55,6 +61,16 @@ function App() {
       duration: 2,
     });
   };
+  const getCurrentUserId = () => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token) as DecodedToken;
+      const userId = decodedToken._id;
+      return userId;
+    }
+    return null;
+  };
+  getCurrentUserId();
   useEffect(() => {
     getAllBook().then(({ data }) => {
       const bookList = data.product;
@@ -67,7 +83,7 @@ function App() {
     });
   }, []);
   useEffect(() => {
-    getAllCart().then(({ data }) => {
+    getAllCart(id).then(({ data }) => {
       const cartList = data.carts;
       setCart(cartList);
     });
@@ -132,9 +148,11 @@ function App() {
   // cart
   const addCart = async (product: Ibook) => {
     try {
-      addToCart(product);
+      const userId = getCurrentUserId();
+      await addToCart(product, userId);
+      console.log("Thêm vào giỏ hàng thành công!");
     } catch (error) {
-      console.log(error);
+      console.log("Lỗi khi thêm vào giỏ hàng:", error);
     }
   };
   const removeCart = async (id: string) => {
@@ -147,31 +165,6 @@ function App() {
       console.log(error);
     }
   };
-  //auth
-  // const onSignup = async (user: any) => {
-  //   try {
-  //     await signup(user).then(({ data }) => {
-  //       console.log(data);
-  //     });
-  //     navigate("/signin");
-  //     showNotificationAuthSignin();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const onSignin = async (user: any) => {
-  //   try {
-  //     await signin(user);
-  //     setTimeout(() => {
-  //       showNotificationAuthSignup();
-  //     }, 800);
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 1000);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   return (
     <div className="App">
       <Suspense fallback={<LoadingPage />}>

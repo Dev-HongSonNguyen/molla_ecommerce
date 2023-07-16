@@ -12,13 +12,15 @@ interface CartPage {
   removeCart: (id: string) => void;
 }
 const CartPage = (props: CartPage) => {
-  useEffect(() => {
-    getAllCart().then(({ data }) => {
-      const newCart = data.carts;
-      props.setCart(newCart);
-    });
-  }, []);
-  console.log("cartData", props.cartData);
+  console.log(props.cartData);
+
+  // useEffect(() => {
+  //   getAllCart().then(({ data }) => {
+  //     const newCart = data.carts;
+  //     props.setCart(newCart);
+  //   });
+  // }, []);
+  // console.log("cartData", props.cartData);
   return (
     <div>
       <BannerCart />
@@ -39,7 +41,7 @@ const CartPage = (props: CartPage) => {
               <tbody>
                 {props.cartData.map((item: any) => {
                   const product = props.bookData.find((book) => {
-                    return book._id === item.productId;
+                    return book._id === item.productId._id;
                   });
                   return (
                     <tr key={item.productId}>
