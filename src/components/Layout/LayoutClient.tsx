@@ -4,6 +4,7 @@ import "../../asset/css/HeaderClient.css";
 import { Link } from "react-router-dom";
 import { Icategory } from "../../interface/Icategory";
 import { notification } from "antd";
+import { toast } from "react-toastify";
 interface LayoutClient {
   cateData: Icategory[];
 }
@@ -18,15 +19,9 @@ const LayoutClient = (props: LayoutClient) => {
       setIsLoggedIn(false);
     }
   });
-  const showNotificationAuthSignup = () => {
-    notification.success({
-      message: "Đăng xuất thành công",
-      duration: 2,
-    });
-  };
   const handleLogout = () => {
     setTimeout(() => {
-      showNotificationAuthSignup();
+      toast.success("Đăng xuất thành công");
       navigate("/signin");
     }, 1900);
     setTimeout(() => {

@@ -48,19 +48,6 @@ function App() {
   const [category, setCategory] = useState([]);
   const [cart, setCart] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const showNotificationAdd = () => {
-    notification.success({
-      message: "Thêm dữ liệu thành công",
-      duration: 2,
-    });
-  };
-  const showNotificationUpdate = () => {
-    notification.success({
-      message: "Update dữ liệu thành công",
-      duration: 2,
-    });
-  };
   const getCurrentUserId = () => {
     const token = sessionStorage.getItem("token");
     if (token) {
@@ -110,7 +97,7 @@ function App() {
     try {
       addBook(product);
       navigate("/admin/book");
-      showNotificationAdd();
+      toast.success("Thêm sản phẩm thành công !");
     } catch (error) {
       console.log(error);
     }
@@ -119,7 +106,7 @@ function App() {
     try {
       updateBook(product);
       navigate("/admin/book");
-      showNotificationUpdate();
+      toast.success("Update sản phẩm thành công");
     } catch (error) {
       console.log(error);
     }
@@ -139,7 +126,7 @@ function App() {
     try {
       addCategory(cate);
       navigate("/admin/category");
-      showNotificationAdd();
+      toast.success("Thêm danh mục thành công");
     } catch (error) {
       console.log(error);
     }
@@ -148,7 +135,7 @@ function App() {
     try {
       updateCategory(cate);
       navigate("/admin/category");
-      showNotificationUpdate();
+      toast.success("Update danh mục thành công");
     } catch (error) {
       console.log(error);
     }
@@ -159,15 +146,16 @@ function App() {
       const userId = getCurrentUserId();
       await addToCart(product, userId);
       navigate("cart");
-      console.log("Thêm vào giỏ hàng thành công!");
+      toast.success("Thêm sản phẩm vào giỏ hàng thành công");
     } catch (error) {
-      console.log("Lỗi khi thêm vào giỏ hàng:", error);
+      toast.error("Lỗi khi thêm vào giỏ hàng");
     }
   };
   const removeCart = async (id: string) => {
     try {
       deleteCart(id).then(() => {
         const newCart = cart.filter((item: any) => item._id !== id);
+        toast.success("Xóa sản phẩm thành công");
         setCart(newCart);
       });
     } catch (error) {

@@ -1,17 +1,44 @@
-import React from "react";
+import React, { ReactNode, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Ibook } from "../../../interface/Ibook";
 import { Icategory } from "../../../interface/Icategory";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import "../../../asset/css/Form.css";
+import { ToastContainer, toast } from "react-toastify";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Vui lòng nhập vào trường name"),
+  price: yup.number().required("Vui lòng nhập vào trường giá"),
+  categoryId: yup.string().required("Vui lòng chọn dannh mục"),
+  description: yup.string().required("Vui lòng nhập mô tả"),
+  image: yup.string().required("Vui lòng nhập ảnh"),
+});
+
 interface BookAddPage {
   addNewBook: (book: Ibook) => void;
   cateData: Icategory[];
 }
 const BookAddPage = (props: BookAddPage) => {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "onSubmit",
+    resolver: yupResolver(schema),
+  });
   const onSubmit = (data: any) => {
     props.addNewBook(data);
   };
+  useEffect(() => {
+    const arrayError = Object.values(errors);
+    if (arrayError.length > 0) {
+      const errorMessage = arrayError[0]?.message as string;
+      toast.error(React.createElement("div", null, errorMessage) as ReactNode);
+    }
+  }, [errors]);
   return (
     <div>
       <section className="content-main">
@@ -55,6 +82,7 @@ const BookAddPage = (props: BookAddPage) => {
           </div>
           <button className="form-submit">Create new product</button>
         </form>
+        <ToastContainer />
       </section>
     </div>
   );
