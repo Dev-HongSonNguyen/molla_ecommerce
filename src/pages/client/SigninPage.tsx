@@ -4,20 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { notification } from "antd";
+import { toast } from "react-toastify";
 const SigninPage = () => {
   const navigate = useNavigate();
-  const showNotificationAuthSuccess = () => {
-    notification.success({
-      message: "Xử lý thành công",
-      duration: 2,
-    });
-  };
-  const showNotificationAuthError = () => {
-    notification.error({
-      message: "Xử lý thất bại, vui lòng kiểm tra lại !",
-      duration: 2,
-    });
-  };
   const {
     register,
     handleSubmit,
@@ -34,12 +23,12 @@ const SigninPage = () => {
           sessionStorage.setItem("userData", JSON.stringify(userData));
           sessionStorage.setItem("token", JSON.stringify(token));
           sessionStorage.setItem("role", JSON.stringify(role));
-          showNotificationAuthSuccess();
+          toast.success("Đăng nhập thành công");
           navigate("/");
         });
     } catch (error) {
       console.log(error);
-      showNotificationAuthError();
+      toast.error("Đăng nhập thất bại");
     }
   };
   return (

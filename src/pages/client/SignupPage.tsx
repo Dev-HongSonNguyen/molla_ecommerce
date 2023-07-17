@@ -4,20 +4,9 @@ import "../../asset/css/Auth.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { notification } from "antd";
+import { toast } from "react-toastify";
 const SignupPage = () => {
   const navigate = useNavigate();
-  const showNotificationAuthSuccess = () => {
-    notification.success({
-      message: "Xử lý thành công",
-      duration: 2,
-    });
-  };
-  const showNotificationAuthError = () => {
-    notification.error({
-      message: "Xử lý thất bại, vui lòng kiểm tra lại !",
-      duration: 2,
-    });
-  };
   const {
     register,
     handleSubmit,
@@ -26,10 +15,10 @@ const SignupPage = () => {
   const onSubmitRegister = async (data: any) => {
     try {
       await axios.post("http://localhost:8080/signup", data);
-      showNotificationAuthSuccess();
+      toast.success("Đăng ký tài khoản thành công");
       navigate("/signin");
     } catch (error) {
-      showNotificationAuthError();
+      toast.error("Đăng ký tài khoản thất bại");
     }
   };
   return (
