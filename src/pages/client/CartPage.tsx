@@ -47,6 +47,8 @@ const CartPage = (props: CartPage) => {
               <tbody>
                 {props.cartData.length > 0 &&
                   props.cartData.map((item: any) => {
+                    console.log(item);
+
                     const product = props.bookData.find((book) => {
                       return book._id === item.productId._id;
                     });
