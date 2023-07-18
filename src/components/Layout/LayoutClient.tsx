@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import { Icategory } from "../../interface/Icategory";
 import { notification } from "antd";
 import { toast } from "react-toastify";
+import { getAllCart } from "../../api/cart";
 interface LayoutClient {
   cateData: Icategory[];
+  quantity: number;
+  setQuantity: any;
 }
 const LayoutClient = (props: LayoutClient) => {
   const navigate = useNavigate();
@@ -19,6 +22,20 @@ const LayoutClient = (props: LayoutClient) => {
       setIsLoggedIn(false);
     }
   });
+  useEffect(() => {
+    const userId = JSON.parse(sessionStorage.getItem("userData"));
+    const id = userId?.user._id;
+    if (id !== "") {
+      getAllCart(id)
+        .then(({ data }) => {
+          const totalQuatity = data.totalQuantity;
+          props.setQuantity(totalQuatity);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
+    }
+  }, []);
   const handleLogout = () => {
     setTimeout(() => {
       toast.success("Đăng xuất thành công");
@@ -75,7 +92,10 @@ const LayoutClient = (props: LayoutClient) => {
                   production_quantity_limits
                 </span>
               </a>
-              <p>Cart</p>
+              <div className="relative">
+                <p>Cart</p>
+                <span className="quantity">{props.quantity}</span>
+              </div>
             </div>
           </div>
         </div>

@@ -47,7 +47,8 @@ function App() {
   const [book, setBook] = useState([]);
   const [category, setCategory] = useState([]);
   const [cart, setCart] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [amount, setAmount] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const getCurrentUserId = () => {
     const token = sessionStorage.getItem("token");
     if (token) {
@@ -75,14 +76,19 @@ function App() {
     if (id !== "") {
       getAllCart(id)
         .then(({ data }) => {
+          const totalPrice = data.totalAmount;
+          const totalQuatity = data.totalQuantity;
           const cartList = data.carts;
           setCart(cartList);
+          setAmount(totalPrice);
+          setQuantity(totalQuatity);
         })
         .catch((error) => {
           toast.error(error.response.data.message);
         });
     }
   }, []);
+
   const removeBook = (id: string) => {
     try {
       deleteBook(id).then(() => {
@@ -166,7 +172,16 @@ function App() {
     <div className="App">
       <Suspense fallback={<LoadingPage />}>
         <Routes>
-          <Route path="/" element={<LayoutClient cateData={category} />}>
+          <Route
+            path="/"
+            element={
+              <LayoutClient
+                cateData={category}
+                quantity={quantity}
+                setQuantity={setQuantity}
+              />
+            }
+          >
             <Route
               index
               element={
@@ -186,7 +201,11 @@ function App() {
                   cartData={cart}
                   bookData={book}
                   setCart={setCart}
+                  setAmount={setAmount}
+                  setQuantity={setQuantity}
                   removeCart={removeCart}
+                  amount={amount}
+                  quantity={quantity}
                 />
               }
             />
