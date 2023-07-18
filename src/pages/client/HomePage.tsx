@@ -23,12 +23,6 @@ const HomePage = (props: HomePage) => {
     );
     return category ? category.name : "";
   };
-  const showNotificationAdd = () => {
-    notification.success({
-      message: "Thêm sản phẩm vào giỏ hàng thành công",
-      duration: 2,
-    });
-  };
   AOS.init();
   const renderBookData = () => {
     if (!props.bookData) {

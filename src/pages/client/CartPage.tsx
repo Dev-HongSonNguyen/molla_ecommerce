@@ -10,7 +10,11 @@ interface CartPage {
   cartData: any;
   bookData: Ibook[];
   setCart: any;
+  setAmount: any;
+  setQuantity: any;
   removeCart: (id: string) => void;
+  amount: number;
+  quantity: number;
 }
 const CartPage = (props: CartPage) => {
   useEffect(() => {
@@ -19,8 +23,12 @@ const CartPage = (props: CartPage) => {
     if (id !== "") {
       getAllCart(id)
         .then(({ data }) => {
+          const totalPrice = data.totalAmount;
+          const totalQuatity = data.totalQuantity;
           const cartList = data.carts;
           props.setCart(cartList);
+          props.setAmount(totalPrice);
+          props.setQuantity(totalQuatity);
         })
         .catch((error) => {
           toast.error(error.response.data.message);
@@ -92,12 +100,8 @@ const CartPage = (props: CartPage) => {
           <div className="content-cart-left">
             <div className="content-cart-left-elem">
               <div className="cart-detailed">
-                <span className="">8 Item</span>
-                <span className="cart-detailed-price">142$</span>
-              </div>
-              <div className="cart-detailed-totals">
-                <span>Total (tax incl.)</span>
-                <span className="cart-detailed-totals-price">442$</span>
+                <span className="">{props.quantity} Item</span>
+                <span className="cart-detailed-price">{props.amount}$</span>
               </div>
               <p>Have a promo code?</p>
               <a href="" className="checkout">
