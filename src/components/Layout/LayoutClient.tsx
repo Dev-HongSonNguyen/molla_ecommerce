@@ -6,6 +6,7 @@ import { Icategory } from "../../interface/Icategory";
 import { notification } from "antd";
 import { toast } from "react-toastify";
 import { getAllCart } from "../../api/cart";
+import InputSearch from "../Input/InputSearch";
 interface LayoutClient {
   cateData: Icategory[];
   quantity: number;
@@ -67,12 +68,7 @@ const LayoutClient = (props: LayoutClient) => {
               alt=""
             />
           </div>
-          <form action="" className="header-between-search">
-            <input type="text" placeholder="Search product..." />
-            <button>
-              <span className="material-icons">search</span>
-            </button>
-          </form>
+          <InputSearch></InputSearch>
           <div className="header-between-action">
             <div className="header-between-action-item">
               <a href="">
