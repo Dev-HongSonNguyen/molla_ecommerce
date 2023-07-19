@@ -107,14 +107,14 @@ const LayoutAdmin = () => {
                 </details>
               </li>
               <li>
-                <form action="/logout">
+                <Link to={"/"}>
                   <button
                     type="submit"
                     className="w-full px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-[#1cc0a0] hover:text-[#000000]"
                   >
                     Logout
                   </button>
-                </form>
+                </Link>
               </li>
             </ul>
           </div>

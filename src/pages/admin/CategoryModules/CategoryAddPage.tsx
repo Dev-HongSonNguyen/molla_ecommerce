@@ -1,14 +1,24 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Icategory } from "../../../interface/Icategory";
+import { addCategory } from "../../../api/category";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../../../asset/css/Form.css";
-interface CategoryAddPage {
-  addNewCate: (cate: Icategory) => void;
-}
-const CategoryAddPage = (props: CategoryAddPage) => {
+const CategoryAddPage = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
+  // call api add cate
+  const addNewCate = (cate: Icategory) => {
+    try {
+      addCategory(cate);
+      navigate("/admin/category");
+      toast.success("Thêm danh mục thành công");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const onSubmit = (data: any) => {
-    props.addNewCate(data);
+    addNewCate(data);
   };
   return (
     <div>
@@ -20,14 +30,6 @@ const CategoryAddPage = (props: CategoryAddPage) => {
               <label htmlFor="">Category name</label>
               <input type="text" id="name" {...register("name")} />
             </div>
-            {/* <div className="form-basic-elem-item">
-              <label htmlFor="">Price</label>
-              <input type="number" id="price" {...register("price")} />
-            </div>
-            <div className="form-basic-elem-item">
-              <label htmlFor="">Description</label>
-              <textarea id="description" {...register("description")} />
-            </div> */}
           </div>
           <div className="form-media-elem">
             {/* <div className="form-media-elem-item">

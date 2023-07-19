@@ -286,19 +286,6 @@
 }
 .product-elem-item-actions-addtocart {
   display: flex;
-  border: 1px solid #1cc0a0;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  color: #1cc0a0;
-  font-weight: bold;
-  padding: 5px 0px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.5s ease-in-out;
-}
-.product-elem-item-actions-addtocart:hover {
-  display: flex;
   background-color: #1cc0a0;
   gap: 10px;
   align-items: center;

@@ -1,26 +1,44 @@
-import React, { useRef } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../asset/css/Auth.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { notification } from "antd";
 import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+const schema = yup.object().shape({
+  name: yup.string().required("Vui lòng nhập vào trường name"),
+  email: yup.string().required("Vui lòng nhập vào trường email"),
+  password: yup.string().required("Vui lòng nhập password"),
+  confirmPassword: yup.string().required("Vui lòng nhập lại password"),
+});
+
 const SignupPage = () => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onSubmit",
+    resolver: yupResolver(schema),
+  });
   const onSubmitRegister = async (data: any) => {
     try {
       await axios.post("http://localhost:8080/signup", data);
       toast.success("Đăng ký tài khoản thành công");
       navigate("/signin");
-    } catch (error) {
-      toast.error("Đăng ký tài khoản thất bại");
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
+  useEffect(() => {
+    const arrayError = Object.values(errors);
+    if (arrayError.length > 0) {
+      const errorMessage = arrayError[0]?.message as string;
+      toast.error(React.createElement("div", null, errorMessage) as ReactNode);
+    }
+  }, [errors]);
   return (
     <div>
       <section className="content-form">

@@ -1,23 +1,46 @@
-import React, { useEffect } from "react";
-import "../../../asset/css/Form.css";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
+import { getAllBook, updateBook } from "../../../api/book";
+import { toast } from "react-toastify";
+import { getAllCategory } from "../../../api/category";
 import { Ibook } from "../../../interface/Ibook";
-import { Icategory } from "../../../interface/Icategory";
-interface BookUpdatePage {
-  bookData: Ibook[];
-  cateData: Icategory[];
-  updateBook: (book: Ibook) => void;
-}
-const BookUpdatePage = (props: BookUpdatePage) => {
+import "../../../asset/css/Form.css";
+const BookUpdatePage = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit, reset, setValue } = useForm();
+  const [book, setBook] = useState([]);
+  const [category, setCategory] = useState([]);
   const { id } = useParams();
+  // call api list book
   useEffect(() => {
-    const currentBook = props.bookData.find((item: any) => item._id == id);
+    getAllBook().then(({ data }) => {
+      const dataBook = data.product;
+      setBook(dataBook.docs);
+    });
+  }, []);
+  // call api list cate
+  useEffect(() => {
+    getAllCategory().then(({ data }) => {
+      setCategory(data.category);
+    });
+  }, []);
+  // call api update book
+  const updBook = (book: Ibook) => {
+    try {
+      updateBook(book);
+      navigate("/admin/book");
+      toast.success("Update sản phẩm thành công");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    const currentBook = book.find((item: any) => item._id == id);
     reset(currentBook);
-  }, [props]);
+  }, [book, id]);
   const onSubmit = (data: any) => {
-    props.updateBook(data);
+    updBook(data);
   };
   return (
     <div>
@@ -36,7 +59,7 @@ const BookUpdatePage = (props: BookUpdatePage) => {
             <div className="form-basic-elem-item">
               <label htmlFor="">Category</label>
               <select id="categoryId" {...register("categoryId")}>
-                {props.cateData.map((cate) => {
+                {category.map((cate: any) => {
                   return (
                     <option key={cate._id} value={cate._id}>
                       {cate.name}
