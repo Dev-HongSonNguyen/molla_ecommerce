@@ -4,33 +4,48 @@ import type { ColumnsType } from "antd/es/table";
 import { Icategory } from "../../../interface/Icategory";
 import { Ibook } from "../../../interface/Ibook";
 import { EditOutlined } from "@ant-design/icons";
-import { getAllBook } from "../../../api/book";
+import { deleteBook, getAllBook } from "../../../api/book";
 import "../../../asset/css/HeaderAdmin.css";
 import "aos/dist/aos.css";
 import { Aos } from "aos";
 import { Link } from "react-router-dom";
-interface BookManagerPage {
-  cateData: Icategory[];
-  bookData: Ibook[];
-  setBook: any;
-  removeBook: (id: string) => void;
-}
-
-const BookManagerPage = (props: BookManagerPage) => {
+import { getAllCategory } from "../../../api/category";
+const BookManagerPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState("");
+  const [book, setBook] = useState([]);
+  const [category, setCategory] = useState<Icategory[]>([]);
+  // call api list book
   useEffect(() => {
     getAllBook().then(({ data }) => {
-      const newBook = data.product;
-      props.setBook(newBook.docs);
+      const dataBook = data.product;
+      setBook(dataBook.docs);
+    });
+  }, []);
+  //call api list category
+  useEffect(() => {
+    getAllCategory().then(({ data }) => {
+      setCategory(data.category);
     });
   }, []);
   const getCategoryName = (categoryId: any) => {
-    const category = props.cateData.find(
-      (category) => category._id === categoryId
+    const cateGetName = category.find(
+      (category: any) => category._id === categoryId
     );
-    return category ? category.name : "No category";
+    return cateGetName ? cateGetName.name : "No Category";
   };
+  // call api delete book
+  const DelBook = (id: string) => {
+    try {
+      deleteBook(id).then(() => {
+        const newBook = book.filter((item: any) => item._id !== id);
+        setBook(newBook);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // render Description
   const renderDescription = (text: any) => {
     const maxLength = 50;
     if (text.length > maxLength) {
@@ -42,13 +57,11 @@ const BookManagerPage = (props: BookManagerPage) => {
     setIsModalVisible(true);
     setProductIdToDelete(id);
   };
-
   const handleConfirmDelete = () => {
-    props.removeBook(productIdToDelete);
+    DelBook(productIdToDelete);
     setIsModalVisible(false);
     showNotification();
   };
-
   const handleCancelDelete = () => {
     setIsModalVisible(false);
   };
@@ -140,7 +153,7 @@ const BookManagerPage = (props: BookManagerPage) => {
   return (
     <>
       <Table
-        dataSource={props.bookData}
+        dataSource={book}
         columns={columns}
         pagination={{ pageSize: 4 }}
         rowKey={(record) => record._id}

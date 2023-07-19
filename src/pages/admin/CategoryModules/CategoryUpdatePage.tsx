@@ -1,20 +1,37 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { getAllCategory, updateCategory } from "../../../api/category";
+import { useNavigate, useParams } from "react-router-dom";
 import { Icategory } from "../../../interface/Icategory";
-interface CategoryUpdatePage {
-  cateData: Icategory[];
-  updateCategory: (cate: Icategory) => void;
-}
-const CategoryUpdatePage = (props: CategoryUpdatePage) => {
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import "../../../asset/css/Form.css";
+const CategoryUpdatePage = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit, reset, setValue } = useForm();
+  const [category, setCategory] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-    const currentBook = props.cateData.find((item: any) => item._id == id);
-    reset(currentBook);
-  }, [props]);
+    getAllCategory().then(({ data }) => {
+      setCategory(data.category);
+    });
+  }, []);
+  const updateCate = (cate: Icategory) => {
+    try {
+      updateCategory(cate);
+      navigate("/admin/category");
+      toast.success("Update danh mục thành công");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    const resetCate = category.find((item: any) => item._id === id);
+    if (resetCate) {
+      reset(resetCate);
+    }
+  }, [category, id]);
   const onSubmit = (data: any) => {
-    props.updateCategory(data);
+    updateCate(data);
   };
   return (
     <div>
@@ -26,14 +43,6 @@ const CategoryUpdatePage = (props: CategoryUpdatePage) => {
               <label htmlFor="">Category name</label>
               <input type="text" id="name" {...register("name")} />
             </div>
-            {/* <div className="form-basic-elem-item">
-              <label htmlFor="">Price</label>
-              <input type="number" id="price" {...register("price")} />
-            </div>
-            <div className="form-basic-elem-item">
-              <label htmlFor="">Description</label>
-              <textarea id="description" {...register("description")} />
-            </div> */}
           </div>
           <div className="form-media-elem">
             {/* <div className="form-media-elem-item">

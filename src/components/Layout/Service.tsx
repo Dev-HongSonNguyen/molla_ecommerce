@@ -1,6 +1,6 @@
 import React from "react";
 import "../../asset/css/HomePage.css";
-const ServiceComponent = () => {
+const Service = () => {
   return (
     <div>
       <section className="service">
@@ -39,4 +39,4 @@ const ServiceComponent = () => {
   );
 };
 
-export default ServiceComponent;
+export default Service;

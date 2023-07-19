@@ -1,11 +1,14 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Ibook } from "../../../interface/Ibook";
 import { Icategory } from "../../../interface/Icategory";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import "../../../asset/css/Form.css";
 import { ToastContainer, toast } from "react-toastify";
+import { addBook } from "../../../api/book";
+import { useNavigate } from "react-router-dom";
+import { getAllCategory } from "../../../api/category";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import "../../../asset/css/Form.css";
 
 const schema = yup.object().shape({
   name: yup.string().required("Vui lòng nhập vào trường name"),
@@ -15,11 +18,9 @@ const schema = yup.object().shape({
   image: yup.string().required("Vui lòng nhập ảnh"),
 });
 
-interface BookAddPage {
-  addNewBook: (book: Ibook) => void;
-  cateData: Icategory[];
-}
-const BookAddPage = (props: BookAddPage) => {
+const BookAddPage = () => {
+  const [category, setCategory] = useState<Icategory[]>([]);
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors, isValid },
@@ -29,8 +30,24 @@ const BookAddPage = (props: BookAddPage) => {
     mode: "onSubmit",
     resolver: yupResolver(schema),
   });
+  // call api addBook
+  const addNewBook = (product: Ibook) => {
+    try {
+      addBook(product);
+      navigate("/admin/book");
+      toast.success("Thêm sản phẩm thành công !");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // call api category list
+  useEffect(() => {
+    getAllCategory().then(({ data }) => {
+      setCategory(data.category);
+    });
+  }, []);
   const onSubmit = (data: any) => {
-    props.addNewBook(data);
+    addNewBook(data);
   };
   useEffect(() => {
     const arrayError = Object.values(errors);
@@ -56,7 +73,7 @@ const BookAddPage = (props: BookAddPage) => {
             <div className="form-basic-elem-item">
               <label htmlFor="">Category</label>
               <select id="categoryId" {...register("categoryId")}>
-                {props.cateData.map((cate) => {
+                {category.map((cate) => {
                   return (
                     <option key={cate._id} value={cate._id}>
                       {cate.name}

@@ -2,19 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import "../../asset/css/HeaderClient.css";
 import { Link } from "react-router-dom";
-import { Icategory } from "../../interface/Icategory";
-import { notification } from "antd";
 import { toast } from "react-toastify";
 import { getAllCart } from "../../api/cart";
 import InputSearch from "../Input/InputSearch";
-interface LayoutClient {
-  cateData: Icategory[];
-  quantity: number;
-  setQuantity: any;
-}
-const LayoutClient = (props: LayoutClient) => {
+import Menu from "./Menu";
+import MenuCategory from "./MenuCategory";
+const LayoutClient = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [quantity, setQuantity] = useState(0);
   useEffect(() => {
     const userDataString = sessionStorage.getItem("userData") ?? "";
     if (userDataString) {
@@ -30,7 +26,7 @@ const LayoutClient = (props: LayoutClient) => {
       getAllCart(id)
         .then(({ data }) => {
           const totalQuatity = data.totalQuantity;
-          props.setQuantity(totalQuatity);
+          setQuantity(totalQuatity);
         })
         .catch((error) => {
           toast.error(error.response.data.message);
@@ -90,49 +86,14 @@ const LayoutClient = (props: LayoutClient) => {
               </a>
               <div className="relative">
                 <p>Cart</p>
-                <span className="quantity">{props.quantity}</span>
+                <span className="quantity">{quantity}</span>
               </div>
             </div>
           </div>
         </div>
         <div className="header-bottom">
-          <div className="header-bottom-cate">
-            <div className="header-bottom-cate-main">
-              <span className="material-icons">menu</span>
-              <a href="">BROWSE CATEGORIES</a>
-              <span className="material-icons">arrow_drop_down</span>
-            </div>
-            <div className="header-bottom-cate-dropdown">
-              <ul>
-                {props.cateData.map((cate) => {
-                  return (
-                    <li key={cate._id}>
-                      <a href="">{cate.name}</a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-          <div className="header-bottom-nav">
-            <ul className="header-bottom-nav-menu">
-              <li>
-                <a href="/">HOME</a>
-              </li>
-              <li>
-                <a href="">SHOP</a>
-              </li>
-              <li>
-                <a href="">PRODUCT</a>
-              </li>
-              <li>
-                <a href="">PAGES</a>
-              </li>
-              <li>
-                <a href="">BLOGS</a>
-              </li>
-            </ul>
-          </div>
+          <MenuCategory></MenuCategory>
+          <Menu></Menu>
           <div className="header-bottom-sale">
             <span className="material-icons">tungsten</span>
             <p>Clearance Up to 30% Off</p>

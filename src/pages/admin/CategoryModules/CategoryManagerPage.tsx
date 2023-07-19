@@ -1,29 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Image, Modal, notification } from "antd";
+import { Space, Table, Modal, notification } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Icategory } from "../../../interface/Icategory";
 import { EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { getAllCategory } from "../../../api/category";
+import { deleteCategory, getAllCategory } from "../../../api/category";
 interface CategoyManagerPage {
   cateData: Icategory[];
   setCate: any;
   removeCategory: (id: string) => void;
 }
-const CategoyManagerPage = (props: CategoyManagerPage) => {
+const CategoyManagerPage = () => {
+  const [category, setCategory] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [categoryIdToDelete, setCategoryIdToDelete] = useState("");
   useEffect(() => {
     getAllCategory().then(({ data }) => {
-      props.setCate(data.category);
+      setCategory(data.category);
     });
   }, []);
+  const DelCategory = (id: string) => {
+    try {
+      deleteCategory(id).then(() => {
+        const newCate = category.filter((item: any) => item._id !== id);
+        setCategory(newCate);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleDelete = (id: string) => {
     setIsModalVisible(true);
     setCategoryIdToDelete(id);
   };
   const handleConfirmDelete = () => {
-    props.removeCategory(categoryIdToDelete);
+    DelCategory(categoryIdToDelete);
     setIsModalVisible(false);
     showNotification();
   };
@@ -80,7 +91,7 @@ const CategoyManagerPage = (props: CategoyManagerPage) => {
   return (
     <>
       <Table
-        dataSource={props.cateData}
+        dataSource={category}
         columns={columns}
         pagination={{ pageSize: 4 }}
         rowKey={(record) => record._id}
