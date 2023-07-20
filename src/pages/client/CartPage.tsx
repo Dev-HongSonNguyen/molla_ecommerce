@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import BannerCart from "../../components/Banner/BannerCart";
 import { Ibook } from "../../interface/Ibook";
 import { useNavigate } from "react-router-dom";
 import { deleteCart, getAllCart } from "../../api/cart";
 import { toast } from "react-toastify";
 import { getAllBook } from "../../api/book";
 import { Icart } from "../../interface/Icart";
-import SvgDelete from "../../components/svg/svgDelete";
+import SvgDelete from "../../components/svg/SvgDelete";
+import Banner from "../../components/Banner/Banner";
 import "../../asset/css/Cart.css";
 const CartPage = () => {
   const [cart, setCart] = useState<Icart[]>([]);
@@ -44,6 +44,18 @@ const CartPage = () => {
     }
   }, []);
   console.log("data cart", cart);
+  // const proceedToCheckout = async () => {
+  //   try {
+  //     const cartData = cart.map((item: Icart) => ({
+  //       productId: item.productId._id,
+  //       quantity: item.quantity,
+  //       totalPrice: item.totalPrice,
+  //     }));
+  //     navigate("/checkout", { state: { cartData } });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const removeCart = async (id: string) => {
     try {
       deleteCart(id).then(() => {
@@ -58,7 +70,7 @@ const CartPage = () => {
 
   return (
     <div>
-      <BannerCart />
+      <Banner>Cart</Banner>
       <section className="content-cart">
         <div className="content-cart-elem">
           <div className="content-cart-right">
@@ -111,9 +123,7 @@ const CartPage = () => {
                 <span className="cart-detailed-price">{amount}$</span>
               </div>
               <p className="pb-2 text-[14px]">Have a promo code?</p>
-              <a href="" className="checkout">
-                Proceed To Checkout
-              </a>
+              <button className="checkout">Proceed To Checkout</button>
             </div>
           </div>
         </div>

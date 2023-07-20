@@ -26,6 +26,7 @@ const CategoryAddPage = React.lazy(
   () => import("./pages/admin/CategoryModules/CategoryAddPage")
 );
 const CartPage = React.lazy(() => import("./pages/client/CartPage"));
+const Checkout = React.lazy(() => import("./pages/client/Checkout"));
 function App() {
   return (
     <div className="App">
@@ -36,6 +37,7 @@ function App() {
             <Route path="signup" element={<SignupPage />} />
             <Route path="signin" element={<SigninPage />} />
             <Route path="cart" element={<CartPage />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
           <Route path="admin" element={<LayoutAdmin />}>
             <Route index element={<DashboardPage />} />
