@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Ibook } from "../../interface/Ibook";
 import { useNavigate } from "react-router-dom";
 import { deleteCart, getAllCart } from "../../api/cart";
@@ -44,18 +44,23 @@ const CartPage = () => {
     }
   }, []);
   console.log("data cart", cart);
-  // const proceedToCheckout = async () => {
-  //   try {
-  //     const cartData = cart.map((item: Icart) => ({
-  //       productId: item.productId._id,
-  //       quantity: item.quantity,
-  //       totalPrice: item.totalPrice,
-  //     }));
-  //     navigate("/checkout", { state: { cartData } });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const proceedToCheckout = () => {
+    // Kiểm tra xem giỏ hàng có dữ liệu hay không
+    if (cart.length === 0) {
+      // Xử lý trường hợp giỏ hàng trống
+      toast.error(
+        "Giỏ hàng trống. Vui lòng thêm sản phẩm trước khi thanh toán."
+      );
+      return;
+    }
+
+    // Lưu thông tin giỏ hàng và tổng giá trị vào Local Storage
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("totalAmount", JSON.stringify(amount));
+
+    // Điều hướng tới trang checkout
+    navigate("/checkout");
+  };
   const removeCart = async (id: string) => {
     try {
       deleteCart(id).then(() => {
@@ -123,7 +128,9 @@ const CartPage = () => {
                 <span className="cart-detailed-price">{amount}$</span>
               </div>
               <p className="pb-2 text-[14px]">Have a promo code?</p>
-              <button className="checkout">Proceed To Checkout</button>
+              <button className="checkout" onClick={() => proceedToCheckout()}>
+                Proceed To Checkout
+              </button>
             </div>
           </div>
         </div>
