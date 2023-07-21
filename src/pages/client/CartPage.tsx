@@ -21,12 +21,10 @@ const CartPage = () => {
       setBook(newBook.docs);
     });
   }, []);
-  console.log("data book", book);
   // call api list cart
   useEffect(() => {
     const userId = JSON.parse(sessionStorage.getItem("userData"));
     const id = userId?.user._id;
-    console.log("id", id);
     if (id !== "") {
       getAllCart(id)
         .then(({ data }) => {
@@ -38,27 +36,19 @@ const CartPage = () => {
           setQuantity(totalQuatity);
         })
         .catch((error) => {
-          console.log(error);
-          // toast.error(error.response.data.message);
+          toast.error(error.response.data.message);
         });
     }
   }, []);
-  console.log("data cart", cart);
   const proceedToCheckout = () => {
-    // Kiểm tra xem giỏ hàng có dữ liệu hay không
     if (cart.length === 0) {
-      // Xử lý trường hợp giỏ hàng trống
       toast.error(
         "Giỏ hàng trống. Vui lòng thêm sản phẩm trước khi thanh toán."
       );
       return;
     }
-
-    // Lưu thông tin giỏ hàng và tổng giá trị vào Local Storage
     localStorage.setItem("cart", JSON.stringify(cart));
     localStorage.setItem("totalAmount", JSON.stringify(amount));
-
-    // Điều hướng tới trang checkout
     navigate("/checkout");
   };
   const removeCart = async (id: string) => {
