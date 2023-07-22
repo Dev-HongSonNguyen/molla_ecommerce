@@ -2,11 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDebounce } from "usehooks-ts";
 import { searchProduct } from "../../api/search";
 import { Link } from "react-router-dom";
+import ResultSearch from "../search/ResultSearch";
+import useClickOutSide from "../hooks/useClickOutSIde";
 const InputSearch = () => {
   const [valueSearch, setValueSearch] = useState("");
   const debouncedValue = useDebounce<string>(valueSearch, 500);
   const [isLoading, setIsLoading] = useState(false);
   const [resultSearch, setResultSearch] = useState([]);
+  const { show, setShow, nodeRef } = useClickOutSide(".search-header");
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValueSearch(event.target.value);
   };
@@ -29,6 +32,10 @@ const InputSearch = () => {
     <div>
       <form action="" className="header-between-search relative">
         <input
+          ref={nodeRef}
+          onClick={() => {
+            setShow(!show);
+          }}
           type="text"
           placeholder="Search product..."
           onChange={handleChange}
@@ -38,24 +45,11 @@ const InputSearch = () => {
           <span className="material-icons">search</span>
         </button>
         <p className="absolute z-10 bg-[#f8f8f8] top-[50px] w-full">
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : valueSearch && resultSearch.length > 0 ? (
-            resultSearch.map((item: any) => {
-              return (
-                <Link to={`/product/${item._id}`} key={item._id}>
-                  <div className="flex items-center p-2 gap-3 hover:bg-primary rounded-lg">
-                    <img className="w-[30px]" src={item.image} alt="" />
-                    <p>{item.name}</p>
-                  </div>
-                </Link>
-              );
-            })
-          ) : (
-            <div className="">
-              <p></p>
-            </div>
-          )}
+          <ResultSearch
+            data={resultSearch}
+            show={show}
+            loading={isLoading}
+          ></ResultSearch>
         </p>
       </form>
     </div>

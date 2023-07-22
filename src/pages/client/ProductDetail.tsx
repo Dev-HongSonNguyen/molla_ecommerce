@@ -74,13 +74,6 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="detail-book-elem-bottom">
-            <div className="detail-book-elem-bottom-title">
-              <ul>
-                <li>
-                  <a href="">Description</a>
-                </li>
-              </ul>
-            </div>
             <div className="detail-book-elem-bottom-box">
               <h3>Product Information</h3>
               <p>
