@@ -106,15 +106,6 @@
 .category a:hover {
   color: #1cc0a0;
 }
-.detail-book-elem-bottom-title {
-  padding-bottom: 20px;
-}
-.detail-book-elem-bottom-title ul {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  justify-content: center;
-}
 .detail-book-elem-bottom-box {
   border: 1px solid #ebebeb;
 }
