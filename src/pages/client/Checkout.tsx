@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
 import { useForm } from "react-hook-form";
-import "../../asset/css/Cart.css";
 import { checkout } from "../../api/checkout";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

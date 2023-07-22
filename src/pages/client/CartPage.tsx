@@ -7,7 +7,6 @@ import { getAllBook } from "../../api/book";
 import { Icart } from "../../interface/Icart";
 import SvgDelete from "../../components/svg/SvgDelete";
 import Banner from "../../components/Banner/Banner";
-import "../../asset/css/Cart.css";
 const CartPage = () => {
   const [cart, setCart] = useState<Icart[]>([]);
   const [amount, setAmount] = useState(0);

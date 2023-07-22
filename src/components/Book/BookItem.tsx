@@ -43,9 +43,9 @@ const BookItem = ({ data }: { data: Ibook }) => {
   return (
     <div className="product-elem-item">
       <div className="product-elem-item-preview">
-        <a href="">
+        <Link to={`/product/${data._id}`}>
           <img src={data?.image} alt="" />
-        </a>
+        </Link>
       </div>
       <div className="product-elem-item-info">
         <a href="" className="category">
