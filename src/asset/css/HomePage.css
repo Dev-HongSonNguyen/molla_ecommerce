@@ -275,6 +275,9 @@
 .product-elem-item-info {
   padding-top: 10px;
 }
+.product-elem-item-info .category {
+  padding: 5px 0px !important;
+}
 .product-elem-item-actions-star {
   display: flex;
   align-items: center;

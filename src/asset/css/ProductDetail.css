@@ -1,0 +1,130 @@
+.detail-book {
+  background-color: #ffffff;
+}
+.detail-book-elem {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.bread-crumnb {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0px;
+  border-bottom: 1px solid #ebebeb;
+  color: #777777;
+  font-size: 14px;
+}
+.detail-book-elem-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 30px 0px;
+}
+.detail-book-elem-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.detail-book-elem-content .product-name {
+  color: #777777;
+  font-size: 24px;
+  letter-spacing: -0.6px;
+  text-align: left;
+}
+.detail-book-elem-content .product-price {
+  color: #1cc0a0;
+  font-size: 24px;
+  margin: 0px 5px 0px 0px;
+  text-align: left;
+  text-transform: capitalize;
+  padding: 10px 0px;
+  display: block;
+  font-weight: bold;
+}
+.detail-book-elem-content .description-short {
+  color: #777777;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: left;
+}
+.qty {
+  align-items: center;
+  color: #777777;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  text-align: left;
+  gap: 30px;
+  padding: 30px 0px;
+}
+.qty span {
+  color: #777777;
+  font-size: 13px;
+  line-height: 24.18px;
+  text-align: left;
+}
+.qty input {
+  border: 1px solid #777777;
+  text-align: center;
+  padding: 5px 0px;
+}
+.add-to-cart {
+  align-items: center;
+  background-color: #1cc0a0;
+  color: #ffffff;
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  line-height: 14px;
+  margin: 0px 15px 10px 0px;
+  padding: 10px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  gap: 5px;
+  font-weight: bold;
+}
+.in-stock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+.category {
+  align-items: center;
+  color: #777777;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  line-height: 26.04px;
+  margin: 30px 0px 0px;
+  padding: 17px 0px;
+  text-align: left;
+  gap: 5px;
+  border-top: 1px solid #ebebeb;
+}
+.category a:hover {
+  color: #1cc0a0;
+}
+.detail-book-elem-bottom-title {
+  padding-bottom: 20px;
+}
+.detail-book-elem-bottom-title ul {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  justify-content: center;
+}
+.detail-book-elem-bottom-box {
+  border: 1px solid #ebebeb;
+}
+.detail-book-elem-bottom-box h3 {
+  padding: 20px 50px 0px 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1cc0a0;
+}
+.detail-book-elem-bottom-box p {
+  padding: 20px 50px;
+  text-align: justify;
+}

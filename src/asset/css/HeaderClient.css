@@ -3,6 +3,9 @@
   margin: 0px;
   font-family: "Poppins", sans-serif;
 }
+html {
+  scroll-behavior: smooth;
+}
 .header {
   background-color: #ffffff;
 }
@@ -192,4 +195,26 @@
   padding: 8px 5px;
   border-radius: 50%;
   left: 15px;
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #1cc0a0;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+#myBtn:hover {
+  background-color: #ffffff;
+  color: #1cc0a0;
+  border: 1px solid #1cc0a0;
 }
