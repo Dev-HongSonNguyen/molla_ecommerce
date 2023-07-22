@@ -29,9 +29,9 @@ const SigninPage = () => {
           const userData = data.data;
           const token = data.data.token;
           const role = data.data.user.role;
-          sessionStorage.setItem("userData", JSON.stringify(userData));
-          sessionStorage.setItem("token", JSON.stringify(token));
-          sessionStorage.setItem("role", JSON.stringify(role));
+          localStorage.setItem("userData", JSON.stringify(userData));
+          localStorage.setItem("token", JSON.stringify(token));
+          localStorage.setItem("role", JSON.stringify(role));
           toast.success("Đăng nhập thành công");
           navigate("/");
         });

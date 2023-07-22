@@ -23,7 +23,7 @@ const BookItem = ({ data }: { data: Ibook }) => {
   };
   const navigate = useNavigate();
   const getCurrentUserId = () => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = jwtDecode(token) as DecodedToken;
       const userId = decodedToken._id;
