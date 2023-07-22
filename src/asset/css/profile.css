@@ -1,0 +1,54 @@
+.information {
+  background-color: #ffffff;
+}
+.information-elem {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.bread-crumnb {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0px;
+  border-bottom: 1px solid #ebebeb;
+  color: #777777;
+  font-size: 14px;
+}
+.form-information {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 50px 0px 0px 0px;
+}
+.form-information form .form-item {
+  padding-bottom: 20px;
+}
+.form-information form img {
+  width: 200px;
+  margin: 0 auto;
+  height: 200px;
+  border-radius: 50%;
+}
+.form-information form label {
+  display: block;
+  color: #777777;
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+.form-information form input {
+  background-color: #f8f8f8;
+  color: #777777;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 21px;
+  padding: 8.5px 10px;
+  outline: none;
+  width: 100%;
+  border: 1px solid #ebebeb;
+}
+.form-information form .handelSubmit-infor {
+  background-color: #1cc0a0;
+  display: inline-block;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 5px 10px;
+}
