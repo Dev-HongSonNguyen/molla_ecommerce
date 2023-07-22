@@ -25,6 +25,7 @@ const CategoryUpdatePage = React.lazy(
 const CategoryAddPage = React.lazy(
   () => import("./pages/admin/CategoryModules/CategoryAddPage")
 );
+const UserProfile = React.lazy(() => import("./pages/client/UserProfile"));
 const CartPage = React.lazy(() => import("./pages/client/CartPage"));
 const Checkout = React.lazy(() => import("./pages/client/Checkout"));
 const ProductDetail = React.lazy(() => import("./pages/client/ProductDetail"));
@@ -40,6 +41,7 @@ function App() {
             <Route path="cart" element={<CartPage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="product/:id" element={<ProductDetail />} />
+            <Route path="profile" element={<UserProfile />} />
           </Route>
           <Route path="admin" element={<LayoutAdmin />}>
             <Route index element={<DashboardPage />} />

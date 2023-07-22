@@ -94,9 +94,9 @@ const LayoutClient = () => {
               <p>Whishlist</p>
             </div>
             <div className="header-between-action-item">
-              <a href="">
+              <Link to={"/profile"}>
                 <span className="material-icons">person_outline</span>
-              </a>
+              </Link>
               <p>Account</p>
             </div>
             <div className="header-between-action-item">
@@ -122,7 +122,7 @@ const LayoutClient = () => {
         </div>
       </section>
       <Outlet />
-      <footer className="bg-white">
+      <footer className="bg-white border-t border-t-[#ebebeb] mt-[50px]">
         <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div>
