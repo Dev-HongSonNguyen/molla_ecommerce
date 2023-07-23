@@ -30,6 +30,8 @@ const UserProfile = React.lazy(() => import("./pages/client/UserProfile"));
 const CartPage = React.lazy(() => import("./pages/client/CartPage"));
 const Checkout = React.lazy(() => import("./pages/client/Checkout"));
 const ProductDetail = React.lazy(() => import("./pages/client/ProductDetail"));
+const MyOrder = React.lazy(() => import("./pages/client/MyOrder"));
+const MyOrderDetail = React.lazy(() => import("./pages/client/MyOrderDetail"));
 function App() {
   return (
     <div className="App">
@@ -43,6 +45,8 @@ function App() {
             <Route path="checkout" element={<Checkout />} />
             <Route path="product/:id" element={<ProductDetail />} />
             <Route path="profile" element={<UserProfile />} />
+            <Route path="order" element={<MyOrder />} />
+            <Route path="order/:id" element={<MyOrderDetail />} />
           </Route>
           <Route path="admin" element={<LayoutAdmin />}>
             <Route index element={<DashboardPage />} />
