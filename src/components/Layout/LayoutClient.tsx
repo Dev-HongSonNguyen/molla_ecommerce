@@ -11,14 +11,24 @@ const LayoutClient = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     const userDataString = sessionStorage.getItem("userData") ?? "";
     if (userDataString) {
       setIsLoggedIn(true);
+      const userData = JSON.parse(userDataString);
+      const role = userData?.user.role;
+      console.log(role);
+
+      if (role === "admin") {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
     } else {
       setIsLoggedIn(false);
     }
-  });
+  }, []);
   useEffect(() => {
     const userId = JSON.parse(sessionStorage.getItem("userData"));
     const id = userId?.user._id;
@@ -91,13 +101,34 @@ const LayoutClient = () => {
               <Link to={"whistlist"}>
                 <span className="material-icons">favorite_border</span>
               </Link>
-              <p>Whishlist</p>
+              <p className="cursor-pointer">Whishlist</p>
             </div>
-            <div className="header-between-action-item">
-              <Link to={"/profile"}>
+            <div className="header-between-action-item account">
+              <Link to={"#"}>
                 <span className="material-icons">person_outline</span>
               </Link>
-              <p>Account</p>
+              <p className="cursor-pointer">Account</p>
+              <ul className="acount-nav-main-menu">
+                <li className="text-left acount-nav-main-menu-list">
+                  <Link
+                    className="acount-nav-main-menu-list-item"
+                    to={"profile"}
+                  >
+                    My Profile
+                  </Link>
+                  <Link className="acount-nav-main-menu-list-item" to={"order"}>
+                    My Order
+                  </Link>
+                  {isAdmin ? (
+                    <Link
+                      className="acount-nav-main-menu-list-item"
+                      to={"admin"}
+                    >
+                      Dashboard
+                    </Link>
+                  ) : null}
+                </li>
+              </ul>
             </div>
             <div className="header-between-action-item">
               <a href="cart">
@@ -106,7 +137,7 @@ const LayoutClient = () => {
                 </span>
               </a>
               <div className="relative">
-                <p>Cart</p>
+                <p className="cursor-pointer">Cart</p>
                 <span className="quantity">{quantity}</span>
               </div>
             </div>

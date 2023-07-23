@@ -44,7 +44,7 @@ const InputSearch = () => {
         <button>
           <span className="material-icons">search</span>
         </button>
-        <p className="absolute z-10 bg-[#f8f8f8] top-[50px] w-full">
+        <p className="absolute z-20 bg-[#f8f8f8] top-[50px] w-full">
           <ResultSearch
             data={resultSearch}
             show={show}
