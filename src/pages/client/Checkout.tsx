@@ -28,7 +28,7 @@ const Checkout = () => {
     const storedCartData = JSON.parse(localStorage.getItem("cart")) || [];
     const storedTotalAmount =
       JSON.parse(localStorage.getItem("totalAmount")) || 0;
-    const getUser = JSON.parse(localStorage.getItem("userData")) || [];
+    const getUser = JSON.parse(sessionStorage.getItem("userData")) || [];
     const userData = getUser.user;
     setCartData(storedCartData);
     setTotalAmount(storedTotalAmount);

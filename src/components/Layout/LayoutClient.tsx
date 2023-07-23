@@ -12,7 +12,7 @@ const LayoutClient = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [quantity, setQuantity] = useState(0);
   useEffect(() => {
-    const userDataString = localStorage.getItem("userData") ?? "";
+    const userDataString = sessionStorage.getItem("userData") ?? "";
     if (userDataString) {
       setIsLoggedIn(true);
     } else {
@@ -20,7 +20,7 @@ const LayoutClient = () => {
     }
   });
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userData"));
+    const userId = JSON.parse(sessionStorage.getItem("userData"));
     const id = userId?.user._id;
     if (id !== "") {
       getAllCart(id)
@@ -61,9 +61,9 @@ const LayoutClient = () => {
     }, 1900);
     setTimeout(() => {
       setIsLoggedIn(false);
-      localStorage.removeItem("userData");
-      localStorage.removeItem("token");
-      localStorage.removeItem("role");
+      sessionStorage.removeItem("userData");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("role");
     }, 2000);
   };
   return (
