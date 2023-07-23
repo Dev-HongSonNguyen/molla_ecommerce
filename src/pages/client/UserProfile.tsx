@@ -1,10 +1,12 @@
 import React from "react";
 import "../../asset/css/profile.css";
+import Banner from "../../components/Banner/Banner";
 const UserProfile = () => {
-  const getUserData = JSON.parse(localStorage.getItem("userData"));
+  const getUserData = JSON.parse(sessionStorage.getItem("userData"));
   const dataUser = getUserData ? getUserData.user : {};
   return (
     <div>
+      <Banner>Profile</Banner>
       <section className="information">
         <div className="information-elem">
           <div className="bread-crumnb">

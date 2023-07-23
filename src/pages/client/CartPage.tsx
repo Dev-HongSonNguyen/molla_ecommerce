@@ -22,7 +22,7 @@ const CartPage = () => {
   }, []);
   // call api list cart
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userData"));
+    const userId = JSON.parse(sessionStorage.getItem("userData"));
     const id = userId?.user._id;
     if (id !== "") {
       getAllCart(id)
