@@ -88,9 +88,9 @@ const LayoutClient = () => {
           <InputSearch></InputSearch>
           <div className="header-between-action">
             <div className="header-between-action-item">
-              <a href="">
+              <Link to={"whistlist"}>
                 <span className="material-icons">favorite_border</span>
-              </a>
+              </Link>
               <p>Whishlist</p>
             </div>
             <div className="header-between-action-item">

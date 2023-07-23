@@ -2,10 +2,10 @@ import { IMenu } from "../../interface/Imenu";
 import { NavLink } from "react-router-dom";
 const listMenu: IMenu[] = [
   { path: "/", title: "HOME" },
-  { path: "#", title: "SHOP" },
-  { path: "#", title: "PRODUCT" },
-  { path: "#", title: "BLOG" },
-  { path: "#", title: "CONTACT" },
+  { path: "shop", title: "SHOP" },
+  { path: "product", title: "PRODUCT" },
+  { path: "blog", title: "BLOG" },
+  { path: "contact", title: "CONTACT" },
 ];
 const Menu = () => {
   return (

@@ -5,6 +5,7 @@ import LayoutAdmin from "./components/Layout/LayoutAdmin";
 import LoadingPage from "./components/Common/LoadingPage";
 import SignupPage from "./pages/client/SignupPage";
 import SigninPage from "./pages/client/SigninPage";
+import PageNotFound from "./pages/PageNotFound";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -56,6 +57,7 @@ function App() {
               <Route path="update/:id" element={<CategoryUpdatePage />} />
             </Route>
           </Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
     </div>
