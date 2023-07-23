@@ -44,7 +44,6 @@ html {
   max-width: 1280px;
   margin: 0 auto;
   justify-content: space-between;
-  padding: 20px 0px;
   align-items: center;
 }
 .header-between-logo img {
@@ -86,6 +85,7 @@ html {
 }
 .header-between-action-item {
   text-align: center;
+  padding: 20px 0px;
 }
 .header-between-action-item span {
   color: #313f3c;
@@ -104,6 +104,29 @@ html {
   font-weight: 300;
   line-height: 11px;
   text-align: left;
+}
+.account {
+  position: relative;
+}
+.acount-nav-main-menu {
+  position: absolute;
+  margin-top: 5px;
+  z-index: 30;
+}
+.acount-nav-main-menu-list-item {
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px 17px;
+  background-color: #f8f8f8;
+  width: 101px;
+  display: none;
+}
+.acount-nav-main-menu-list-item:hover {
+  background-color: #1cc0a0;
+  color: #ffffff;
+}
+.account:hover .acount-nav-main-menu-list-item {
+  display: block;
 }
 .header-bottom {
   max-width: 1280px;
@@ -142,7 +165,7 @@ html {
   background-color: #ffffff;
   color: #ffffff;
   width: 100%;
-  z-index: 100;
+  z-index: 10;
   display: none;
   border-left: 1px solid #ebebeb;
   border-right: 1px solid #ebebeb;
