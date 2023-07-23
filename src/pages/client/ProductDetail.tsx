@@ -12,7 +12,7 @@ const ProductDetail = () => {
       const book = data.product;
       setBook(book);
     });
-  }, []);
+  }, [id]);
   console.log(book);
 
   return (
