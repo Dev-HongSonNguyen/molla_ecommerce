@@ -7,40 +7,35 @@ import { getAllBook } from "../../api/book";
 import { Icart } from "../../interface/Icart";
 import SvgDelete from "../../components/svg/SvgDelete";
 import Banner from "../../components/Banner/Banner";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../components/store/cart/handlers";
+import { RootState } from "../../components/store/configStore";
 const CartPage = () => {
   const [cart, setCart] = useState<Icart[]>([]);
   const [amount, setAmount] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [book, setBook] = useState<Ibook[]>([]);
   const navigate = useNavigate();
-  // call api list book
+
+  const dispatch = useDispatch();
+  const { carts, totalAmount, totalQuantity } = useSelector(
+    (state: RootState) => state.cart
+  );
+  const getCart = () => {
+    dispatch(fetchCart() as any);
+  };
+  useEffect(() => {
+    void getCart();
+  }, [dispatch]);
+
   useEffect(() => {
     getAllBook().then(({ data }) => {
       const newBook = data.product;
       setBook(newBook.docs);
     });
   }, []);
-  // call api list cart
-  useEffect(() => {
-    const userId = JSON.parse(sessionStorage.getItem("userData"));
-    const id = userId?.user._id;
-    if (id !== "") {
-      getAllCart(id)
-        .then(({ data }) => {
-          const totalPrice = data.totalAmount;
-          const totalQuatity = data.totalQuantity;
-          const cartList = data.carts;
-          setCart(cartList);
-          setAmount(totalPrice);
-          setQuantity(totalQuatity);
-        })
-        .catch((error) => {
-          toast.error(error.response.data.message);
-        });
-    }
-  }, []);
   const proceedToCheckout = () => {
-    if (cart.length === 0) {
+    if (carts.length === 0) {
       toast.error(
         "Giỏ hàng trống. Vui lòng thêm sản phẩm trước khi thanh toán."
       );
@@ -53,6 +48,7 @@ const CartPage = () => {
   const removeCart = async (id: string) => {
     try {
       deleteCart(id).then(() => {
+        getCart();
         const newCart = cart.filter((item: any) => item._id !== id);
         toast.success("Xóa sản phẩm thành công");
         setCart(newCart);
@@ -80,8 +76,8 @@ const CartPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.length > 0 &&
-                  cart.map((item: any) => {
+                {carts.length > 0 &&
+                  carts.map((item: any) => {
                     console.log(item);
                     const product = book.find((book) => {
                       return book._id === item.productId._id;
@@ -113,8 +109,8 @@ const CartPage = () => {
           <div className="content-cart-left">
             <div className="content-cart-left-elem">
               <div className="cart-detailed pb-5">
-                <span className="">{quantity} Item</span>
-                <span className="cart-detailed-price">{amount}$</span>
+                <span className="">{totalQuantity} Item</span>
+                <span className="cart-detailed-price">{totalAmount}$</span>
               </div>
               <p className="pb-2 text-[14px]">Have a promo code?</p>
               <button className="checkout" onClick={() => proceedToCheckout()}>

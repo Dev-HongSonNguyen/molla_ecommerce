@@ -36,6 +36,7 @@ const BookItem = ({ data }: { data: Ibook }) => {
       const userId = getCurrentUserId();
       await addToCart(product, userId);
       toast.success("Thêm sản phẩm vào giỏ hàng thành công");
+      navigate("/cart");
     } catch (error) {
       toast.error("Bạn cần đăng nhập");
     }

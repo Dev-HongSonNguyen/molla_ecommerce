@@ -54,19 +54,19 @@ const MyOrderDetail = () => {
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700 flex justify-center">
                     <img
-                      src={item.productId.image}
+                      src={item.productId?.image}
                       className="w-[50px] flex items-center justify-center"
                       alt=""
                     />
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {item.productId.name}
+                    {item.productId?.name}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                     {item.quantity}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    ${item.productId.price}
+                    ${item.productId?.price}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                     ${item.totalPrice}
