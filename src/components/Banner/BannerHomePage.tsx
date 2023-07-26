@@ -13,7 +13,7 @@ const BannerHomePage = () => {
             <div className="banner-elem-item-1-content animationTop-1">
               <span>Your Guide To The World</span>
               <h5>Must-Read Travel Book</h5>
-              <a href="">FIND OUT MORE</a>
+              <a href="#">FIND OUT MORE</a>
             </div>
           </div>
           <div className="banner-elem-item-2">
@@ -25,7 +25,7 @@ const BannerHomePage = () => {
               <div className="banner-elem-item-1-group-1-content animationTop-2">
                 <span>Your Guide To The World</span>
                 <h5>Discover Our Best Romance Books</h5>
-                <a href="">DISCOVER NOW</a>
+                <a href="#">DISCOVER NOW</a>
               </div>
             </div>
             <div className="banner-elem-item-2-group-2">
@@ -37,7 +37,7 @@ const BannerHomePage = () => {
                 <div className="banner-elem-item-2-group-2-1-content animationTop-3">
                   <span>Your Guide To The World</span>
                   <h5>20% Off Use Code</h5>
-                  <a href="">SHOP NOW</a>
+                  <a href="#">SHOP NOW</a>
                 </div>
               </div>
               <div className="banner-elem-item-2-group-2-1">
@@ -48,7 +48,7 @@ const BannerHomePage = () => {
                 <div className="banner-elem-item-2-group-2-1-content animationTop-3">
                   <span>Your Guide To The World</span>
                   <h5>Business Economics</h5>
-                  <a href="">DISCOVER NOW</a>
+                  <a href="#">DISCOVER NOW</a>
                 </div>
               </div>
             </div>

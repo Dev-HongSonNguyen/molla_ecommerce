@@ -6,11 +6,16 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { RootState } from "../../components/store/configStore";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../components/store/cart/handlers";
 const Checkout = () => {
   const navigate = useNavigate();
-  const [cartData, setCartData] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
   const [user, setUser] = useState<any>({});
+  const dispatch = useDispatch();
+  const { carts, totalAmount, totalQuantity } = useSelector(
+    (state: RootState) => state.cart
+  );
   const schema = yup.object().shape({
     shippingAddress: yup.string().required("Vui lòng nhập địa chỉ"),
     phoneNumber: yup.number().required("Vui lòng nhập số điện thoại"),
@@ -25,21 +30,22 @@ const Checkout = () => {
   });
 
   useEffect(() => {
-    const storedCartData = JSON.parse(localStorage.getItem("cart")) || [];
-    const storedTotalAmount =
-      JSON.parse(localStorage.getItem("totalAmount")) || 0;
     const getUser = JSON.parse(sessionStorage.getItem("userData")) || [];
     const userData = getUser.user;
-    setCartData(storedCartData);
-    setTotalAmount(storedTotalAmount);
     setUser(userData);
   }, []);
+  const getCart = () => {
+    dispatch(fetchCart() as any);
+  };
+  useEffect(() => {
+    void getCart();
+  }, [dispatch]);
   const handelCheckout = async (values: any) => {
     try {
       const userId = user._id;
       const formData = {
         userId,
-        cartData,
+        carts,
         ...values,
       };
       const reponse = await checkout(formData);
@@ -144,7 +150,7 @@ const Checkout = () => {
               <div>
                 <div className="flow-root">
                   <ul className="-my-4 divide-y divide-gray-100">
-                    {cartData.map((item: any) => {
+                    {carts.map((item: any) => {
                       return (
                         <li className="flex items-center gap-4 py-4 bg-[#ffffff] px-[30px] mb-2">
                           <img

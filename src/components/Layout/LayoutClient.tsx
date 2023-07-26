@@ -7,11 +7,25 @@ import InputSearch from "../Input/InputSearch";
 import Menu from "./Menu";
 import MenuCategory from "./MenuCategory";
 import "../../asset/css/HeaderClient.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/configStore";
+import { fetchCart } from "../store/cart/handlers";
 const LayoutClient = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
+  const dispatch = useDispatch();
+  const { carts, totalAmount, totalQuantity } = useSelector(
+    (state: RootState) => state.cart
+  );
+  const getCart = () => {
+    dispatch(fetchCart() as any);
+  };
+  useEffect(() => {
+    void getCart();
+  }, [dispatch]);
+
   useEffect(() => {
     const userDataString = sessionStorage.getItem("userData") ?? "";
     if (userDataString) {
@@ -131,14 +145,14 @@ const LayoutClient = () => {
               </ul>
             </div>
             <div className="header-between-action-item">
-              <a href="cart">
+              <Link to={"/cart"}>
                 <span className="material-icons">
                   production_quantity_limits
                 </span>
-              </a>
+              </Link>
               <div className="relative">
                 <p className="cursor-pointer">Cart</p>
-                <span className="quantity">{quantity}</span>
+                <span className="quantity">{totalQuantity}</span>
               </div>
             </div>
           </div>

@@ -17,12 +17,12 @@ const ResultSearch = ({
           {loading && <LoadingSearch></LoadingSearch>}
           {data.length > 0
             ? data.map((item: any) => (
-                <a href={`/product/${item._id}`} key={item._id}>
+                <Link to={`/product/${item._id}`} key={item._id}>
                   <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary">
                     <img className="w-[30px]" src={item.image} alt="" />
                     <p>{item.name}</p>
                   </div>
-                </a>
+                </Link>
               ))
             : !loading && (
                 <div className="px-3 py-3 text-[12px]">No product !</div>
