@@ -4,6 +4,8 @@ import BannerHomePage from "../../components/Banner/BannerHomePage";
 import Service from "../../components/Layout/Service";
 import { useDispatch } from "react-redux";
 import { fetchCart } from "../../components/store/cart/handlers";
+import Introduce from "../../components/Layout/Introduce";
+import BlogList from "../../components/Blog/BlogList";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,8 @@ const HomePage = () => {
       <section className="product">
         <BookList></BookList>
       </section>
+      <Introduce></Introduce>
+      <BlogList></BlogList>
     </div>
   );
 };

@@ -13,7 +13,6 @@ import { fetchCart } from "../store/cart/handlers";
 const LayoutClient = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [quantity, setQuantity] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
   const { carts, totalAmount, totalQuantity } = useSelector(
@@ -28,12 +27,11 @@ const LayoutClient = () => {
 
   useEffect(() => {
     const userDataString = sessionStorage.getItem("userData") ?? "";
+    // console.log(userDataString);
     if (userDataString) {
       setIsLoggedIn(true);
       const userData = JSON.parse(userDataString);
       const role = userData?.user.role;
-      console.log(role);
-
       if (role === "admin") {
         setIsAdmin(true);
       } else {
@@ -136,7 +134,7 @@ const LayoutClient = () => {
                   {isAdmin ? (
                     <Link
                       className="acount-nav-main-menu-list-item"
-                      to={"admin"}
+                      to={"admin/dashboard"}
                     >
                       Dashboard
                     </Link>
