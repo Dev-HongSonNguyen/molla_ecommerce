@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
-import { deleteOrder, getAllOrder } from "../../api/checkout";
+import { deleteOrder, getAllOrderByUser } from "../../api/checkout";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
@@ -8,7 +8,7 @@ import { format } from "date-fns";
 const MyOrder = () => {
   const [order, setOrder] = useState<any>([]);
   useEffect(() => {
-    getAllOrder().then(({ data }) => {
+    getAllOrderByUser().then(({ data }) => {
       setOrder(data.orders);
     });
   }, []);

@@ -2,8 +2,11 @@ import instance from "./instance";
 export const checkout = (data: any) => {
   return instance.post("/checkout", data);
 };
-export const getAllOrder = () => {
+export const getAllOrderByUser = () => {
   return instance.get("/checkout");
+};
+export const getAllOrder = () => {
+  return instance.get("/checkoutNoUser");
 };
 export const getOneOrder = (id: any) => {
   return instance.get("/checkout/" + id);
