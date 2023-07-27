@@ -18,7 +18,12 @@ const Checkout = () => {
   );
   const schema = yup.object().shape({
     shippingAddress: yup.string().required("Vui lòng nhập địa chỉ"),
-    phoneNumber: yup.number().required("Vui lòng nhập số điện thoại"),
+    phoneNumber: yup
+      .string()
+      .required("Vui lòng nhập số điện thoại")
+      .matches(/^(0[0-9]+)$/, "Số điện thoại không đúng định dạng")
+      .min(10, "Số điện thoại phải có ít nhất 10 chữ số")
+      .max(11, "Số điện thoại không được vượt quá 11 chữ số"),
   });
   const {
     register,
