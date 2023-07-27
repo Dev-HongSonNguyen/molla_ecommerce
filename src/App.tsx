@@ -26,6 +26,15 @@ const CategoryUpdatePage = React.lazy(
 const CategoryAddPage = React.lazy(
   () => import("./pages/admin/CategoryModules/CategoryAddPage")
 );
+const OrderManagerPage = React.lazy(
+  () => import("./pages/admin/OrderModules/OrderManagerPage")
+);
+const OrderDetailPage = React.lazy(
+  () => import("./pages/admin/OrderModules/OrderDetailPage")
+);
+const OrderUpdatePage = React.lazy(
+  () => import("./pages/admin/OrderModules/OrderUpdatePage")
+);
 const UserProfile = React.lazy(() => import("./pages/client/UserProfile"));
 const CartPage = React.lazy(() => import("./pages/client/CartPage"));
 const Checkout = React.lazy(() => import("./pages/client/Checkout"));
@@ -49,7 +58,7 @@ function App() {
             <Route path="order/:id" element={<MyOrderDetail />} />
           </Route>
           <Route path="admin" element={<LayoutAdmin />}>
-            <Route index element={<DashboardPage />} />
+            <Route path="dashboard" element={<DashboardPage />} />
             <Route path="book">
               <Route index element={<BookManagerPage />} />
               <Route path="add" element={<BookAddPage />} />
@@ -59,6 +68,11 @@ function App() {
               <Route index element={<CategoryManagerPage />} />
               <Route path="add" element={<CategoryAddPage />} />
               <Route path="update/:id" element={<CategoryUpdatePage />} />
+            </Route>
+            <Route path="order">
+              <Route index element={<OrderManagerPage />} />
+              <Route path=":id" element={<OrderDetailPage />} />
+              <Route path="update/:id" element={<OrderUpdatePage />} />
             </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />

@@ -234,7 +234,11 @@
   font-size: 14px;
   font-weight: 300;
   line-height: 26.04px;
-  padding: 30px 20px 10px;
+  padding: 30px 20px;
+  transition: all 0.2s ease-in-out;
+}
+.product-elem-item:hover {
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 .product-elem-item img {
   width: 100%;
