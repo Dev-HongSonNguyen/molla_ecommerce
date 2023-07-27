@@ -16,7 +16,6 @@ const CartPage = () => {
   const [quantity, setQuantity] = useState(0);
   const [book, setBook] = useState<Ibook[]>([]);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const { carts, totalAmount, totalQuantity } = useSelector(
     (state: RootState) => state.cart
@@ -65,14 +64,14 @@ const CartPage = () => {
         <div className="content-cart-elem">
           <div className="content-cart-right">
             <table>
-              <thead className="">
+              <thead className="bg-[#f8f8f8]">
                 <tr className="">
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
-                  <th>Action</th>
+                  <th className="px-3 py-3">Image</th>
+                  <th className="px-3 py-3">Name</th>
+                  <th className="px-3 py-3">Price</th>
+                  <th className="px-3 py-3">Quantity</th>
+                  <th className="px-3 py-3">Total</th>
+                  <th className="px-3 py-3">Action</th>
                 </tr>
               </thead>
               <tbody>
