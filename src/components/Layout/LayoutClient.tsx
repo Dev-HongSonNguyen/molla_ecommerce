@@ -109,12 +109,6 @@ const LayoutClient = () => {
           </div>
           <InputSearch></InputSearch>
           <div className="header-between-action">
-            <div className="header-between-action-item">
-              <Link to={"whistlist"}>
-                <span className="material-icons">favorite_border</span>
-              </Link>
-              <p className="cursor-pointer">Whishlist</p>
-            </div>
             <div className="header-between-action-item account">
               <Link to={"#"}>
                 <span className="material-icons">person_outline</span>
@@ -143,6 +137,12 @@ const LayoutClient = () => {
               </ul>
             </div>
             <div className="header-between-action-item">
+              <Link to={"whistlist"}>
+                <span className="material-icons">favorite_border</span>
+              </Link>
+              <p className="cursor-pointer">Whishlist</p>
+            </div>
+            <div className="header-between-action-item">
               <Link to={"/cart"}>
                 <span className="material-icons">
                   production_quantity_limits
@@ -151,6 +151,55 @@ const LayoutClient = () => {
               <div className="relative">
                 <p className="cursor-pointer">Cart</p>
                 <span className="quantity">{totalQuantity}</span>
+              </div>
+              <div className="model-cart">
+                <div className="model-cart-top">
+                  <div className="model-cart-top-item">
+                    <div className="model-cart-top-item-left">
+                      <a href="" className="text-[13px]">
+                        Five Feet Apart
+                      </a>
+                      <div className="total">
+                        <span className="">3 x </span>
+                        <span className="">$17.09</span>
+                      </div>
+                    </div>
+                    <div className="model-cart-top-item-right">
+                      <img
+                        className="w-[40px]"
+                        src="https://prestashop17.joommasters.com/molla/img/p/5/8/5/585-home_default_200x310.jpg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className="model-cart-top-item">
+                    <div className="model-cart-top-item-left">
+                      <a href="" className="text-[13px]">
+                        Five Feet Apart
+                      </a>
+                      <div className="total">
+                        <span className="">3 x </span>
+                        <span className="">$17.09</span>
+                      </div>
+                    </div>
+                    <div className="model-cart-top-item-right">
+                      <img
+                        className="w-[40px]"
+                        src="https://prestashop17.joommasters.com/molla/img/p/5/8/5/585-home_default_200x310.jpg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="model-cart-bottom">
+                  <div className="model-cart-bottom-heading">
+                    <span>TOTAL AMOUNT</span>
+                    <span>$900</span>
+                  </div>
+                  <a className="btn-view-cart" href="">
+                    View Cart
+                  </a>
+                </div>
               </div>
             </div>
           </div>
