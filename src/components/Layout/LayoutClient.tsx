@@ -10,20 +10,24 @@ import "../../asset/css/HeaderClient.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/configStore";
 import { fetchCart } from "../store/cart/handlers";
+import { Ibook } from "../../interface/Ibook";
+import { Icart } from "../../interface/Icart";
 const LayoutClient = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
-  const { carts, totalAmount, totalQuantity } = useSelector(
+  const { carts, totalQuantity, totalAmount } = useSelector(
     (state: RootState) => state.cart
   );
+
   const getCart = () => {
     dispatch(fetchCart() as any);
   };
   useEffect(() => {
     void getCart();
   }, [dispatch]);
+  console.log("carts", carts);
 
   useEffect(() => {
     const userDataString = sessionStorage.getItem("userData") ?? "";
@@ -39,20 +43,6 @@ const LayoutClient = () => {
       }
     } else {
       setIsLoggedIn(false);
-    }
-  }, []);
-  useEffect(() => {
-    const userId = JSON.parse(sessionStorage.getItem("userData"));
-    const id = userId?.user._id;
-    if (id !== "") {
-      getAllCart(id)
-        .then(({ data }) => {
-          const totalQuatity = data.totalQuantity;
-          setQuantity(totalQuatity);
-        })
-        .catch((error) => {
-          toast.error(error.response.data.message);
-        });
     }
   }, []);
   useEffect(() => {
@@ -154,51 +144,40 @@ const LayoutClient = () => {
               </div>
               <div className="model-cart">
                 <div className="model-cart-top">
-                  <div className="model-cart-top-item">
-                    <div className="model-cart-top-item-left">
-                      <a href="" className="text-[13px]">
-                        Five Feet Apart
-                      </a>
-                      <div className="total">
-                        <span className="">3 x </span>
-                        <span className="">$17.09</span>
+                  {carts.map((item: any) => {
+                    return (
+                      <div className="model-cart-top-item">
+                        <div className="model-cart-top-item-left">
+                          <Link
+                            to={`product/${item.productId._id}`}
+                            className="text-[13px]"
+                          >
+                            {item.productId.name}
+                          </Link>
+                          <div className="total">
+                            <span className="">{item.quantity} x </span>
+                            <span className="">${item.productId.price}</span>
+                          </div>
+                        </div>
+                        <div className="model-cart-top-item-right">
+                          <img
+                            className="w-[40px]"
+                            src={item.productId.image}
+                            alt=""
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="model-cart-top-item-right">
-                      <img
-                        className="w-[40px]"
-                        src="https://prestashop17.joommasters.com/molla/img/p/5/8/5/585-home_default_200x310.jpg"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="model-cart-top-item">
-                    <div className="model-cart-top-item-left">
-                      <a href="" className="text-[13px]">
-                        Five Feet Apart
-                      </a>
-                      <div className="total">
-                        <span className="">3 x </span>
-                        <span className="">$17.09</span>
-                      </div>
-                    </div>
-                    <div className="model-cart-top-item-right">
-                      <img
-                        className="w-[40px]"
-                        src="https://prestashop17.joommasters.com/molla/img/p/5/8/5/585-home_default_200x310.jpg"
-                        alt=""
-                      />
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
                 <div className="model-cart-bottom">
                   <div className="model-cart-bottom-heading">
                     <span>TOTAL AMOUNT</span>
-                    <span>$900</span>
+                    <span>${totalAmount}</span>
                   </div>
-                  <a className="btn-view-cart" href="">
+                  <Link to={"/cart"} className="btn-view-cart">
                     View Cart
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
