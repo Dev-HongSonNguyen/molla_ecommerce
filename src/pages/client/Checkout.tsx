@@ -35,7 +35,8 @@ const Checkout = () => {
   });
 
   useEffect(() => {
-    const getUser = JSON.parse(sessionStorage.getItem("userData")) || [];
+    const userDataString = sessionStorage.getItem("userData");
+    const getUser = userDataString ? JSON.parse(userDataString) : [];
     const userData = getUser.user;
     setUser(userData);
   }, []);

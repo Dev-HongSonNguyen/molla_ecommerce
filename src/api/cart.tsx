@@ -1,10 +1,10 @@
 import { Ibook } from "../interface/Ibook";
 import instance from "./instance";
-const addToCart = (product: Ibook, users: any) => {
+const addToCart = (product: Ibook, users: any, quantity: number) => {
   return instance.post("/cart", {
     productId: product._id,
     userId: users._id,
-    quantity: 1,
+    quantity: quantity || 1,
   });
 };
 const getAllCart = (idUser: any) => {
