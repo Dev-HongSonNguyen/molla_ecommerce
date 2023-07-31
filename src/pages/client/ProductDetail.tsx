@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
 import "../../asset/css/ProductDetail.css";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getOneBook } from "../../api/book";
+import jwtDecode from "jwt-decode";
+import { addToCart } from "../../api/cart";
+import { toast } from "react-toastify";
 import { Ibook } from "../../interface/Ibook";
+interface DecodedToken {
+  _id: string;
+}
 const ProductDetail = () => {
   const [book, setBook] = useState<any>({});
+  const [quantity, setQuantity] = useState<number>(1);
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     getOneBook(id).then(({ data }) => {
@@ -14,7 +22,30 @@ const ProductDetail = () => {
     });
   }, [id]);
   console.log(book);
-
+  const getCurrentUserId = () => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token) as DecodedToken;
+      const userId = decodedToken._id;
+      return userId;
+    }
+    return null;
+  };
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+    setQuantity(value);
+  };
+  const addCart = async (product: Ibook) => {
+    try {
+      const userId = getCurrentUserId();
+      await addToCart(product, userId, quantity);
+      toast.success("Thêm sản phẩm vào giỏ hàng thành công");
+      ("/cart");
+      navigate("/cart");
+    } catch (error) {
+      toast.error("Bạn cần đăng nhập");
+    }
+  };
   return (
     <div>
       <Banner>Product Detail</Banner>
@@ -44,11 +75,13 @@ const ProductDetail = () => {
                   min={1}
                   placeholder={"1"}
                   defaultValue={1}
+                  value={quantity}
+                  onChange={handleQuantityChange}
                 />
               </div>
               <button className="add-to-cart">
                 <span className="material-icons">add_shopping_cart</span>
-                <span>ADD TO CART</span>
+                <button onClick={() => addCart(book)}>ADD TO CART</button>
               </button>
               <span className="in-stock">
                 <svg

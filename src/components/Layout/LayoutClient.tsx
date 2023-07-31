@@ -47,16 +47,21 @@ const LayoutClient = () => {
   }, []);
   useEffect(() => {
     function handleScroll() {
-      if (
-        document.body.scrollTop > 20 ||
-        document.documentElement.scrollTop > 20
-      ) {
-        document.getElementById("myBtn").style.display = "block";
-      } else {
-        document.getElementById("myBtn").style.display = "none";
+      const myButton = document.getElementById("myBtn");
+      if (myButton instanceof HTMLElement) {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          myButton.style.display = "block";
+        } else {
+          myButton.style.display = "none";
+        }
       }
     }
+
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -68,8 +73,8 @@ const LayoutClient = () => {
   }
   const handleLogout = () => {
     setTimeout(() => {
-      toast.success("Đăng xuất thành công");
       navigate("/signin");
+      toast.success("Đăng xuất thành công");
     }, 1900);
     setTimeout(() => {
       setIsLoggedIn(false);

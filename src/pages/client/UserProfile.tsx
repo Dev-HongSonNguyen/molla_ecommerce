@@ -2,7 +2,8 @@ import React from "react";
 import "../../asset/css/profile.css";
 import Banner from "../../components/Banner/Banner";
 const UserProfile = () => {
-  const getUserData = JSON.parse(sessionStorage.getItem("userData"));
+  const userDataString = sessionStorage.getItem("userData");
+  const getUserData = userDataString ? JSON.parse(userDataString) : null;
   const dataUser = getUserData ? getUserData.user : {};
   return (
     <div>
