@@ -151,7 +151,7 @@ const LayoutClient = () => {
                 <div className="model-cart-top">
                   {carts.map((item: any) => {
                     return (
-                      <div className="model-cart-top-item">
+                      <div className="model-cart-top-item" key={item._id}>
                         <div className="model-cart-top-item-left">
                           <Link
                             to={`product/${item.productId._id}`}

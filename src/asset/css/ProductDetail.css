@@ -83,6 +83,7 @@
   text-transform: uppercase;
   gap: 5px;
   font-weight: bold;
+  width: 200px;
 }
 .in-stock {
   display: flex;

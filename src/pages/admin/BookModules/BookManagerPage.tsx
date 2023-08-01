@@ -120,7 +120,7 @@ const BookManagerPage = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a
+          <span
             style={{
               backgroundColor: "#1cc0a0",
               display: "flex",
@@ -132,8 +132,8 @@ const BookManagerPage = () => {
           >
             <EditOutlined />
             <Link to={`/admin/book/update/${record._id}`}>Update</Link>
-          </a>
-          <a
+          </span>
+          <span
             style={{
               border: "1px solid #1cc0a0",
               display: "flex",
@@ -141,11 +141,12 @@ const BookManagerPage = () => {
               gap: "5px",
               padding: "5px 10px",
               color: "#1cc0a0",
+              cursor: "pointer",
             }}
             onClick={() => handleDelete(record._id)}
           >
             Delete
-          </a>
+          </span>
         </Space>
       ),
     },

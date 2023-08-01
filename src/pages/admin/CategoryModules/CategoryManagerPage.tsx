@@ -58,7 +58,7 @@ const CategoyManagerPage = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a
+          <span
             style={{
               backgroundColor: "#1cc0a0",
               display: "flex",
@@ -70,8 +70,8 @@ const CategoyManagerPage = () => {
           >
             <EditOutlined />
             <Link to={`/admin/category/update/${record._id}`}>Update</Link>
-          </a>
-          <a
+          </span>
+          <span
             style={{
               border: "1px solid #1cc0a0",
               display: "flex",
@@ -83,7 +83,7 @@ const CategoyManagerPage = () => {
             onClick={() => handleDelete(record._id)}
           >
             Delete
-          </a>
+          </span>
         </Space>
       ),
     },

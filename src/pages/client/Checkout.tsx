@@ -158,7 +158,10 @@ const Checkout = () => {
                   <ul className="-my-4 divide-y divide-gray-100">
                     {carts.map((item: any) => {
                       return (
-                        <li className="flex items-center gap-4 py-4 bg-[#ffffff] px-[30px] mb-2">
+                        <li
+                          className="flex items-center gap-4 py-4 bg-[#ffffff] px-[30px] mb-2"
+                          key={item._id}
+                        >
                           <img
                             src={item.productId.image}
                             alt=""
