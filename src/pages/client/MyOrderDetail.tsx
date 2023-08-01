@@ -48,7 +48,7 @@ const MyOrderDetail = () => {
           <tbody className="divide-y divide-gray-200">
             {orderDetails.map((item: any, index: any) => {
               return (
-                <tr>
+                <tr key={item._id}>
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                     {index + 1}
                   </td>

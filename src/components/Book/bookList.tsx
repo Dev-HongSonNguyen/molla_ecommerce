@@ -15,8 +15,8 @@ const BookList = () => {
     <div className="">
       <Heading>List Product</Heading>
       <div className="product-elem">
-        {book.map((item) => (
-          <BookItem data={item}></BookItem>
+        {book.map((item: any) => (
+          <BookItem data={item} key={item._id}></BookItem>
         ))}
       </div>
     </div>

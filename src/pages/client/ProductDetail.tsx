@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
 import "../../asset/css/ProductDetail.css";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getOneBook } from "../../api/book";
 import jwtDecode from "jwt-decode";
 import { addToCart } from "../../api/cart";
@@ -73,16 +73,15 @@ const ProductDetail = () => {
                 <input
                   type="number"
                   min={1}
-                  placeholder={"1"}
-                  defaultValue={1}
+                  placeholder="1"
                   value={quantity}
                   onChange={handleQuantityChange}
                 />
               </div>
-              <button className="add-to-cart">
+              <div className="add-to-cart">
                 <span className="material-icons">add_shopping_cart</span>
                 <button onClick={() => addCart(book)}>ADD TO CART</button>
-              </button>
+              </div>
               <span className="in-stock">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

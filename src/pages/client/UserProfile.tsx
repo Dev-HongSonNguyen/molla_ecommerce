@@ -1,10 +1,12 @@
 import React from "react";
 import "../../asset/css/profile.css";
 import Banner from "../../components/Banner/Banner";
+
 const UserProfile = () => {
   const userDataString = sessionStorage.getItem("userData");
   const getUserData = userDataString ? JSON.parse(userDataString) : null;
   const dataUser = getUserData ? getUserData.user : {};
+
   return (
     <div>
       <Banner>Profile</Banner>
@@ -13,7 +15,7 @@ const UserProfile = () => {
           <div className="bread-crumnb">
             <span>Home</span>
             <span>&gt;</span>
-            <span>Acount</span>
+            <span>Account</span>
             <span>&gt;</span>
             <span>Information</span>
           </div>
@@ -29,11 +31,11 @@ const UserProfile = () => {
             </div>
             <div className="form-item">
               <label htmlFor="">Name</label>
-              <input type="text" value={dataUser.name || ""} />
+              <input type="text" defaultValue={dataUser.name || ""} />
             </div>
             <div className="form-item">
               <label htmlFor="">Email</label>
-              <input type="email" value={dataUser.email || ""} />
+              <input type="email" defaultValue={dataUser.email || ""} />
             </div>
             <a className="handelSubmit-infor" href="">
               Update Information

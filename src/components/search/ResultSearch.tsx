@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LoadingSearch from "../Common/LoadingSearch";
+
 const ResultSearch = ({
   data,
   show = true,
@@ -14,7 +15,7 @@ const ResultSearch = ({
     <>
       {show && (
         <div>
-          {loading && <LoadingSearch></LoadingSearch>}
+          {loading && <LoadingSearch />}
           {data.length > 0
             ? data.map((item: any) => (
                 <Link to={`/product/${item._id}`} key={item._id}>
