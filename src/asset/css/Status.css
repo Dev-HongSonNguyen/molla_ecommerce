@@ -1,0 +1,9 @@
+select option[value="Paid"] {
+  color: green;
+}
+select option[value="Pending"] {
+  color: orange;
+}
+select option:not([value="Paid"]):not([value="Pending"]) {
+  color: black;
+}

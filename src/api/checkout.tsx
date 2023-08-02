@@ -14,3 +14,6 @@ export const getOneOrder = (id: any) => {
 export const deleteOrder = (id: any) => {
   return instance.delete("/checkout/" + id);
 };
+export const updateOrder = (order: any) => {
+  return instance.put(`/checkout/${order._id}`, order);
+};
