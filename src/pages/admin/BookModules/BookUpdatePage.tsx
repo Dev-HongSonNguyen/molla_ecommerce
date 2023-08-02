@@ -26,13 +26,13 @@ const BookUpdatePage = () => {
     });
   }, []);
   // call api update book
-  const updBook = (book: Ibook) => {
+  const updBook = async (book: Ibook) => {
     try {
-      updateBook(book);
+      await updateBook(book);
       navigate("/admin/book");
       toast.success("Update sản phẩm thành công");
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
   useEffect(() => {

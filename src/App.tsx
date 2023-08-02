@@ -7,6 +7,7 @@ import SignupPage from "./pages/client/SignupPage";
 import SigninPage from "./pages/client/SigninPage";
 import PageNotFound from "./pages/PageNotFound";
 import UserManagerPage from "./pages/admin/UserModules/UserManagerPage";
+import UserUpdatePage from "./pages/admin/UserModules/UserUpdatePage";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -77,8 +78,7 @@ function App() {
             </Route>
             <Route path="user">
               <Route index element={<UserManagerPage />} />
-              {/* <Route path=":id" element={<OrderDetailPage />} />
-              <Route path="user/:id" element={<OrderUpdatePage />} /> */}
+              <Route path="update/:id" element={<UserUpdatePage />} />
             </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />

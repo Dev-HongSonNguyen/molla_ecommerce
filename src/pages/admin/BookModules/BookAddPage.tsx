@@ -31,13 +31,13 @@ const BookAddPage = () => {
     resolver: yupResolver(schema),
   });
   // call api addBook
-  const addNewBook = (product: Ibook) => {
+  const addNewBook = async (product: Ibook) => {
     try {
-      addBook(product);
+      await addBook(product);
       navigate("/admin/book");
       toast.success("Thêm sản phẩm thành công !");
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
   // call api category list

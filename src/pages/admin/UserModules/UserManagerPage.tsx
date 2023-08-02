@@ -3,31 +3,46 @@ import { EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Table, { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../../../api/user";
+import { deleteUser, getAllUsers } from "../../../api/user";
+import { toast } from "react-toastify";
 
 const UserManagerPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [userIdToDelete, setUserIdToDelete] = useState("");
   const [user, setUser] = useState([]);
   useEffect(() => {
     getAllUsers().then(({ data }) => {
       setUser(data.data);
     });
   }, []);
-  console.log("userData", user);
+  const DelUser = async (id: string) => {
+    try {
+      await deleteUser(id).then(() => {
+        const newUser = user.filter((item: any) => item._id !== id);
+        setUser(newUser);
+      });
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
 
-  const showNotification = () => {
-    notification.success({
-      message: "Xóa dữ liệu thành công",
-      duration: 2,
-    });
+  const handleDelete = (id: string) => {
+    setIsModalVisible(true);
+    setUserIdToDelete(id);
   };
   const handleConfirmDelete = () => {
-    // DelBook(productIdToDelete);
+    DelUser(userIdToDelete);
     setIsModalVisible(false);
     showNotification();
   };
   const handleCancelDelete = () => {
     setIsModalVisible(false);
+  };
+  const showNotification = () => {
+    notification.success({
+      message: "Xóa dữ liệu thành công",
+      duration: 2,
+    });
   };
   const columns: ColumnsType<any> = [
     {
@@ -61,7 +76,7 @@ const UserManagerPage = () => {
             }}
           >
             <EditOutlined />
-            <Link to={`/admin/order/update/${record._id}`}>Update</Link>
+            <Link to={`/admin/user/update/${record._id}`}>Update</Link>
           </span>
           <span
             style={{
@@ -73,7 +88,7 @@ const UserManagerPage = () => {
               color: "#1cc0a0",
               cursor: "pointer",
             }}
-            // onClick={() => handleDelete(record._id)}
+            onClick={() => handleDelete(record._id)}
           >
             Delete
           </span>

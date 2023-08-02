@@ -1,55 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { getAllUsers, updateUser } from "../../../api/user";
 import "../../../asset/css/Form.css";
-import { getAllOrder, updateOrder } from "../../../api/checkout";
 import { toast } from "react-toastify";
-const Status = [
-  "Pending confirmation",
-  "Processing",
-  "Out for delivery",
-  "Delivered successfully",
-  "Delivery failed",
-  "Cancelled",
-];
-
-const OrderUpdatePage = () => {
+const role = ["admin", "member"];
+const UserUpdatePage = () => {
   const { id } = useParams();
-  const [order, setOrder] = useState([]);
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   useEffect(() => {
-    getAllOrder().then(({ data }) => {
-      setOrder(data.orders);
+    getAllUsers().then(({ data }) => {
+      setUser(data.data);
     });
   }, []);
-  const updateOrderStatus = async (order: any) => {
+  const updatRoleUser = async (user: any) => {
     try {
-      await updateOrder(order);
-      navigate("/admin/order");
-      toast.success("Cập nhật trạng thái thành công");
+      await updateUser(user);
+      navigate("/admin/user");
+      toast.success("Cập nhật vai trò thành công");
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };
   useEffect(() => {
-    const getOneOrder = order.find((item: any) => item._id === id);
-    if (getOneOrder) {
-      reset(getOneOrder);
+    const getOneUser = user.find((item: any) => item._id === id);
+    if (getOneUser) {
+      reset(getOneUser);
     }
-  }, [order, id]);
+  }, [user, id]);
   const onSubmit = async (data: any) => {
-    await updateOrderStatus(data);
+    updatRoleUser(data);
   };
   return (
     <div>
       <section className="content-main">
-        <h1>Update Status Order</h1>
+        <h1>Update Role User</h1>
         <form action="" className="form-add" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-basic-elem">
             <div className="form-basic-elem-item">
-              <select id="paymentStatus" {...register("paymentStatus")}>
-                {Status.map((status: any) => {
+              <select id="role" {...register("role")}>
+                {role.map((status: any) => {
                   return (
                     <option key={status} value={status}>
                       {status}
@@ -58,14 +50,13 @@ const OrderUpdatePage = () => {
                 })}
               </select>
             </div>
-            {/* {...register("paymentStatus")} */}
           </div>
           <div className="form-media-elem"></div>
-          <button className="form-submit">Update status</button>
+          <button className="form-submit">Update role</button>
         </form>
       </section>
     </div>
   );
 };
 
-export default OrderUpdatePage;
+export default UserUpdatePage;

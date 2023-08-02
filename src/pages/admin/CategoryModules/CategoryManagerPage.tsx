@@ -5,6 +5,7 @@ import { Icategory } from "../../../interface/Icategory";
 import { EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { deleteCategory, getAllCategory } from "../../../api/category";
+import { toast } from "react-toastify";
 interface CategoyManagerPage {
   cateData: Icategory[];
   setCate: any;
@@ -19,14 +20,14 @@ const CategoyManagerPage = () => {
       setCategory(data.category);
     });
   }, []);
-  const DelCategory = (id: string) => {
+  const DelCategory = async (id: string) => {
     try {
-      deleteCategory(id).then(() => {
+      await deleteCategory(id).then(() => {
         const newCate = category.filter((item: any) => item._id !== id);
         setCategory(newCate);
       });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
   const handleDelete = (id: string) => {

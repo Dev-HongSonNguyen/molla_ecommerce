@@ -8,13 +8,13 @@ const CategoryAddPage = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   // call api add cate
-  const addNewCate = (cate: Icategory) => {
+  const addNewCate = async (cate: Icategory) => {
     try {
-      addCategory(cate);
+      await addCategory(cate);
       navigate("/admin/category");
       toast.success("Thêm danh mục thành công");
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
   const onSubmit = (data: any) => {

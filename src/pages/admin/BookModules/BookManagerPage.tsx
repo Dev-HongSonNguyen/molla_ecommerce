@@ -10,6 +10,7 @@ import "aos/dist/aos.css";
 import { Aos } from "aos";
 import { Link } from "react-router-dom";
 import { getAllCategory } from "../../../api/category";
+import { toast } from "react-toastify";
 const BookManagerPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState("");
@@ -35,14 +36,14 @@ const BookManagerPage = () => {
     return cateGetName ? cateGetName.name : "No Category";
   };
   // call api delete book
-  const DelBook = (id: string) => {
+  const DelBook = async (id: string) => {
     try {
-      deleteBook(id).then(() => {
+      await deleteBook(id).then(() => {
         const newBook = book.filter((item: any) => item._id !== id);
         setBook(newBook);
       });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
   // render Description
@@ -52,6 +53,12 @@ const BookManagerPage = () => {
       return text.substring(0, maxLength) + "...";
     }
     return text;
+  };
+  const showNotification = () => {
+    notification.success({
+      message: "Xóa dữ liệu thành công",
+      duration: 2,
+    });
   };
   const handleDelete = (id: string) => {
     setIsModalVisible(true);
@@ -65,12 +72,7 @@ const BookManagerPage = () => {
   const handleCancelDelete = () => {
     setIsModalVisible(false);
   };
-  const showNotification = () => {
-    notification.success({
-      message: "Xóa dữ liệu thành công",
-      duration: 2,
-    });
-  };
+
   const columns: ColumnsType<Ibook> = [
     {
       title: "Image",

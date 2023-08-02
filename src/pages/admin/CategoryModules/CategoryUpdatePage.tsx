@@ -15,13 +15,13 @@ const CategoryUpdatePage = () => {
       setCategory(data.category);
     });
   }, []);
-  const updateCate = (cate: Icategory) => {
+  const updateCate = async (cate: Icategory) => {
     try {
-      updateCategory(cate);
+      await updateCategory(cate);
       navigate("/admin/category");
       toast.success("Update danh mục thành công");
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
   useEffect(() => {

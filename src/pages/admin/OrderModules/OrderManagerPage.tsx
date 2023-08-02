@@ -129,10 +129,11 @@ const OrderManagerPage = () => {
               gap: "5px",
               padding: "5px 10px",
               color: "#1cc0a0",
+              cursor: "pointer",
             }}
             // onClick={() => handleDelete(record._id)}
           >
-            Delete
+            Cancel
           </span>
         </Space>
       ),
