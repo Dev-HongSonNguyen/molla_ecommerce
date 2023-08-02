@@ -10,7 +10,6 @@ const OrderManagerPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [order, setOrder] = useState([]);
   const [user, setUser] = useState([]);
-  //call api lấy dũ liệu order
   useEffect(() => {
     getAllOrder().then(({ data }) => {
       const dataOrder = data.orders;
@@ -18,24 +17,16 @@ const OrderManagerPage = () => {
     });
   }, []);
   console.log("order", order);
-
-  //call api lấy thông tin user
   useEffect(() => {
     getAllUsers().then(({ data }) => {
       setUser(data.data);
     });
   }, []);
   console.log("user", user);
-
-  //getNameUser
   const getNameUser = (userId: any) => {
-    const getName = user.find((category: any) => category._id === userId);
-    return getName ? getName.name : "No Name";
+    const getName = user.find((user: any) => user._id === userId);
+    return getName ? getName?.name : "No Name";
   };
-  //   const getEmailUser = (userId: any) => {
-  //     const getEmail = user.find((category: any) => category._id === userId);
-  //     return getEmail ? getEmail.email : "No Email";
-  //   };
   const renderDescription = (text: any) => {
     const maxLength = 50;
     if (text.length > maxLength) {
@@ -64,12 +55,6 @@ const OrderManagerPage = () => {
       key: "userId",
       render: (userId) => <span>{getNameUser(userId)}</span>,
     },
-    // {
-    //   title: "Email",
-    //   dataIndex: "userId",
-    //   key: "userId",
-    //   render: (userId) => <span>{getEmailUser(userId)}</span>,
-    // },
     {
       title: "Phone Number",
       dataIndex: "phoneNumber",
@@ -134,7 +119,7 @@ const OrderManagerPage = () => {
             }}
           >
             <EditOutlined />
-            <Link to={`/admin/book/update/${record._id}`}>Update</Link>
+            <Link to={`/admin/order/update/${record._id}`}>Update</Link>
           </span>
           <span
             style={{

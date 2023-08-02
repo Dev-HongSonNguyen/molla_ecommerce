@@ -63,47 +63,62 @@ const CartPage = () => {
       <section className="content-cart">
         <div className="content-cart-elem">
           <div className="content-cart-right">
-            <table>
-              <thead className="bg-[#f8f8f8]">
-                <tr className="">
-                  <th className="px-3 py-3">Image</th>
-                  <th className="px-3 py-3">Name</th>
-                  <th className="px-3 py-3">Price</th>
-                  <th className="px-3 py-3">Quantity</th>
-                  <th className="px-3 py-3">Total</th>
-                  <th className="px-3 py-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {carts.length > 0 &&
-                  carts.map((item: any) => {
-                    console.log(item);
-                    const product = book.find((book) => {
-                      return book._id === item.productId._id;
-                    });
-                    return (
-                      <tr key={item._id}>
-                        <td>
-                          <img
-                            style={{ width: "50px" }}
-                            src={product?.image}
-                            alt=""
-                          />
-                        </td>
-                        <td>{product?.name}</td>
-                        <td>${product?.price}</td>
-                        <td>{item.quantity}</td>
-                        <td>${item.totalPrice}</td>
-                        <td>
-                          <button onClick={() => removeCart(item._id)}>
-                            <SvgDelete></SvgDelete>
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+            {carts.length > 0 ? (
+              <table>
+                <thead className="bg-[#f8f8f8] px-3">
+                  <tr className="">
+                    <th className="py-3">Image</th>
+                    <th className="py-3">Name</th>
+                    <th className="py-3">Price</th>
+                    <th className="py-3">Quantity</th>
+                    <th className="py-3">Total</th>
+                    <th className="py-3">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {carts.length > 0 &&
+                    carts.map((item: any) => {
+                      console.log(item);
+                      const product = book.find((book) => {
+                        return book._id === item.productId._id;
+                      });
+                      return (
+                        <tr key={item._id}>
+                          <td>
+                            <img
+                              style={{ width: "50px" }}
+                              src={product?.image}
+                              alt=""
+                            />
+                          </td>
+                          <td>{product?.name}</td>
+                          <td>${product?.price}</td>
+                          <td>{item.quantity}</td>
+                          <td>${item.totalPrice}</td>
+                          <td>
+                            <button onClick={() => removeCart(item._id)}>
+                              <SvgDelete></SvgDelete>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            ) : (
+              <div className="bg-[#f8f8f8]">
+                <div className="pt-6 pb-8">
+                  <p className="text-center text-[12px]">
+                    There are no products in the cart!
+                  </p>
+                  <img
+                    className="max-w-[100px] mx-auto"
+                    src="https://dominos.vn/img/illustration/empty-cart.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <div className="content-cart-left">
             <div className="content-cart-left-elem">
