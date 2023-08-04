@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
 import { getOneOrder } from "../../api/checkout";
 import { useParams } from "react-router-dom";

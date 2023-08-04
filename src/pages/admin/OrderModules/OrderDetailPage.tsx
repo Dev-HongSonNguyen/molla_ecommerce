@@ -30,12 +30,12 @@ const OrderDetailPage = () => {
   }, [id]);
   console.log("orderDetail", orderDetail);
   const getNameBook = (productId: any) => {
-    const getName = book.find((item: any) => item._id === productId._id);
+    const getName: any = book.find((item: any) => item._id === productId._id);
     console.log("getName", getName);
     return getName ? getName.name : "No Name";
   };
   const getImageBook = (productId: any) => {
-    const getImage = book.find((item: any) => item._id === productId._id);
+    const getImage: any = book.find((item: any) => item._id === productId._id);
     console.log("getImage", getImage);
     return getImage ? getImage.image : "No Name";
   };
