@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
-import "../../asset/css/ProductDetail.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOneBook } from "../../api/book";
 import jwtDecode from "jwt-decode";
 import { addToCart } from "../../api/cart";
 import { toast } from "react-toastify";
 import { Ibook } from "../../interface/Ibook";
+import { Tabs, Tab } from "@mui/material";
+import TabPanel from "../../components/Tab-panel/Tabpanel";
+import "../../asset/css/ProductDetail.css";
 interface DecodedToken {
   _id: string;
 }
@@ -14,7 +16,11 @@ const ProductDetail = () => {
   const [book, setBook] = useState<any>({});
   const [quantity, setQuantity] = useState<number>(1);
   const navigate = useNavigate();
+  const [value, setValue] = useState(0);
   const { id } = useParams();
+  const handleChange = (_event: any, newValue: any) => {
+    setValue(newValue);
+  };
   useEffect(() => {
     getOneBook(id).then(({ data }) => {
       const book = data.product;
@@ -46,6 +52,12 @@ const ProductDetail = () => {
       toast.error("Bạn cần đăng nhập");
     }
   };
+  function a11yProps(index: any) {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  }
   return (
     <div>
       <Banner>Product Detail</Banner>
@@ -106,10 +118,51 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="detail-book-elem-bottom">
-            <div className="detail-book-elem-bottom-box">
-              <h3>Product Information</h3>
-              <p>{book.description}</p>
-            </div>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab
+                label="Description"
+                sx={{
+                  color: value === 0 ? "#1cc0a0" : "#1cc0a0",
+                }}
+                {...a11yProps(0)}
+              />
+              <Tab
+                label="Comment"
+                sx={{
+                  color: value === 1 ? "#1cc0a0" : "#1cc0a0",
+                }}
+                {...a11yProps(1)}
+              />
+            </Tabs>
+            <TabPanel value={value} index={0}>
+              <div className="detail-book-elem-bottom-box">
+                <h3>Product Information</h3>
+                <p>{book.description}</p>
+              </div>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <div className="comment-wrraper">
+                <form className="comment">
+                  <div className="mb-5">
+                    <textarea
+                      name=""
+                      id=""
+                      cols={30}
+                      rows={10}
+                      className="w-full text-[#777777] px-[50px] py-[20px] border outline-none"
+                      placeholder="Viết đánh giá cho sản phẩm này *"
+                    ></textarea>
+                  </div>
+                  <button className="bg-[#1cc0a0] text-white px-5 py-2">
+                    Bình Luận
+                  </button>
+                </form>
+              </div>
+            </TabPanel>
           </div>
         </div>
       </section>
