@@ -76,12 +76,16 @@ const MyOrder = () => {
                       >
                         View
                       </Link>
-                      <button
-                        onClick={() => DelOrder(item._id)}
-                        className="inline-block rounded bg-[#1cc0a0] px-4 py-2 text-xs font-medium text-white"
-                      >
-                        Delete
-                      </button>
+                      {item.paymentStatus !== "Pending confirmation" ? (
+                        ""
+                      ) : (
+                        <button
+                          onClick={() => DelOrder(item._id)}
+                          className="inline-block rounded bg-[#1cc0a0] px-4 py-2 text-xs font-medium text-white"
+                        >
+                          Cancel
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );
