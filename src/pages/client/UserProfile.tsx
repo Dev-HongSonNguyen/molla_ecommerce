@@ -1,6 +1,6 @@
 import React from "react";
-import "../../asset/css/profile.css";
 import Banner from "../../components/Banner/Banner";
+import "../../asset/css/profile.css";
 
 const UserProfile = () => {
   const userDataString = sessionStorage.getItem("userData");

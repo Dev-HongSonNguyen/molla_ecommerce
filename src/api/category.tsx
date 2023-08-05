@@ -3,7 +3,7 @@ import instance from "./instance";
 const getAllCategory = () => {
   return instance.get("/categories");
 };
-const getOneCategory = (id: string) => {
+const getOneCategory = (id: string | undefined) => {
   return instance.get("/categories/" + id);
 };
 const deleteCategory = (id: string) => {

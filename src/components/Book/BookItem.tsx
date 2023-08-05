@@ -12,6 +12,7 @@ interface DecodedToken {
 }
 const BookItem = ({ data }: { data: Ibook }) => {
   const [category, setCategory] = useState<Icategory[]>([]);
+  const navigate = useNavigate();
   useEffect(() => {
     getAllCategory().then(({ data }) => {
       setCategory(data.category);
@@ -21,7 +22,6 @@ const BookItem = ({ data }: { data: Ibook }) => {
     const cate = category.find((category) => category._id === categoryId);
     return cate ? cate.name : "No category";
   };
-  const navigate = useNavigate();
   const getCurrentUserId = () => {
     const token = sessionStorage.getItem("token");
     if (token) {
