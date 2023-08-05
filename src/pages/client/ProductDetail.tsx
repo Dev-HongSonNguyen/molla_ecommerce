@@ -235,7 +235,9 @@ const ProductDetail = () => {
             <TabPanel value={value} index={2}>
               {coment.length === 0 ? (
                 <div className="text-center">
-                  <p className="text-[14px]">There are no comments.</p>
+                  <p className="text-[14px] text-[#777777]">
+                    There are no comments.
+                  </p>
                 </div>
               ) : (
                 <div className="">
