@@ -7,7 +7,6 @@ import { EditOutlined } from "@ant-design/icons";
 import { deleteBook, getAllBook } from "../../../api/book";
 import "../../../asset/css/HeaderAdmin.css";
 import "aos/dist/aos.css";
-import { Aos } from "aos";
 import { Link } from "react-router-dom";
 import { getAllCategory } from "../../../api/category";
 import { toast } from "react-toastify";
@@ -38,9 +37,10 @@ const BookManagerPage = () => {
   // call api delete book
   const DelBook = async (id: string) => {
     try {
-      await deleteBook(id).then(() => {
+      await deleteBook(id).then((response) => {
         const newBook = book.filter((item: any) => item._id !== id);
         setBook(newBook);
+        showNotification(response?.data?.message);
       });
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -54,9 +54,9 @@ const BookManagerPage = () => {
     }
     return text;
   };
-  const showNotification = () => {
+  const showNotification = (message: any) => {
     notification.success({
-      message: "Xóa dữ liệu thành công",
+      message,
       duration: 2,
     });
   };
@@ -64,10 +64,9 @@ const BookManagerPage = () => {
     setIsModalVisible(true);
     setProductIdToDelete(id);
   };
-  const handleConfirmDelete = () => {
-    DelBook(productIdToDelete);
+  const handleConfirmDelete = async () => {
+    await DelBook(productIdToDelete);
     setIsModalVisible(false);
-    showNotification();
   };
   const handleCancelDelete = () => {
     setIsModalVisible(false);

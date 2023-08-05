@@ -24,7 +24,7 @@ const OrderManagerPage = () => {
   }, []);
   console.log("user", user);
   const getNameUser = (userId: any) => {
-    const getName = user.find((user: any) => user._id === userId);
+    const getName: any = user.find((user: any) => user._id === userId);
     return getName ? getName?.name : "No Name";
   };
   const renderDescription = (text: any) => {

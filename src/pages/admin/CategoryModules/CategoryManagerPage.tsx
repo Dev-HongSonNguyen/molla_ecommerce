@@ -22,9 +22,10 @@ const CategoyManagerPage = () => {
   }, []);
   const DelCategory = async (id: string) => {
     try {
-      await deleteCategory(id).then(() => {
+      await deleteCategory(id).then((response) => {
         const newCate = category.filter((item: any) => item._id !== id);
         setCategory(newCate);
+        showNotification(response?.data?.message);
       });
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -34,17 +35,16 @@ const CategoyManagerPage = () => {
     setIsModalVisible(true);
     setCategoryIdToDelete(id);
   };
-  const handleConfirmDelete = () => {
-    DelCategory(categoryIdToDelete);
+  const handleConfirmDelete = async () => {
+    await DelCategory(categoryIdToDelete);
     setIsModalVisible(false);
-    showNotification();
   };
   const handleCancelDelete = () => {
     setIsModalVisible(false);
   };
-  const showNotification = () => {
+  const showNotification = (message: any) => {
     notification.success({
-      message: "Xóa dữ liệu thành công",
+      message,
       duration: 2,
     });
   };
