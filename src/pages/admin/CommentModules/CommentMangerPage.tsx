@@ -6,9 +6,11 @@ import { deleteComment, getAllComment } from "../../../api/comment";
 import { format } from "date-fns";
 import { getAllUsers } from "../../../api/user";
 import { toast } from "react-toastify";
+import { getAllBook } from "../../../api/book";
 const CommentMangerPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState("");
+  const [book, setBook] = useState([]);
   const [user, setUser] = useState([]);
   const [comment, setComment] = useState([]);
   useEffect(() => {
@@ -21,6 +23,13 @@ const CommentMangerPage = () => {
       setUser(data.data);
     });
   }, []);
+  useEffect(() => {
+    getAllBook().then(({ data }) => {
+      const newBook = data.product;
+      setBook(newBook.docs);
+    });
+  }, []);
+
   const DelComment = async (id: string) => {
     try {
       await deleteComment(id).then((response: any) => {
@@ -36,6 +45,10 @@ const CommentMangerPage = () => {
     const getName: any = user.find((user: any) => user._id === userId);
     return getName ? getName?.name : "No Name";
   };
+  const getNameBook = (productId: any) => {
+    const getName: any = book.find((book: any) => book._id === productId);
+    return getName ? getName?.name : "No Name";
+  };
   const handleDelete = (id: string) => {
     setIsModalVisible(true);
     setCommentIdToDelete(id);
@@ -43,7 +56,6 @@ const CommentMangerPage = () => {
   const handleConfirmDelete = async () => {
     await DelComment(commentIdToDelete);
     setIsModalVisible(false);
-    // showNotification(response?.data?.message);
   };
   const handleCancelDelete = () => {
     setIsModalVisible(false);
@@ -59,6 +71,7 @@ const CommentMangerPage = () => {
       title: "Product",
       dataIndex: "productId",
       key: "productId",
+      render: (productId) => <span>{getNameBook(productId)}</span>,
     },
     {
       title: "User",
