@@ -1,25 +1,18 @@
 import React from "react";
+import { Iblog } from "../../interface/Iblog";
 
-const BlogItem = () => {
+const BlogItem = ({ data }: { data: Iblog }) => {
   return (
     <article className="overflow-hidden border border-gray-100 bg-white shadow-sm">
-      <img
-        alt="Office"
-        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        className="h-56 w-full object-cover"
-      />
+      <img alt="Office" src={data.image} className="h-56 w-full object-cover" />
       <div className="p-4 sm:p-6">
         <a href="#">
           <h3 className="text-[16px] font-medium text-gray-900">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            {data.title}
           </h3>
         </a>
         <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 text-xs">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-          dolores, possimus pariatur animi temporibus nesciunt praesentium
-          dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus
-          soluta, voluptates neque explicabo tempora nisi culpa eius atque
-          dignissimos. Molestias explicabo corporis voluptatem?
+          {data.extract}
         </p>
         <a
           href="#"
