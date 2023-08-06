@@ -10,6 +10,9 @@ import UserManagerPage from "./pages/admin/UserModules/UserManagerPage";
 import UserUpdatePage from "./pages/admin/UserModules/UserUpdatePage";
 import CategoryPage from "./pages/client/CategoryPage";
 import CommentMangerPage from "./pages/admin/CommentModules/CommentMangerPage";
+import BlogManagerPage from "./pages/admin/BlogModules/BlogManagerPage";
+import BlogAddPage from "./pages/admin/BlogModules/BlogAddPage";
+import BlogUpdatePage from "./pages/admin/BlogModules/BlogUpdatePage";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -85,6 +88,11 @@ function App() {
             </Route>
             <Route path="comment">
               <Route index element={<CommentMangerPage />} />
+            </Route>
+            <Route path="blog">
+              <Route index element={<BlogManagerPage />} />
+              <Route path="add" element={<BlogAddPage />} />
+              <Route path="update/:id" element={<BlogUpdatePage />} />
             </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
