@@ -13,9 +13,8 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>({});
   const dispatch = useDispatch();
-  const { carts, totalAmount, totalQuantity } = useSelector(
-    (state: RootState) => state.cart
-  );
+  const { carts, totalAmount } = useSelector((state: RootState) => state.cart);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const schema = yup.object().shape({
     shippingAddress: yup.string().required("Vui lòng nhập địa chỉ"),
     phoneNumber: yup
@@ -47,6 +46,7 @@ const Checkout = () => {
     void getCart();
   }, [dispatch]);
   const handelCheckout = async (values: any) => {
+    setIsAddingToCart(true);
     try {
       const userId = user._id;
       const formData = {
@@ -138,8 +138,20 @@ const Checkout = () => {
                   />
                 </div>
                 <div className="col-span-6">
-                  <button className="block w-full p-3 bg-[#1cc0b0] p-2.5 text-sm text-white transition hover:shadow-lg">
-                    Checkout Now
+                  <button
+                    className="block w-full p-3 bg-[#1cc0b0] p-2.5 text-sm text-white transition hover:shadow-lg"
+                    disabled={isAddingToCart}
+                  >
+                    {isAddingToCart ? (
+                      <>
+                        <div className="flex items-center gap-2 justify-center">
+                          <span className="material-icons">cached</span>{" "}
+                          <span>Loading...</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>Checkout Now</>
+                    )}
                   </button>
                 </div>
               </form>

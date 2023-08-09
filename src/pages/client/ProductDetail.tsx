@@ -26,6 +26,7 @@ const ProductDetail = () => {
   const [coment, setComent] = useState([]);
   const [quantityComment, setQuantityComment] = useState(0);
   const [value, setValue] = useState(0);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [renderPage, setRenderPage] = useState(false);
   const [user, setUser] = useState([]);
   const { id } = useParams();
@@ -71,6 +72,7 @@ const ProductDetail = () => {
     setQuantity(value);
   };
   const addCart = async (product: Ibook) => {
+    setIsAddingToCart(true);
     try {
       const userId = getCurrentUserId();
       await addToCart(product, userId, quantity);
@@ -142,8 +144,22 @@ const ProductDetail = () => {
                 />
               </div>
               <div className="add-to-cart">
-                <span className="material-icons">add_shopping_cart</span>
-                <button onClick={() => addCart(book)}>ADD TO CART</button>
+                <button
+                  onClick={() => addCart(book)}
+                  disabled={isAddingToCart}
+                  className="flex items-center gap-2"
+                >
+                  {isAddingToCart ? (
+                    <>
+                      <span className="material-icons">cached</span> Loading...
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-icons">add_shopping_cart</span>{" "}
+                      ADD TO CART
+                    </>
+                  )}
+                </button>
               </div>
               <span className="in-stock">
                 <svg
