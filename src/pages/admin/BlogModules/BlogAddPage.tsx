@@ -2,10 +2,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Iblog } from "../../../interface/Iblog";
 import { addBlog } from "../../../api/blog";
 import { useNavigate } from "react-router-dom";
+import { uploadImage } from "../../../api/upload";
 const schema = yup.object().shape({
   title: yup.string().required("Vui lòng nhập vào trường title"),
   image: yup.string().required("Vui lòng nhập vào trường image"),
@@ -13,6 +14,7 @@ const schema = yup.object().shape({
 });
 const BlogAddPage = () => {
   const navigate = useNavigate();
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const {
     register,
     formState: { errors, isValid },
@@ -21,7 +23,26 @@ const BlogAddPage = () => {
     mode: "onSubmit",
     resolver: yupResolver(schema),
   });
-  const addNewBlog = async (blog: Iblog) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const imageFile = e.target.files[0];
+      const formData = new FormData();
+      formData.append("images", imageFile);
+
+      try {
+        const response = uploadImage(formData).then(({ data }) => {
+          const URL = data.urls;
+          const listUrl = URL.map((item: any) => {
+            return item.url;
+          });
+          setUploadedImageUrl(listUrl);
+        });
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
+  const addNewBlog = async (blog: any) => {
     try {
       await addBlog(blog);
       navigate("/admin/blog");
@@ -31,7 +52,12 @@ const BlogAddPage = () => {
     }
   };
   const onSubmit = (data: any) => {
-    addNewBlog(data);
+    const blogData = {
+      title: data.title,
+      image: uploadedImageUrl[0],
+      extract: data.extract,
+    };
+    addNewBlog(blogData);
   };
   useEffect(() => {
     const arrayError = Object.values(errors);
@@ -59,11 +85,20 @@ const BlogAddPage = () => {
           <div className="form-media-elem">
             <div className="form-media-elem-item">
               <img
-                src="https://res.cloudinary.com/dwzh9i6xf/image/upload/v1688962909/BookShopMolla/upload_sorws1.svg"
+                src={
+                  uploadedImageUrl ||
+                  "https://res.cloudinary.com/dwzh9i6xf/image/upload/v1688962909/BookShopMolla/upload_sorws1.svg"
+                }
                 alt=""
+                className="w-[100%]"
               />
-              <label htmlFor="">Image</label>
-              <input className="image" type="text" {...register("image")} />
+              <input
+                className="image mt-[10px]"
+                type="file"
+                accept="image/*"
+                {...register("image")}
+                onChange={handleImageChange}
+              />
             </div>
           </div>
           <button className="form-submit">Create new blog</button>

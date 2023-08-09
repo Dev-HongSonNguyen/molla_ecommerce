@@ -12,6 +12,7 @@ interface DecodedToken {
 }
 const BookItem = ({ data }: { data: Ibook }) => {
   const [category, setCategory] = useState<Icategory[]>([]);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     getAllCategory().then(({ data }) => {
@@ -32,6 +33,7 @@ const BookItem = ({ data }: { data: Ibook }) => {
     return null;
   };
   const addCart = async (product: Ibook) => {
+    setIsAddingToCart(true);
     try {
       const quantity = 1;
       const userId = getCurrentUserId();
@@ -70,8 +72,18 @@ const BookItem = ({ data }: { data: Ibook }) => {
           <button
             className="flex items-center gap-2"
             onClick={() => addCart(data)}
+            disabled={isAddingToCart}
           >
-            <span className="material-icons">add_shopping_cart</span>ADD TO CART
+            {isAddingToCart ? (
+              <>
+                <span className="material-icons">cached</span> Loading...
+              </>
+            ) : (
+              <>
+                <span className="material-icons">add_shopping_cart</span> ADD TO
+                CART
+              </>
+            )}
           </button>
         </div>
       </div>
