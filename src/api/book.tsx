@@ -15,4 +15,14 @@ const updateBook = (product: Ibook) => {
 const addBook = (product: Ibook) => {
   return instance.post("/products", product);
 };
-export { getAllBook, getOneBook, deleteBook, updateBook, addBook };
+const getBookByCategory = (categoryId: string) => {
+  return instance.get(`/productByCategory?categoryId=${categoryId}`);
+};
+export {
+  getAllBook,
+  getOneBook,
+  deleteBook,
+  updateBook,
+  addBook,
+  getBookByCategory,
+};

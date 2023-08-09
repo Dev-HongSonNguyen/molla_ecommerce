@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
-import { useNavigate, useParams } from "react-router-dom";
-import { getOneBook } from "../../api/book";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getAllBook, getOneBook } from "../../api/book";
 import jwtDecode from "jwt-decode";
 import { addToCart } from "../../api/cart";
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ import StarList from "../../components/Star/StarList";
 import IconCheck from "../../components/Icon/IconCheck";
 import { getAllUsers } from "../../api/user";
 import "../../asset/css/ProductDetail.css";
+import BookRelated from "../../components/Book/BookRelated";
 interface DecodedToken {
   _id: string;
 }
@@ -35,9 +36,12 @@ const ProductDetail = () => {
   useEffect(() => {
     getOneBook(id).then(({ data }) => {
       const book = data.product;
+      const bookListMain = book.categoryId.products;
       setBook(book);
     });
   }, [id, renderPage]);
+  console.log("book", book);
+
   useEffect(() => {
     getCommentByProductId(id).then(({ data }) => {
       setQuantityComment(data.commentCount);
@@ -269,6 +273,12 @@ const ProductDetail = () => {
                 </div>
               )}
             </TabPanel>
+          </div>
+          <div className="pt-10">
+            <h5 className="text-[#333333] text-[20px] font-bold py-5">
+              Related Product
+            </h5>
+            <BookRelated categoryId={book?.categoryId}></BookRelated>
           </div>
         </div>
       </section>

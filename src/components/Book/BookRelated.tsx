@@ -1,0 +1,118 @@
+import { useEffect, useState } from "react";
+import { getBookByCategory } from "../../api/book";
+import { Link, useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import jwtDecode from "jwt-decode";
+import { addToCart } from "../../api/cart";
+import { toast } from "react-toastify";
+import { Ibook } from "../../interface/Ibook";
+import { Icategory } from "../../interface/Icategory";
+interface DecodedToken {
+  _id: string;
+}
+const BookRelated = ({ categoryId }: { categoryId: string }) => {
+  const navigate = useNavigate();
+  const [bookRelated, setBookRelated] = useState([]);
+  const [category, setCategory] = useState<Icategory[]>([]);
+  useEffect(() => {
+    if (categoryId) {
+      const getBook = async () => {
+        const response = await getBookByCategory(categoryId);
+        setBookRelated(response.data.product);
+      };
+      getBook();
+    }
+  }, [categoryId]);
+  const getCategoryName = (categoryId: any) => {
+    const cate = category.find((category) => category._id === categoryId);
+    return cate ? cate.name : "No category";
+  };
+  const getCurrentUserId = () => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token) as DecodedToken;
+      const userId = decodedToken._id;
+      return userId;
+    }
+    return null;
+  };
+  const addCart = async (product: Ibook) => {
+    try {
+      const quantity = 1;
+      const userId = getCurrentUserId();
+      await addToCart(product, userId, quantity);
+      toast.success("Thêm sản phẩm vào giỏ hàng thành công");
+      navigate("/cart");
+    } catch (error) {
+      toast.error("Bạn cần đăng nhập");
+    }
+  };
+  return (
+    <div className="">
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={5}
+        modules={[Navigation]}
+        navigation
+        breakpoints={{
+          1440: {
+            slidesPerView: 4,
+          },
+          970: {
+            slidesPerView: 3,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          360: {
+            slidesPerView: 1,
+          },
+        }}
+      >
+        {bookRelated.map((data: any) => {
+          return (
+            <SwiperSlide className="grid grid-cols-5">
+              <div className="product-elem-item" key={data._id}>
+                <div className="product-elem-item-preview">
+                  <Link to={``}>
+                    <img src={data?.image} alt="" />
+                  </Link>
+                </div>
+                <div className="product-elem-item-info">
+                  <a href="" className="category">
+                    {getCategoryName(data?.categoryId)}
+                  </a>
+                  <a href="" className="name">
+                    {data?.name}
+                  </a>
+                  <p>${data?.price}</p>
+                </div>
+                <div className="product-elem-item-actions">
+                  <div className="product-elem-item-actions-star">
+                    <span className="material-icons">star</span>
+                    <span className="material-icons">star</span>
+                    <span className="material-icons">star</span>
+                    <span className="material-icons">star</span>
+                    <span className="material-icons">star</span>
+                  </div>
+                  <div className="product-elem-item-actions-addtocart">
+                    <button
+                      className="flex items-center gap-2"
+                      onClick={() => addCart(data)}
+                    >
+                      <span className="material-icons">add_shopping_cart</span>
+                      ADD TO CART
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </div>
+  );
+};
+
+export default BookRelated;
