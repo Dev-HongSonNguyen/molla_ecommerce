@@ -1,6 +1,4 @@
-import React from "react";
 import { Iblog } from "../../interface/Iblog";
-
 const BlogItem = ({ data }: { data: Iblog }) => {
   return (
     <article className="overflow-hidden border border-gray-100 bg-white shadow-sm">

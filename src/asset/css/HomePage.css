@@ -303,3 +303,11 @@
   cursor: pointer;
   text-decoration: none;
 }
+.swiper-button-prev {
+  color: #1cc0a0 !important;
+  display: none !important;
+}
+.swiper-button-next {
+  color: #1cc0a0 !important;
+  display: none !important;
+}
