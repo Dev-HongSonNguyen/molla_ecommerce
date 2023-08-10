@@ -1,5 +1,4 @@
 import React, { ReactNode, useEffect } from "react";
-import "../../asset/css/Auth.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
