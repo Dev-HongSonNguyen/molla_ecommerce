@@ -1,8 +1,10 @@
 import axios from "axios";
 const instance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://ckfkp3-8080.csb.app",
   headers: {
-    Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`,
+    Authorization: `Bearer ${JSON.parse(
+      sessionStorage.getItem("token") as string
+    )}`,
   },
 });
 export default instance;

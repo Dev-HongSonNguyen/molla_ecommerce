@@ -25,7 +25,7 @@ const SignupPage = () => {
   });
   const onSubmitRegister = async (data: any) => {
     try {
-      await axios.post("http://localhost:8080/signup", data);
+      await axios.post("https://ckfkp3-8080.csb.app/signup", data);
       toast.success("Đăng ký tài khoản thành công");
       navigate("/signin");
     } catch (error: any) {
