@@ -72,7 +72,7 @@ const BookRelated = ({ categoryId }: { categoryId: string }) => {
       >
         {bookRelated.map((data: any) => {
           return (
-            <SwiperSlide className="grid grid-cols-5">
+            <SwiperSlide className="grid grid-cols-5" key={data._id}>
               <div className="product-elem-item" key={data._id}>
                 <div className="product-elem-item-preview">
                   <Link to={``}>
