@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import React, { ReactNode, useEffect, useState } from "react";
-import { Iblog } from "../../../interface/Iblog";
 import { addBlog } from "../../../api/blog";
 import { useNavigate } from "react-router-dom";
 import { uploadImage } from "../../../api/upload";
@@ -17,7 +16,7 @@ const BlogAddPage = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
   } = useForm({
     mode: "onSubmit",

@@ -37,8 +37,8 @@ const BookList = () => {
             },
           }}
         >
-          {book?.map((item: any, index) => (
-            <SwiperSlide className="" key={index}>
+          {book?.map((item: any) => (
+            <SwiperSlide className="" key={item._id}>
               <BookItem data={item} key={item._id}></BookItem>
             </SwiperSlide>
           ))}

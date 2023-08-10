@@ -38,7 +38,7 @@ const BlogList = () => {
             }}
           >
             {blog.map((item: Iblog) => (
-              <SwiperSlide className="grid grid-cols-4 gap-5">
+              <SwiperSlide className="grid grid-cols-4 gap-5" key={item._id}>
                 <BlogItem data={item} key={item._id}></BlogItem>
               </SwiperSlide>
             ))}
