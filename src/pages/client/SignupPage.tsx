@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../asset/css/Auth.css";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { LoadingButton } from "../../components/Common";
 const schema = yup.object().shape({
   name: yup.string().required("Vui lòng nhập vào trường name"),
   email: yup.string().required("Vui lòng nhập vào trường email"),
@@ -14,6 +15,7 @@ const schema = yup.object().shape({
 });
 
 const SignupPage = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -25,6 +27,7 @@ const SignupPage = () => {
   });
   const onSubmitRegister = async (data: any) => {
     try {
+      setLoading(true);
       await axios.post("https://ckfkp3-8080.csb.app/signup", data);
       toast.success("Đăng ký tài khoản thành công");
       navigate("/signin");
@@ -81,8 +84,12 @@ const SignupPage = () => {
                 {...register("confirmPassword", { required: true })}
               />
             </div>
-            <button className="btn-submit" type="submit">
-              Create an account
+            <button className="btn-submit" type="submit" disabled={loading}>
+              {loading ? (
+                <LoadingButton></LoadingButton>
+              ) : (
+                <>Create an account</>
+              )}
             </button>
             <div className="note">
               <p>Already have an account?</p>

@@ -10,7 +10,9 @@ import Banner from "../../components/Banner/Banner";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../components/store/cart/handlers";
 import { RootState } from "../../components/store/configStore";
+import { LoadingButton } from "../../components/Common";
 const CartPage = () => {
+  const [loading, setLoading] = useState(false);
   const [cart, setCart] = useState<Icart[]>([]);
   const [amount, setAmount] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -34,6 +36,7 @@ const CartPage = () => {
     });
   }, []);
   const proceedToCheckout = () => {
+    setLoading(true);
     if (carts.length === 0) {
       toast.error(
         "Giỏ hàng trống. Vui lòng thêm sản phẩm trước khi thanh toán."
@@ -127,8 +130,16 @@ const CartPage = () => {
                 <span className="cart-detailed-price">{totalAmount}$</span>
               </div>
               <p className="pb-2 text-[14px]">Have a promo code?</p>
-              <button className="checkout" onClick={() => proceedToCheckout()}>
-                Proceed To Checkout
+              <button
+                className="checkout"
+                onClick={() => proceedToCheckout()}
+                disabled={loading}
+              >
+                {loading ? (
+                  <LoadingButton></LoadingButton>
+                ) : (
+                  <>Proceed To Checkout</>
+                )}
               </button>
             </div>
           </div>

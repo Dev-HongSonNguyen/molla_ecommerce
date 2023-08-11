@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { getAllCategory } from "../../api/category";
 import { Icategory } from "../../interface/Icategory";
 import { Link } from "react-router-dom";
+import { LoadingButton } from "../Common";
 interface DecodedToken {
   _id: string;
 }
@@ -76,7 +77,7 @@ const BookItem = ({ data }: { data: Ibook }) => {
           >
             {isAddingToCart ? (
               <>
-                <span className="material-icons">cached</span> Loading...
+                <LoadingButton></LoadingButton>
               </>
             ) : (
               <>
