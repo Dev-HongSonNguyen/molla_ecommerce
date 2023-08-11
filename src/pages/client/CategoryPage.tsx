@@ -8,6 +8,7 @@ import "../../asset/css/HomePage.css";
 import jwtDecode from "jwt-decode";
 import { addToCart } from "../../api/cart";
 import { toast } from "react-toastify";
+import { SkeletonProduct } from "../../components/Skeleton";
 interface DecodedToken {
   _id: string;
 }
@@ -16,10 +17,12 @@ const CategoryPage = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
   const [cate, setCate] = useState<any>();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getOneCategory(id).then(({ data }) => {
       setCate(data.category);
       setBook(data.category.products);
+      setLoading(false);
     });
   }, [id]);
   const getCurrentUserId = () => {
@@ -199,7 +202,22 @@ const CategoryPage = () => {
         </div>
       </div>
       <div className="">
-        {book.length > 0 ? (
+        {loading ? (
+          <>
+            <div className="grid grid-cols-5 gap-4 max-w-[1280px] mx-auto">
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+            </div>
+          </>
+        ) : book.length > 0 ? (
           <div className="product-elem">
             {book.map((item: Ibook) => {
               return (

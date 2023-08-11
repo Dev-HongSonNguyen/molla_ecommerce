@@ -8,6 +8,7 @@ import { addToCart } from "../../api/cart";
 import { toast } from "react-toastify";
 import { Ibook } from "../../interface/Ibook";
 import { Icategory } from "../../interface/Icategory";
+import { SkeletonProduct } from "../Skeleton";
 interface DecodedToken {
   _id: string;
 }
@@ -15,8 +16,10 @@ const BookRelated = ({ categoryId }: { categoryId: string }) => {
   const navigate = useNavigate();
   const [bookRelated, setBookRelated] = useState([]);
   const [category, setCategory] = useState<Icategory[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (categoryId) {
+      setLoading(false);
       const getBook = async () => {
         const response = await getBookByCategory(categoryId);
         setBookRelated(response.data.product);
@@ -57,7 +60,7 @@ const BookRelated = ({ categoryId }: { categoryId: string }) => {
         navigation
         breakpoints={{
           1440: {
-            slidesPerView: 4,
+            slidesPerView: 5,
           },
           970: {
             slidesPerView: 3,
@@ -70,46 +73,60 @@ const BookRelated = ({ categoryId }: { categoryId: string }) => {
           },
         }}
       >
-        {bookRelated.map((data: any) => {
-          return (
-            <SwiperSlide className="grid grid-cols-5" key={data._id}>
-              <div className="product-elem-item" key={data._id}>
-                <div className="product-elem-item-preview">
-                  <Link to={``}>
-                    <img src={data?.image} alt="" />
-                  </Link>
-                </div>
-                <div className="product-elem-item-info">
-                  <a href="" className="category">
-                    {getCategoryName(data?.categoryId)}
-                  </a>
-                  <a href="" className="name">
-                    {data?.name}
-                  </a>
-                  <p>${data?.price}</p>
-                </div>
-                <div className="product-elem-item-actions">
-                  <div className="product-elem-item-actions-star">
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
-                    <span className="material-icons">star</span>
+        {loading ? (
+          <>
+            <div className="grid grid-cols-5 gap-4">
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <SkeletonProduct />
+            </div>
+          </>
+        ) : (
+          bookRelated.map((data: any) => {
+            return (
+              <SwiperSlide className="" key={data._id}>
+                <div className="product-elem-item" key={data._id}>
+                  <div className="product-elem-item-preview">
+                    <Link to={``}>
+                      <img src={data?.image} alt="" />
+                    </Link>
                   </div>
-                  <div className="product-elem-item-actions-addtocart">
-                    <button
-                      className="flex items-center gap-2"
-                      onClick={() => addCart(data)}
-                    >
-                      <span className="material-icons">add_shopping_cart</span>
-                      ADD TO CART
-                    </button>
+                  <div className="product-elem-item-info">
+                    <a href="" className="category">
+                      {getCategoryName(data?.categoryId)}
+                    </a>
+                    <a href="" className="name">
+                      {data?.name}
+                    </a>
+                    <p>${data?.price}</p>
+                  </div>
+                  <div className="product-elem-item-actions">
+                    <div className="product-elem-item-actions-star">
+                      <span className="material-icons">star</span>
+                      <span className="material-icons">star</span>
+                      <span className="material-icons">star</span>
+                      <span className="material-icons">star</span>
+                      <span className="material-icons">star</span>
+                    </div>
+                    <div className="product-elem-item-actions-addtocart">
+                      <button
+                        className="flex items-center gap-2"
+                        onClick={() => addCart(data)}
+                      >
+                        <span className="material-icons">
+                          add_shopping_cart
+                        </span>
+                        ADD TO CART
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+              </SwiperSlide>
+            );
+          })
+        )}
       </Swiper>
     </div>
   );
