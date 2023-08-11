@@ -19,7 +19,7 @@ const BookList = () => {
       <div className="max-w-[1280px] m-auto">
         <Swiper
           spaceBetween={10}
-          slidesPerView={5} // Mỗi lần trượt hiển thị 5 sản phẩm
+          slidesPerView={5}
           modules={[Navigation]}
           navigation
           breakpoints={{
