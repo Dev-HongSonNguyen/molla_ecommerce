@@ -44,16 +44,7 @@ const CategoryUpdatePage = () => {
               <input type="text" id="name" {...register("name")} />
             </div>
           </div>
-          <div className="form-media-elem">
-            {/* <div className="form-media-elem-item">
-              <img
-                src="https://res.cloudinary.com/dwzh9i6xf/image/upload/v1688962909/BookShopMolla/upload_sorws1.svg"
-                alt=""
-              />
-              <label htmlFor="">Image</label>
-              <input className="image" type="text" {...register("image")} />
-            </div> */}
-          </div>
+          <div className="form-media-elem"></div>
           <button className="form-submit">Update category</button>
         </form>
       </section>
