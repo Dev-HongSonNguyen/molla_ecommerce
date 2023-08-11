@@ -203,7 +203,7 @@ const CategoryPage = () => {
           <div className="product-elem">
             {book.map((item: Ibook) => {
               return (
-                <div className="product-elem-item">
+                <div className="product-elem-item" key={item._id}>
                   <div className="product-elem-item-preview">
                     <Link to={`/product/${item._id}`}>
                       <img src={item?.image} alt="" />
