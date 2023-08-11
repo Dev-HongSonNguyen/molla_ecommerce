@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BlogItem from "./BlogItem";
 import { getAllBlog } from "../../api/blog";
 import { Iblog } from "../../interface/Iblog";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { Skeleton } from "antd";
+import { SkeletonBlog } from "../Skeleton";
 
 const BlogList = () => {
   const [blog, setBlog] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getAllBlog().then(({ data }) => {
       setBlog(data.blog);
+      setLoading(false);
     });
   }, []);
   return (
@@ -37,11 +41,22 @@ const BlogList = () => {
               },
             }}
           >
-            {blog.map((item: Iblog) => (
-              <SwiperSlide className="grid grid-cols-4 gap-5" key={item._id}>
-                <BlogItem data={item} key={item._id}></BlogItem>
-              </SwiperSlide>
-            ))}
+            {loading ? (
+              <>
+                <div className="grid grid-cols-4 gap-3">
+                  <SkeletonBlog></SkeletonBlog>
+                  <SkeletonBlog></SkeletonBlog>
+                  <SkeletonBlog></SkeletonBlog>
+                  <SkeletonBlog></SkeletonBlog>
+                </div>
+              </>
+            ) : (
+              blog.map((item: Iblog) => (
+                <SwiperSlide className="" key={item._id}>
+                  <BlogItem data={item} key={item._id}></BlogItem>
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
         </div>
       </div>

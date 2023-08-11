@@ -1,0 +1,41 @@
+.skeleton-blog {
+  width: 100%;
+  max-width: 300px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.skeleton-thumbnail-blog {
+  width: 100%;
+  height: 200px;
+  background-color: #e9e9e9;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  animation: loading 1s infinite alternate;
+}
+
+.skeleton-title-blog {
+  width: 80%;
+  height: 20px;
+  background-color: #e0e0e0;
+  margin-bottom: 8px;
+  animation: loading 1s infinite alternate;
+}
+
+.skeleton-extract-blog {
+  width: 60%;
+  height: 16px;
+  background-color: #e0e0e0;
+  animation: loading 1s infinite alternate;
+}
+
+@keyframes loading {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
