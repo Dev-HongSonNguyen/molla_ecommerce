@@ -12,7 +12,6 @@ const schema = yup.object().shape({
 });
 
 const SigninPage = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -24,7 +23,6 @@ const SigninPage = () => {
   });
   const onSubmitLogin = async (data: any) => {
     try {
-      setLoading(true);
       await axios
         .post("https://ckfkp3-8080.csb.app/signin", data)
         .then(({ data }) => {
@@ -70,9 +68,7 @@ const SigninPage = () => {
                 {...register("password", { required: true })}
               />
             </div>
-            <button className="btn-submit" disabled={loading}>
-              {loading ? <LoadingButton></LoadingButton> : <>Log in</>}
-            </button>
+            <button className="btn-submit">Login</button>
             <div className="note">
               <p>Don't have account?</p>
               <Link to={"/signup"}>Sign up now</Link>

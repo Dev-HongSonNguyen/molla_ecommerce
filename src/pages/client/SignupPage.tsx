@@ -15,7 +15,6 @@ const schema = yup.object().shape({
 });
 
 const SignupPage = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -27,7 +26,6 @@ const SignupPage = () => {
   });
   const onSubmitRegister = async (data: any) => {
     try {
-      setLoading(true);
       await axios.post("https://ckfkp3-8080.csb.app/signup", data);
       toast.success("Đăng ký tài khoản thành công");
       navigate("/signin");
@@ -84,12 +82,8 @@ const SignupPage = () => {
                 {...register("confirmPassword", { required: true })}
               />
             </div>
-            <button className="btn-submit" type="submit" disabled={loading}>
-              {loading ? (
-                <LoadingButton></LoadingButton>
-              ) : (
-                <>Create an account</>
-              )}
+            <button className="btn-submit" type="submit">
+              Create an account
             </button>
             <div className="note">
               <p>Already have an account?</p>
