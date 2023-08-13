@@ -45,7 +45,7 @@ input::placeholder {
   padding: 10px 40px;
   color: #ffffff;
   border: none;
-  background-color: #1cc0a0;
+  background-color: #1cc0a0 !important;
   border-radius: 4px;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
