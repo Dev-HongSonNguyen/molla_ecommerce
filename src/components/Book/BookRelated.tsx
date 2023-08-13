@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { Ibook } from "../../interface/Ibook";
 import { Icategory } from "../../interface/Icategory";
 import { SkeletonProduct } from "../Skeleton";
+import { getAllCategory } from "../../api/category";
 interface DecodedToken {
   _id: string;
 }
@@ -27,6 +28,11 @@ const BookRelated = ({ categoryId }: { categoryId: string }) => {
       getBook();
     }
   }, [categoryId]);
+  useEffect(() => {
+    getAllCategory().then(({ data }) => {
+      setCategory(data.category);
+    });
+  }, []);
   const getCategoryName = (categoryId: any) => {
     const cate = category.find((category) => category._id === categoryId);
     return cate ? cate.name : "No category";
