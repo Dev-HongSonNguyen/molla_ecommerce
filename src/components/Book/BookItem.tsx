@@ -53,9 +53,9 @@ const BookItem = ({ data }: { data: Ibook }) => {
         </Link>
       </div>
       <div className="product-elem-item-info">
-        <a href="" className="category">
+        <Link to={`category/${data.categoryId}`} className="category">
           {getCategoryName(data?.categoryId)}
-        </a>
+        </Link>
         <a href="" className="name">
           {data?.name}
         </a>
