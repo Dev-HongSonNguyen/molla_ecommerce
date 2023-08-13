@@ -44,20 +44,16 @@ input::placeholder {
   font-weight: 500;
   padding: 10px 40px;
   color: #ffffff;
-  border: none;
-  background-color: #1cc0a0 !important;
+  border: 1px solid #1cc0a0;
+  background-color: #1cc0a0;
   border-radius: 4px;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
 }
 .btn-submit:hover {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 10px 40px;
+  background-color: #ffffff;
   color: #1cc0a0;
   border: 1px solid #1cc0a0;
-  border-radius: 4px;
-  background-color: #ffffff;
 }
 .note {
   padding-top: 20px;
