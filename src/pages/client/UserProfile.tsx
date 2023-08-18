@@ -4,6 +4,7 @@ const UserProfile = () => {
   const userDataString = sessionStorage.getItem("userData");
   const getUserData = userDataString ? JSON.parse(userDataString) : null;
   const dataUser = getUserData ? getUserData.user : {};
+  console.log(dataUser);
 
   return (
     <div>
@@ -22,10 +23,19 @@ const UserProfile = () => {
           <form action="">
             <div className="form-item">
               <label htmlFor="">Image</label>
-              <img
-                src="https://images.hdqwalls.com/wallpapers/thumb/geek-ld.jpg"
-                alt=""
-              />
+              {dataUser.avatar ? (
+                <>
+                  <img className="object-cover" src={dataUser.avatar} alt="" />
+                </>
+              ) : (
+                <>
+                  <img
+                    className="object-cover"
+                    src="https://res.cloudinary.com/dwzh9i6xf/image/upload/v1692337906/istockphoto-1337144146-612x612_qclfxb.jpg"
+                    alt=""
+                  />
+                </>
+              )}
             </div>
             <div className="form-item">
               <label htmlFor="">Name</label>
