@@ -16,11 +16,13 @@ import IconCheck from "../../components/Icon/IconCheck";
 import { getAllUsers } from "../../api/user";
 import "../../asset/css/ProductDetail.css";
 import BookRelated from "../../components/Book/BookRelated";
+import { getAllCategory } from "../../api/category";
 interface DecodedToken {
   _id: string;
 }
 const ProductDetail = () => {
   const [book, setBook] = useState<any>({});
+  const [cate, setCate] = useState<any>([]);
   const [quantity, setQuantity] = useState<number>(1);
   const { register, handleSubmit } = useForm();
   const [coment, setComent] = useState([]);
@@ -37,11 +39,15 @@ const ProductDetail = () => {
   useEffect(() => {
     getOneBook(id).then(({ data }) => {
       const book = data.product;
-      const bookListMain = book.categoryId.products;
       setBook(book);
     });
   }, [id, renderPage]);
-  console.log("book", book);
+  useEffect(() => {
+    getAllCategory().then(({ data }) => {
+      setCate(data.category);
+    });
+  }, []);
+  console.log("cateok", cate);
 
   useEffect(() => {
     getCommentByProductId(id).then(({ data }) => {
@@ -66,6 +72,10 @@ const ProductDetail = () => {
       return userId;
     }
     return null;
+  };
+  const getNameCategory = (categoryId: string) => {
+    const categoryName = cate.find((item: any) => item._id === categoryId);
+    return categoryName ? categoryName.name : "No category";
   };
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
@@ -180,7 +190,9 @@ const ProductDetail = () => {
               </span>
               <div className="category">
                 <span>Category:</span>
-                <a href="">Rachael Lippincott</a>
+                <Link to={`/category/${book.categoryId}`}>
+                  {getNameCategory(book.categoryId)}
+                </Link>
               </div>
             </div>
           </div>

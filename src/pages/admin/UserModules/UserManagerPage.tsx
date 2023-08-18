@@ -1,5 +1,5 @@
-import { Modal, Space, message, notification } from "antd";
-import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { Image, Modal, Space, notification } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Table, { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
@@ -54,6 +54,12 @@ const UserManagerPage = () => {
       title: "Email",
       dataIndex: "email",
       key: "email",
+    },
+    {
+      title: "Avatar",
+      dataIndex: "avatar",
+      key: "avatar",
+      render: (image) => <Image src={image} alt="Avatar" width={50} />,
     },
     {
       title: "Role",
