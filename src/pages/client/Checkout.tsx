@@ -58,7 +58,7 @@ const Checkout = () => {
       toast.success(reponse.data.message);
       localStorage.removeItem("cart");
       localStorage.removeItem("totalAmount");
-      navigate("/");
+      navigate("/thank");
     } catch (error) {
       console.log(error);
     }

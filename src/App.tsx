@@ -13,7 +13,6 @@ import CommentMangerPage from "./pages/admin/CommentModules/CommentMangerPage";
 import BlogManagerPage from "./pages/admin/BlogModules/BlogManagerPage";
 import BlogAddPage from "./pages/admin/BlogModules/BlogAddPage";
 import BlogUpdatePage from "./pages/admin/BlogModules/BlogUpdatePage";
-import ThankPage from "./pages/client/ThankPage";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -49,6 +48,7 @@ const Checkout = React.lazy(() => import("./pages/client/Checkout"));
 const ProductDetail = React.lazy(() => import("./pages/client/ProductDetail"));
 const MyOrder = React.lazy(() => import("./pages/client/MyOrder"));
 const MyOrderDetail = React.lazy(() => import("./pages/client/MyOrderDetail"));
+const ThankPage = React.lazy(() => import("./pages/client/ThankPage"));
 function App() {
   return (
     <div className="App">
