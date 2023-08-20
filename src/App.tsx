@@ -13,6 +13,7 @@ import CommentMangerPage from "./pages/admin/CommentModules/CommentMangerPage";
 import BlogManagerPage from "./pages/admin/BlogModules/BlogManagerPage";
 import BlogAddPage from "./pages/admin/BlogModules/BlogAddPage";
 import BlogUpdatePage from "./pages/admin/BlogModules/BlogUpdatePage";
+import ThankPage from "./pages/client/ThankPage";
 const HomePage = React.lazy(() => import("./pages/client/HomePage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const BookAddPage = React.lazy(
@@ -64,6 +65,7 @@ function App() {
             <Route path="order" element={<MyOrder />} />
             <Route path="order/:id" element={<MyOrderDetail />} />
             <Route path="category/:id" element={<CategoryPage />} />
+            <Route path="thank" element={<ThankPage />} />
           </Route>
           <Route path="admin" element={<LayoutAdmin />}>
             <Route path="dashboard" element={<DashboardPage />} />
