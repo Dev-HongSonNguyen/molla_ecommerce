@@ -1,0 +1,42 @@
+/* SERVICE */
+.service {
+  background-color: #ffffff;
+}
+.service-elem {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 30px 0px;
+  grid-gap: 50px;
+}
+.service-elem-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.service-elem-item span {
+  color: #cccccc;
+  font-size: 40px;
+  font-weight: 300;
+}
+.service-elem-item h5 {
+  color: #333333;
+  font-size: 14px;
+}
+.service-elem-item p {
+  color: #cccccc;
+  font-size: 12px;
+  text-align: justify;
+}
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .service-elem {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 30px 10px;
+    grid-gap: 50px;
+  }
+}

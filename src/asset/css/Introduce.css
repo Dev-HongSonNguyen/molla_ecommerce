@@ -18,6 +18,9 @@
   left: 35%;
   transform: translate(-40%, -40%);
 }
+.introduce-elem-item img {
+  width: 100%;
+}
 .introduce-elem-item-content .introduce-title {
   font-size: 12px;
   color: #ffffff;
@@ -49,4 +52,39 @@
 .discover:hover {
   background-color: #ffffff;
   color: #333333;
+}
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .introduce-elem {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+    padding: 50px 10px;
+  }
+  .introduce-elem-item-content {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    transform: translate(-40%, -40%);
+  }
+  .discover {
+    align-items: center;
+    border-color: #ebebeb;
+    border-style: solid;
+    border-width: 1.06667px;
+    color: #ffffff;
+    display: flex;
+    font-size: 12px;
+    justify-content: center;
+    letter-spacing: -0.14px;
+    line-height: 14px;
+    margin: 0px 74.7167px 0px 0px;
+    padding: 8.5px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    gap: 10px;
+    transition: all 0.3s ease-in-out;
+  }
 }

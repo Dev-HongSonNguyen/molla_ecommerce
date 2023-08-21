@@ -10,8 +10,6 @@ import "../../asset/css/HeaderClient.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/configStore";
 import { fetchCart } from "../store/cart/handlers";
-import { Ibook } from "../../interface/Ibook";
-import { Icart } from "../../interface/Icart";
 const LayoutClient = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);

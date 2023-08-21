@@ -1,0 +1,197 @@
+/* banner */
+@keyframes showTop {
+  from {
+    opacity: 0;
+    transform: translate(0, -100px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.animationTop-1 {
+  animation: showTop 1.5s ease-in-out 1 forwards;
+}
+.animationTop-2 {
+  animation: showTop 2.5s ease-in-out 1 forwards;
+}
+.animationTop-3 {
+  animation: showTop 3.5s ease-in-out 1 forwards;
+}
+.banner {
+  background-color: #ffffff;
+}
+.banner-elem {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding-top: 20px;
+}
+.banner-elem img {
+  width: 100%;
+}
+.banner-elem-item-1 {
+  position: relative;
+}
+.banner-elem-item-1-content {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+}
+.banner-elem-item-1-content span {
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+}
+.banner-elem-item-1-content h5 {
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+.banner-elem-item-1-content a {
+  align-items: center;
+  border-radius: 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  justify-content: center;
+  letter-spacing: -0.14px;
+  line-height: 14px;
+  margin: 0px 87.4125px 0px 0px;
+  padding: 8.5px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+}
+.banner-elem-item-1-content a:hover {
+  color: #333333;
+  background-color: #ffffff;
+}
+.banner-elem-item-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.banner-elem-item-2-group-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+.banner-elem-item-1-group-1 {
+  position: relative;
+}
+.banner-elem-item-1-group-1-content {
+  position: absolute;
+  top: 20%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+}
+.banner-elem-item-1-group-1-content span {
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+}
+.banner-elem-item-1-group-1-content h5 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+.banner-elem-item-1-group-1-content a {
+  align-items: center;
+  border-radius: 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  justify-content: center;
+  letter-spacing: -0.14px;
+  line-height: 14px;
+  margin: 0px 87.4125px 0px 0px;
+  padding: 8.5px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+}
+.banner-elem-item-1-group-1-content a:hover {
+  background-color: #ffffff;
+  color: #333333;
+}
+.banner-elem-item-2-group-2-1 {
+  position: relative;
+}
+.banner-elem-item-2-group-2-1-content {
+  position: absolute;
+  top: 30%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+}
+.banner-elem-item-2-group-2-1-content span {
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+}
+.banner-elem-item-2-group-2-1-content h5 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+}
+.banner-elem-item-2-group-2-1-content a {
+  align-items: center;
+  border-radius: 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  justify-content: center;
+  letter-spacing: -0.14px;
+  line-height: 14px;
+  margin: 0px 87.4125px 0px 0px;
+  padding: 8.5px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+}
+.banner-elem-item-2-group-2-1-content a:hover {
+  background-color: #ffffff;
+  color: #333333;
+}
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .banner-elem {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .banner-elem-item-1-content {
+    position: absolute;
+    top: 10%;
+    bottom: 50%;
+    transform: translateY(-50%);
+    left: 10%;
+  }
+  .banner-elem-item-1-content h5 {
+    color: #ffffff;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -1px;
+  }
+  .banner-elem-item-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

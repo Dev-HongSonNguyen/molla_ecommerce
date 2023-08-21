@@ -29,30 +29,28 @@ const InputSearch = () => {
     void fetchData();
   }, [debouncedValue]);
   return (
-    <div>
-      <form action="" className="header-between-search relative">
-        <input
-          ref={nodeRef}
-          onClick={() => {
-            setShow(!show);
-          }}
-          type="text"
-          placeholder="Search product..."
-          onChange={handleChange}
-          value={valueSearch}
-        />
-        <button>
-          <span className="material-icons">search</span>
-        </button>
-        <div className="absolute z-20 bg-[#f8f8f8] top-[50px] w-full">
-          <ResultSearch
-            data={resultSearch}
-            show={show}
-            loading={isLoading}
-          ></ResultSearch>
-        </div>
-      </form>
-    </div>
+    <form action="" className="header-between-search relative">
+      <input
+        ref={nodeRef}
+        onClick={() => {
+          setShow(!show);
+        }}
+        type="text"
+        placeholder="Search product..."
+        onChange={handleChange}
+        value={valueSearch}
+      />
+      <button>
+        <span className="material-icons">search</span>
+      </button>
+      <div className="absolute z-20 bg-[#f8f8f8] top-[50px] w-full">
+        <ResultSearch
+          data={resultSearch}
+          show={show}
+          loading={isLoading}
+        ></ResultSearch>
+      </div>
+    </form>
   );
 };
 
