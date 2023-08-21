@@ -1,0 +1,111 @@
+/* product */
+.product {
+  background-color: #f8f8f8f8;
+  padding: 30px;
+}
+.product-title {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.product-title h5 {
+  color: #333333;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 26.4px;
+  padding-bottom: 20px;
+}
+.product-elem {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+}
+.product-elem-item {
+  background-color: #ffffff;
+  border-color: #ebebeb;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1.06667px;
+  color: #666666;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 26.04px;
+  padding: 30px 20px;
+  transition: all 0.2s ease-in-out;
+}
+.product-elem-item:hover {
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+.product-elem-item img {
+  width: 100%;
+}
+.product-elem-item .category {
+  color: #cccccc;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: -0.13px;
+  line-height: 15.6px;
+  margin: 0px 0px 1px;
+  text-align: left;
+  text-decoration: none;
+  display: block;
+}
+.product-elem-item .category:hover {
+  color: #1cc0a0;
+}
+.product-elem-item .name {
+  color: #333333;
+  display: inline;
+  font-size: 16px;
+  letter-spacing: -0.14px;
+  line-height: 20.02px;
+  text-align: left;
+  text-decoration: none;
+}
+.product-elem-item .name :hover {
+  color: #1cc0a0;
+}
+.product-elem-item p {
+  color: #1cc0a0;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.product-elem-item-info {
+  padding-top: 10px;
+}
+.product-elem-item-info .category {
+  padding: 5px 0px !important;
+}
+.product-elem-item-actions-star {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+}
+.product-elem-item-actions-star span {
+  color: #cccccc;
+  font-size: 16px;
+}
+.product-elem-item-actions-addtocart {
+  display: flex;
+  background-color: #1cc0a0;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 5px 0px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.swiper-button-prev {
+  color: #1cc0a0 !important;
+  display: none !important;
+}
+.swiper-button-next {
+  color: #1cc0a0 !important;
+  display: none !important;
+}

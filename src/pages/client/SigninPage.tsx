@@ -32,6 +32,9 @@ const SigninPage = () => {
           sessionStorage.setItem("userData", JSON.stringify(userData));
           sessionStorage.setItem("token", JSON.stringify(token));
           sessionStorage.setItem("role", JSON.stringify(role));
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
           toast.success("Đăng nhập thành công");
           navigate("/");
         });
@@ -63,7 +66,7 @@ const SigninPage = () => {
             <div className="form-item">
               <label htmlFor="">Password</label>
               <input
-                type="text"
+                type="password"
                 placeholder="Password"
                 {...register("password", { required: true })}
               />

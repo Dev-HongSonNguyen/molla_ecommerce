@@ -293,3 +293,14 @@ html {
   color: #1cc0a0;
   border: 1px solid #1cc0a0;
 }
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .header-top {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: right;
+    color: #777777;
+    position: relative;
+    padding: 10px 10px;
+  }
+}
