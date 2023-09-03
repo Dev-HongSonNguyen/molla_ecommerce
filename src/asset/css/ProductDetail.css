@@ -25,6 +25,9 @@
   align-items: center;
   justify-content: center;
 }
+.detail-book-elem-image img {
+  width: 200px;
+}
 .detail-book-elem-content .product-name {
   color: #777777;
   font-size: 24px;
