@@ -95,8 +95,8 @@ const BookRelated = ({ categoryId }: { categoryId: string }) => {
               <SwiperSlide className="" key={data._id}>
                 <div className="product-elem-item" key={data._id}>
                   <div className="product-elem-item-preview">
-                    <Link to={``}>
-                      <img src={data?.image} alt="" />
+                    <Link to={`/product/${data._id}`}>
+                      <img src={data?.image} alt="" className="w-[200px]" />
                     </Link>
                   </div>
                   <div className="product-elem-item-info">

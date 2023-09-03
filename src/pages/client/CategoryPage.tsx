@@ -4,11 +4,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Ibook } from "../../interface/Ibook";
 import Introduce from "../../components/Layout/Introduce";
-import "../../asset/css/HomePage.css";
 import jwtDecode from "jwt-decode";
 import { addToCart } from "../../api/cart";
 import { toast } from "react-toastify";
 import { SkeletonProduct } from "../../components/Skeleton";
+import ReactPaginate from "react-paginate";
+import "../../asset/css/Book.css";
 interface DecodedToken {
   _id: string;
 }
@@ -16,8 +17,11 @@ const CategoryPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [cate, setCate] = useState<any>();
   const [loading, setLoading] = useState(true);
+  const itemsPerPage = 10;
   useEffect(() => {
     getOneCategory(id).then(({ data }) => {
       setCate(data.category);
@@ -25,6 +29,15 @@ const CategoryPage = () => {
       setLoading(false);
     });
   }, [id]);
+  useEffect(() => {
+    setTotalPages(Math.ceil(book.length / itemsPerPage));
+  }, [book]);
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const subset = book.slice(startIndex, endIndex);
+  const handlePageChange = (selectedPage: any) => {
+    setCurrentPage(selectedPage.selected);
+  };
   const getCurrentUserId = () => {
     const token = sessionStorage.getItem("token");
     if (token) {
@@ -219,7 +232,7 @@ const CategoryPage = () => {
           </>
         ) : book.length > 0 ? (
           <div className="product-elem">
-            {book.map((item: Ibook) => {
+            {subset.map((item: Ibook) => {
               return (
                 <div className="product-elem-item" key={item._id}>
                   <div className="product-elem-item-preview">
@@ -266,6 +279,13 @@ const CategoryPage = () => {
           </div>
         )}
       </div>
+      <ReactPaginate
+        pageCount={totalPages}
+        onPageChange={handlePageChange}
+        forcePage={currentPage}
+        containerClassName={"pagination-container"}
+        activeClassName={"active-page"}
+      />
       <Introduce></Introduce>
     </div>
   );
